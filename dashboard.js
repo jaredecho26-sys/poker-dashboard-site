@@ -1,15 +1,32 @@
 // dashboard.js — session metrics, chart, sessions table, tagged hands
 
-// Convert UTC ISO timestamp to local date string (YYYY-MM-DD) in America/Los_Angeles timezone
-function localDateString(utcIsoString) {
+// Convert UTC ISO timestamp to local Pacific display strings
+function localDateParts(utcIsoString) {
   const date = new Date(utcIsoString);
-  const parts = date.toLocaleDateString('en-US', { 
-    timeZone: 'America/Los_Angeles', 
-    year: 'numeric', 
-    month: '2-digit', 
-    day: '2-digit' 
+  const dateParts = date.toLocaleDateString('en-US', {
+    timeZone: 'America/Los_Angeles',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
   }).split('/');
-  return `${parts[2]}-${parts[0]}-${parts[1]}`; // Convert MM/DD/YYYY to YYYY-MM-DD
+  const timeString = date.toLocaleTimeString('en-US', {
+    timeZone: 'America/Los_Angeles',
+    hour: 'numeric',
+    minute: '2-digit'
+  });
+  return {
+    date: `${dateParts[2]}-${dateParts[0]}-${dateParts[1]}`,
+    time: `${timeString} PT`
+  };
+}
+
+function localDateString(utcIsoString) {
+  return localDateParts(utcIsoString).date;
+}
+
+function localDateTimeString(utcIsoString) {
+  const parts = localDateParts(utcIsoString);
+  return `${parts.date} · ${parts.time}`;
 }
 
 function metric(label, value, sub = '', cls = '') {
@@ -56,7 +73,7 @@ function renderSessions(sessions) {
   body.innerHTML = sessions.slice().reverse().map(s => {
     const result = s.resultSource === 'manual' ? (s.manualResult ?? s.result) : s.result;
     return `<tr>
-      <td>${localDateString(s.startedAt)}</td>
+      <td><div class="date-main">${localDateString(s.startedAt)}</div><div class="date-sub">Local Pacific time</div></td>
       <td>${s.platform}</td>
       <td>${s.hands}</td>
       <td class="${result >= 0 ? 'result-pos' : 'result-neg'}">${fmtCurrency(result)}</td>
@@ -88,7 +105,7 @@ function renderHandCards(hands, filter) {
     <div class="hc-cards">${cardsHtml(h.heroCards)}</div>
     <div class="hc-mid">
       <div class="hc-id">Hand #${h.handId}</div>
-      <div class="hc-time">${localDateString(h.timestamp)}</div>
+      <div class="hc-time">${localDateTimeString(h.timestamp)}</div>
     </div>
     <div class="hc-right">
       <div class="hc-net ${netCls}">${fmtCurrency(h.net)}</div>

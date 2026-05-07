@@ -65,6 +65,9 @@ function injectNav() {
   nav.innerHTML = `
     <div class="nav-inner">
       <a class="nav-logo" href="index.html">♠ Poker Lab</a>
+      <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
       <div class="nav-links">
         ${allLinks.map(l => l === null
           ? '<span class="nav-sep"></span>'
@@ -73,14 +76,30 @@ function injectNav() {
       </div>
     </div>`;
   document.body.prepend(nav);
+  // Hamburger toggle
+  const btn = nav.querySelector('.nav-hamburger');
+  const links = nav.querySelector('.nav-links');
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open);
+  });
+  // Close on link click
+  links.querySelectorAll('.nav-link').forEach(a => {
+    a.addEventListener('click', () => nav.classList.remove('nav-open'));
+  });
+  // Close on outside click
+  document.addEventListener('click', e => {
+    if (!nav.contains(e.target)) nav.classList.remove('nav-open');
+  });
 }
 
 // ── Hand-card rendering helpers (shared by dashboard + trainer) ─────────────
 const TAG_META = {
-  good:   { icon: '✅', label: 'Good play' },
-  bad:    { icon: '❌', label: 'Mistake'   },
-  cooler: { icon: '🧊', label: 'Cooler'    },
-  study:  { icon: '📚', label: 'Study'     },
+  good:       { icon: '✅', label: 'Good play'  },
+  bad:        { icon: '❌', label: 'Mistake'    },
+  cooler:     { icon: '🧊', label: 'Cooler'     },
+  study:      { icon: '📚', label: 'Study'      },
+  'cbet-miss':{ icon: '🎯', label: 'C-bet Miss' },
 };
 
 const ACTION_BADGE = {

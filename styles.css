@@ -769,3 +769,215 @@ canvas { width: 100% !important; height: 340px !important; }
 
 /* Toggle button state when table is shown */
 .hc-toggle.table-visible { background: rgba(14,102,50,0.2); color: #2ecc71; border-color: rgba(46,204,113,0.3); }
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE-FIRST RESPONSIVE OVERRIDES
+   Breakpoints: 768px (tablet), 480px (large phone), 375px (iPhone)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Hamburger Nav ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+.nav-hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.nav-open .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-open .nav-hamburger span:nth-child(2) { opacity: 0; }
+.nav-open .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Tablet (768px) ── */
+@media (max-width: 768px) {
+  /* Nav hamburger */
+  .nav-hamburger { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: rgba(11,16,32,.97);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 12px 12px;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 200;
+    backdrop-filter: blur(12px);
+  }
+  .nav-open .nav-links { display: flex; }
+  .nav-link {
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 10px;
+    display: block;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .nav-sep { display: none; }
+  .nav-inner { position: relative; }
+  .site-nav { position: sticky; }
+
+  /* Layout stacking */
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .top-grid, .bottom-grid, .study-grid { grid-template-columns: 1fr; }
+  .top-hands-grid { grid-template-columns: 1fr; }
+  .workflow { grid-template-columns: 1fr; }
+  .quiz-meta-grid { grid-template-columns: repeat(2, 1fr); }
+  .odds-ref-grid { grid-template-columns: 1fr; }
+  .bb-defend-header { flex-direction: column; gap: 10px; }
+  .hero { flex-direction: column; }
+
+  /* Wrap */
+  .wrap { padding: 20px 14px 40px; }
+
+  /* Tables: ensure horizontal scroll */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { min-width: 500px; }
+
+  /* Range matrix scrollable */
+  .matrix-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .hand-matrix { gap: 2px; }
+  .hand-cell { width: 36px; height: 36px; font-size: 10px; }
+
+  /* Touch-friendly buttons */
+  .pos-btn, .range-btn, .hf-btn, .fmt-btn, .stab,
+  .quiz-mode-btn, .quiz-level-btn, .quiz-next {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .game-ans { min-height: 52px; }
+
+  /* Input font size prevents iOS zoom */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Cards smaller */
+  .card-lg { width: 48px; height: 66px; }
+  .clg-rank { font-size: 20px; }
+  .clg-suit { font-size: 13px; }
+  .board-hero-zone .card-lg { width: 62px; height: 86px; }
+  .board-hero-zone .clg-rank { font-size: 26px; }
+
+  /* Answer zone wraps naturally */
+  .answer-zone { gap: 8px; }
+  .game-ans { min-width: 110px; font-size: 14px; padding: 12px 14px; }
+
+  /* HUD */
+  .hud-scorebar { gap: 8px; padding: 8px 12px; }
+  .hud-value { font-size: 14px; }
+
+  /* Trainer topbar */
+  .trainer-title-row { flex-direction: column; align-items: flex-start; }
+
+  /* Metrics hero text */
+  h1 { font-size: 28px; }
+  .metric-value { font-size: 24px; }
+}
+
+/* ── Large phone (480px) ── */
+@media (max-width: 480px) {
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .quiz-meta-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Hand matrix: smaller cells for tiny screens */
+  .hand-cell { width: 28px; height: 28px; font-size: 8.5px; border-radius: 5px; }
+
+  /* Range/tab buttons stack more naturally */
+  .range-tabs { gap: 5px; }
+  .tbet-selectors { flex-direction: column; }
+  .tbet-selector-group { min-width: unset; }
+
+  /* Quiz cards smaller */
+  .quiz-card { width: 58px; height: 80px; }
+  .qc-rank { font-size: 24px; }
+  .qc-suit { font-size: 18px; }
+
+  /* Answer buttons full-width on tiny screens */
+  .quiz-answers { flex-direction: column; align-items: stretch; }
+  .quiz-ans { min-width: unset; width: 100%; }
+  .answer-zone { flex-direction: column; align-items: stretch; }
+  .game-ans { min-width: unset; width: 100%; }
+
+  /* Stat grid 2 col */
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Timeline street stacks */
+  .timeline-street { grid-template-columns: 1fr; }
+  .street-label { text-align: left; writing-mode: horizontal-tb; transform: none; }
+
+  /* Wrap tighter */
+  .wrap { padding: 14px 10px 32px; }
+  h1 { font-size: 24px; }
+
+  /* Odds panels */
+  .odds-info-row { gap: 6px; }
+  .odds-chip { padding: 8px 10px; }
+  .oc-val { font-size: 17px; }
+  .odds-equation { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .odds-eq-val { font-size: 18px; }
+
+  /* Cards */
+  .card-lg { width: 42px; height: 58px; }
+  .clg-rank { font-size: 17px; }
+  .clg-suit { font-size: 11px; }
+  .board-hero-zone .card-lg { width: 52px; height: 72px; }
+  .board-hero-zone .clg-rank { font-size: 22px; }
+
+  /* Position badges smaller */
+  .pos-badge { width: 38px; height: 38px; font-size: 9px; }
+
+  /* Metric cards: 2 columns */
+  .metric { padding: 14px; }
+  .metric-value { font-size: 22px; }
+  .metric-label { font-size: 11px; }
+}
+
+/* ── Small phone (375px - iPhone SE/14) ── */
+@media (max-width: 375px) {
+  .metrics { grid-template-columns: 1fr 1fr; }
+  .quiz-meta-grid { grid-template-columns: 1fr 1fr; }
+  .hand-cell { width: 24px; height: 24px; font-size: 7.5px; border-radius: 4px; }
+  .quiz-mode-btn { font-size: 11px; padding: 8px 9px; }
+  .range-btn { font-size: 11px; padding: 7px 10px; }
+  .wrap { padding: 12px 8px 28px; }
+  h1 { font-size: 22px; }
+  .card { padding: 14px 12px; }
+  .card h2 { font-size: 17px; }
+  .nav-logo { font-size: 16px; }
+
+  /* Stat grid single col on very small */
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Landscape orientation adjustments ── */
+@media (max-width: 768px) and (orientation: landscape) {
+  .nav-links { max-height: calc(100vh - 56px); overflow-y: auto; }
+  .game-board { padding: 10px 12px; }
+  .board-community-zone, .board-hero-zone { padding: 7px 10px; }
+  .answer-zone { flex-direction: row; flex-wrap: wrap; }
+  .game-ans { min-width: 120px; width: auto; }
+  .quiz-answers { flex-direction: row; }
+  .quiz-ans { min-width: 120px; width: auto; }
+}

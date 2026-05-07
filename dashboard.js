@@ -112,10 +112,11 @@ function renderHandCards(hands, filter) {
       <span class="tag ${h.tag}">${tm.icon} ${tm.label}</span>
     </div>
   </div>
-  ${boardCards ? `<div class="hc-board"><span class="board-label">Board</span>${boardCards}</div>` : ''}
+  ${boardCards ? `<div class="hc-board"><span class="board-label">Board</span>${boardCards}${h.boardTexture && h.boardTexture !== 'unknown' ? ` <span class="muted" style="font-size:0.78em;margin-left:6px">[${h.boardTexture}]</span>` : ''}</div>` : ''}
   <button class="hc-toggle" onclick="toggleHandDetail('${id}')" aria-expanded="false">Show details ▾</button>
   <div class="hc-detail" id="${id}" hidden>
     <div class="hc-detail-note">Action log below is your line, explicitly labeled so it's easier to scan.</div>
+    ${typeof pokerTableHtml === 'function' ? pokerTableHtml(h) : ''}
     <div class="hc-timeline">${tlHtml}</div>
     <div class="hc-note">${h.note || ''}</div>
   </div>
@@ -128,7 +129,7 @@ function renderHands(hands) {
   const tabsEl = document.getElementById('handFilterTabs');
   const tagCounts = { all: hands.length };
   hands.forEach(h => { tagCounts[h.tag] = (tagCounts[h.tag] || 0) + 1; });
-  const tagOrder = ['all', 'good', 'bad', 'cooler', 'study'];
+  const tagOrder = ['all', 'good', 'bad', 'cooler', 'study', 'cbet-miss'];
   tabsEl.innerHTML = tagOrder.filter(t => tagCounts[t]).map(t =>
     `<button class="hf-btn ${t === 'all' ? 'active' : ''}" data-filter="${t}">${
       t === 'all' ? 'All' : (TAG_META[t]?.icon + ' ' + TAG_META[t]?.label || t)
@@ -206,6 +207,7 @@ function renderAdvancedStats(sessions, allHands) {
     vpip: 0, pfr: 0, threeBet: 0, sawFlop: 0,
     showdowns: 0, showdownWon: 0,
     cbetOpp: 0, cbet: 0,
+    turnBarrelOpp: 0, turnBarrel: 0,
     foldToCbetOpp: 0, foldToCbet: 0,
     foldTo3betOpp: 0, foldTo3bet: 0,
     stealOpp: 0, stealAttempt: 0,
@@ -225,6 +227,8 @@ function renderAdvancedStats(sessions, allHands) {
     if (h.showdownWon)  agg.showdownWon++;
     if (h.cbetOpp)      agg.cbetOpp++;
     if (h.cbet)         agg.cbet++;
+    if (h.turnBarrelOpp) agg.turnBarrelOpp++;
+    if (h.turnBarrel)   agg.turnBarrel++;
     if (h.foldToCbetOpp) agg.foldToCbetOpp++;
     if (h.foldToCbet)   agg.foldToCbet++;
     if (h.foldTo3betOpp) agg.foldTo3betOpp++;
@@ -258,6 +262,7 @@ function renderAdvancedStats(sessions, allHands) {
     statBox('3-Bet', pct(agg.threeBet, n), `${agg.threeBet} / ${n} hands`, ''),
     statBox('Fold to 3-Bet', pct(agg.foldTo3bet, agg.foldTo3betOpp), `${agg.foldTo3betOpp} opps`, agg.foldTo3betOpp < 10 ? 'muted' : ''),
     statBox('C-Bet', pct(agg.cbet, agg.cbetOpp), `${agg.cbetOpp} opps`, agg.cbetOpp < 10 ? 'muted' : ''),
+    statBox('Turn Barrel', pct(agg.turnBarrel, agg.turnBarrelOpp), `${agg.turnBarrelOpp} opps`, agg.turnBarrelOpp < 10 ? 'muted' : ''),
     statBox('Fold to C-Bet', pct(agg.foldToCbet, agg.foldToCbetOpp), `${agg.foldToCbetOpp} opps`, agg.foldToCbetOpp < 10 ? 'muted' : ''),
     statBox('Steal', pct(agg.stealAttempt, agg.stealOpp), `${agg.stealOpp} opps`, agg.stealOpp < 10 ? 'muted' : ''),
     statBox('BB Defend', pct(agg.bbDefend, agg.bbDefendOpp), `${agg.bbDefendOpp} opps`, agg.bbDefendOpp < 10 ? 'muted' : ''),
@@ -316,6 +321,9 @@ function renderAdvancedStats(sessions, allHands) {
     </tr>`;
   }).join('');
 
+  // --- C-Bet by Texture tab ---
+  renderTextureBreakdown(allHands, sessions);
+
   // tab switching
   document.getElementById('statsTabs').querySelectorAll('.stab').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -325,6 +333,45 @@ function renderAdvancedStats(sessions, allHands) {
       document.getElementById('stats-' + btn.dataset.tab).classList.remove('hidden');
     });
   });
+}
+
+function renderTextureBreakdown(allHands, sessions) {
+  const textures = [
+    { key: 'dry',      label: 'Dry',       desc: 'Rainbow, no draw (e.g. A♠7♦2♣)' },
+    { key: 'wet',      label: 'Wet',       desc: 'Flush draw + straight draw (e.g. J♥9♥8♦)' },
+    { key: 'highcard', label: 'High-card', desc: 'Contains Q/K/A (e.g. A♠K♦9♣)' },
+    { key: 'lowcard',  label: 'Low-card',  desc: 'All ranks ≤8 (e.g. 3♠4♦8♣)' },
+    { key: 'paired',   label: 'Paired',    desc: 'Board has a pair (e.g. K♠K♦7♣)' },
+  ];
+
+  // aggregate texture stats from all_hands
+  const agg = {};
+  for (const tx of textures) agg[tx.key] = { opps: 0, taken: 0, missed: 0 };
+
+  for (const h of allHands) {
+    const tx = h.boardTexture;
+    if (!tx || !agg[tx]) continue;
+    if (h.cbetOpp) agg[tx].opps++;
+    if (h.cbet)    agg[tx].taken++;
+    if (h.cbetMissed) agg[tx].missed++;
+  }
+
+  const body = document.getElementById('textureBody');
+  body.innerHTML = textures.map(({ key, label, desc }) => {
+    const d = agg[key];
+    const successCount = d.taken - d.missed;
+    const successPct = d.taken > 0 ? ((successCount / d.taken) * 100).toFixed(1) : '—';
+    const muted = d.opps < 3 ? 'class="muted"' : '';
+    const pctClass = d.taken > 2 ? (parseFloat(successPct) >= 50 ? 'result-pos' : 'result-neg') : '';
+    return `<tr ${muted}>
+      <td><strong>${label}</strong><br><span class="muted" style="font-size:0.75em">${desc}</span></td>
+      <td>${d.opps}</td>
+      <td>${d.taken}</td>
+      <td>${d.missed}</td>
+      <td class="${pctClass}">${successPct}${typeof successPct === 'string' && successPct !== '—' ? '%' : ''}</td>
+      <td class="muted" style="font-size:0.8em">${d.opps < 3 ? 'Too few samples' : successCount + ' folds'}</td>
+    </tr>`;
+  }).join('');
 }
 
 async function initDashboard() {

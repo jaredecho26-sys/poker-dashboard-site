@@ -181,17 +181,165 @@ function renderChart(sessions) {
   });
 }
 
+// ===== ADVANCED STATS =====
+
+function statCell(val, opps, fmt = v => v) {
+  const low = opps !== undefined && opps < 10;
+  const cls = low ? 'muted' : '';
+  return `<span class="${cls}">${fmt(val)}${low ? ' *' : ''}</span>`;
+}
+
+function statBox(label, value, sub = '', cls = '') {
+  return `<div class="stat-box"><div class="stat-box-label">${label}</div><div class="stat-box-value ${cls}">${value}</div>${sub ? `<div class="stat-box-sub">${sub}</div>` : ''}</div>`;
+}
+
+function pct(num, den) {
+  return den > 0 ? (num / den * 100).toFixed(1) + '%' : '—';
+}
+
+function renderAdvancedStats(sessions, allHands) {
+  document.getElementById('statsHandCount').textContent = `${allHands.length} hands`;
+
+  // aggregate across all sessions
+  const agg = {
+    hands: allHands.length,
+    vpip: 0, pfr: 0, threeBet: 0, sawFlop: 0,
+    showdowns: 0, showdownWon: 0,
+    cbetOpp: 0, cbet: 0,
+    foldToCbetOpp: 0, foldToCbet: 0,
+    foldTo3betOpp: 0, foldTo3bet: 0,
+    stealOpp: 0, stealAttempt: 0,
+    bbDefendOpp: 0, bbDefend: 0,
+    heroBets: 0, heroRaises: 0, heroCalls: 0,
+    net: 0,
+  };
+  // position aggregates
+  const posAgg = {}; // position -> {hands, net, vpip, pfr}
+
+  for (const h of allHands) {
+    if (h.vpip)         agg.vpip++;
+    if (h.pfr)          agg.pfr++;
+    if (h.threeBet)     agg.threeBet++;
+    if (h.sawFlop)      agg.sawFlop++;
+    if (h.showdown)     agg.showdowns++;
+    if (h.showdownWon)  agg.showdownWon++;
+    if (h.cbetOpp)      agg.cbetOpp++;
+    if (h.cbet)         agg.cbet++;
+    if (h.foldToCbetOpp) agg.foldToCbetOpp++;
+    if (h.foldToCbet)   agg.foldToCbet++;
+    if (h.foldTo3betOpp) agg.foldTo3betOpp++;
+    if (h.foldTo3bet)   agg.foldTo3bet++;
+    if (h.stealOpp)     agg.stealOpp++;
+    if (h.stealAttempt) agg.stealAttempt++;
+    if (h.bbDefendOpp)  agg.bbDefendOpp++;
+    if (h.bbDefend)     agg.bbDefend++;
+    agg.heroBets   += h.heroBets   || 0;
+    agg.heroRaises += h.heroRaises || 0;
+    agg.heroCalls  += h.heroCalls  || 0;
+    agg.net        += h.net || 0;
+
+    const pos = h.position || 'UNK';
+    if (!posAgg[pos]) posAgg[pos] = { hands: 0, net: 0, vpip: 0, pfr: 0 };
+    posAgg[pos].hands++;
+    posAgg[pos].net += h.net || 0;
+    if (h.vpip) posAgg[pos].vpip++;
+    if (h.pfr)  posAgg[pos].pfr++;
+  }
+
+  const n = agg.hands;
+  const totalBB = sessions.reduce((s, sess) => s + sess.hands * (sess.dominantBB || 2), 0);
+  const bb100 = totalBB > 0 ? ((agg.net / totalBB) * 100).toFixed(1) : '—';
+
+  // --- Core Metrics tab ---
+  const coreGrid = document.getElementById('statsCoreGrid');
+  coreGrid.innerHTML = [
+    statBox('VPIP', pct(agg.vpip, n), `${agg.vpip} / ${n} hands`, ''),
+    statBox('PFR', pct(agg.pfr, n), `${agg.pfr} / ${n} hands`, ''),
+    statBox('3-Bet', pct(agg.threeBet, n), `${agg.threeBet} / ${n} hands`, ''),
+    statBox('Fold to 3-Bet', pct(agg.foldTo3bet, agg.foldTo3betOpp), `${agg.foldTo3betOpp} opps`, agg.foldTo3betOpp < 10 ? 'muted' : ''),
+    statBox('C-Bet', pct(agg.cbet, agg.cbetOpp), `${agg.cbetOpp} opps`, agg.cbetOpp < 10 ? 'muted' : ''),
+    statBox('Fold to C-Bet', pct(agg.foldToCbet, agg.foldToCbetOpp), `${agg.foldToCbetOpp} opps`, agg.foldToCbetOpp < 10 ? 'muted' : ''),
+    statBox('Steal', pct(agg.stealAttempt, agg.stealOpp), `${agg.stealOpp} opps`, agg.stealOpp < 10 ? 'muted' : ''),
+    statBox('BB Defend', pct(agg.bbDefend, agg.bbDefendOpp), `${agg.bbDefendOpp} opps`, agg.bbDefendOpp < 10 ? 'muted' : ''),
+    statBox('Saw Flop', pct(agg.sawFlop, n), `${agg.sawFlop} / ${n}`, ''),
+    statBox('Showdown', `${agg.showdowns}`, `${pct(agg.showdownWon, agg.showdowns)} won`, ''),
+    statBox('BB/100', bb100, 'all sessions', parseFloat(bb100) >= 0 ? 'green' : 'red'),
+  ].join('');
+
+  // --- Aggression tab ---
+  const aggrFactor = agg.heroCalls > 0 ? ((agg.heroBets + agg.heroRaises) / agg.heroCalls).toFixed(2) : (agg.heroBets + agg.heroRaises > 0 ? '∞' : '0');
+  const aggrGrid = document.getElementById('statsAggrGrid');
+  aggrGrid.innerHTML = [
+    statBox('Aggression Factor', aggrFactor, '(bets+raises)/calls', ''),
+    statBox('Total Bets', agg.heroBets, 'non-raise bets', ''),
+    statBox('Total Raises', agg.heroRaises, 'all streets', ''),
+    statBox('Total Calls', agg.heroCalls, 'all streets', ''),
+    statBox('Bet/Call Ratio', agg.heroCalls > 0 ? (agg.heroBets / agg.heroCalls).toFixed(2) : '—', 'bets per call', ''),
+    statBox('3-Bet Opp Rate', pct(agg.foldTo3betOpp, agg.pfr), `${agg.foldTo3betOpp} faced / ${agg.pfr} PFR`, ''),
+    statBox('Win @ SD', pct(agg.showdownWon, agg.showdowns), `${agg.showdownWon}/${agg.showdowns}`, agg.showdowns < 20 ? 'muted' : ''),
+    statBox('WTSD%', pct(agg.showdowns, agg.sawFlop), 'showdown when saw flop', ''),
+  ].join('');
+
+  // --- Position tab ---
+  const posOrder = ['BTN', 'CO', 'HJ', 'UTG', 'SB', 'BB', 'UNK'];
+  const posBody = document.getElementById('positionBody');
+  posBody.innerHTML = posOrder.filter(p => posAgg[p]).map(p => {
+    const d = posAgg[p];
+    // estimate BB/100 per position (approximate: use session dominant BB=2)
+    const posBB100 = d.hands > 0 ? ((d.net / (d.hands * 2)) * 100).toFixed(1) : '—';
+    const cls = d.net >= 0 ? 'result-pos' : 'result-neg';
+    return `<tr>
+      <td><strong>${p}</strong></td>
+      <td>${d.hands}</td>
+      <td class="${cls}">${fmtCurrency(d.net)}</td>
+      <td class="${cls}">${posBB100}</td>
+      <td>${pct(d.vpip, d.hands)}</td>
+      <td>${pct(d.pfr, d.hands)}</td>
+    </tr>`;
+  }).join('');
+
+  // --- Session Breakdown tab ---
+  const sessBody = document.getElementById('sessionStatsBody');
+  sessBody.innerHTML = sessions.slice().reverse().map(s => {
+    const low = (opps) => opps < 10 ? 'class="muted"' : '';
+    const bb100cls = s.bb100 >= 0 ? 'result-pos' : 'result-neg';
+    return `<tr>
+      <td>${localDateString(s.startedAt)}<br><span class="muted" style="font-size:0.75em">${s.sourceFile}</span></td>
+      <td>${s.hands}</td>
+      <td class="${bb100cls}">${s.bb100}</td>
+      <td>${s.vpipPct}/${s.pfrPct}/${s.threeBetPct}</td>
+      <td ${low(s.cbetOpps)}>${s.cbetPct}% <span class="muted">(${s.cbetOpps})</span></td>
+      <td ${low(s.foldTo3betOpps)}>${s.foldTo3betPct}% <span class="muted">(${s.foldTo3betOpps})</span></td>
+      <td ${low(s.stealOpps)}>${s.stealPct}% <span class="muted">(${s.stealOpps})</span></td>
+      <td ${low(s.bbDefendOpps)}>${s.bbDefendPct}% <span class="muted">(${s.bbDefendOpps})</span></td>
+      <td ${low(s.showdowns)}>${s.showdownWonPct}% <span class="muted">(${s.showdowns})</span></td>
+    </tr>`;
+  }).join('');
+
+  // tab switching
+  document.getElementById('statsTabs').querySelectorAll('.stab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.stats-panel').forEach(p => p.classList.add('hidden'));
+      btn.classList.add('active');
+      document.getElementById('stats-' + btn.dataset.tab).classList.remove('hidden');
+    });
+  });
+}
+
 async function initDashboard() {
   injectNav();
-  const [sessions, hands] = await Promise.all([
+  const [sessions, hands, allHands] = await Promise.all([
     loadJson('data/sessions.json'),
     loadJson('data/hands.json'),
+    loadJson('data/all_hands.json'),
   ]);
   renderMetrics(sessions);
   renderFocus(sessions[sessions.length - 1]);
   renderSessions(sessions);
   renderHands(hands);
   renderChart(sessions);
+  renderAdvancedStats(sessions, allHands);
 }
 
 initDashboard();

@@ -1,6 +1,54 @@
 [
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
+    "handId": "2731961334",
+    "timestamp": "2026-05-07T05:28:06Z",
+    "heroCards": "Ts Qd",
+    "board": [
+      "4s",
+      "Kc",
+      "Ah",
+      "Kd",
+      "2s"
+    ],
+    "net": -9.0,
+    "tag": "study",
+    "note": "Medium pot with multiple decisions; useful for leak review.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the big blind $2.00",
+        "amount": 2.0
+      },
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $3.00",
+        "amount": 3.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "bet",
+        "line": "PopeMyCherry bets $4.00",
+        "amount": 4.0
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
     "handId": "2731962642",
     "timestamp": "2026-05-07T05:30:55Z",
     "heroCards": "8c 8h",
@@ -11,10 +59,16 @@
       "2s",
       "5d"
     ],
-    "net": -13.27,
+    "net": -15.27,
     "tag": "good",
     "note": "88 river bet/fold showed solid discipline. Good example of not paying off a strong raise with one pair.",
     "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the big blind $2.00",
+        "amount": 2.0
+      },
       {
         "street": "PREFLOP",
         "type": "call",
@@ -41,6 +95,47 @@
       },
       {
         "street": "RIVER",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
+    "handId": "2731964234",
+    "timestamp": "2026-05-07T05:34:31Z",
+    "heroCards": "Ad 9d",
+    "board": [
+      "5d",
+      "3c",
+      "5s",
+      "Tc"
+    ],
+    "net": -10.0,
+    "tag": "study",
+    "note": "Medium pot with multiple decisions; useful for leak review.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the big blind $2.00",
+        "amount": 2.0
+      },
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $3.00",
+        "amount": 3.0
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "TURN",
         "type": "fold",
         "line": "PopeMyCherry folds",
         "amount": 0.0
@@ -85,6 +180,53 @@
         "street": "RIVER",
         "type": "check",
         "line": "PopeMyCherry checks",
+        "amount": 0.0
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
+    "handId": "2731970387",
+    "timestamp": "2026-05-07T05:49:02Z",
+    "heroCards": "4h 9c",
+    "board": [
+      "Jc",
+      "4d",
+      "7c",
+      "3s"
+    ],
+    "net": -9.5,
+    "tag": "study",
+    "note": "Medium pot with multiple decisions; useful for leak review.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the big blind $2.00",
+        "amount": 2.0
+      },
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $2.50",
+        "amount": 2.5
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "bet",
+        "line": "PopeMyCherry bets $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "TURN",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
         "amount": 0.0
       }
     ]
@@ -244,9 +386,15 @@
     "actions": [
       {
         "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the small blind $1.00",
+        "amount": 1.0
+      },
+      {
+        "street": "PREFLOP",
         "type": "raise",
         "line": "PopeMyCherry raises $4.00 to $5.00",
-        "amount": 5.0
+        "amount": 4.0
       },
       {
         "street": "FLOP",
@@ -411,10 +559,16 @@
       "9s",
       "2c"
     ],
-    "net": 66.24,
+    "net": 65.24,
     "tag": "good",
     "note": "Large winning hand worth reviewing for value line quality.",
     "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the small blind $1.00",
+        "amount": 1.0
+      },
       {
         "street": "PREFLOP",
         "type": "call",
@@ -490,6 +644,60 @@
         "street": "TURN",
         "type": "fold",
         "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "handId": "2732176841",
+    "timestamp": "2026-05-07T16:42:56Z",
+    "heroCards": "Td Ks",
+    "board": [
+      "2s",
+      "2c",
+      "5h",
+      "Qc",
+      "5d"
+    ],
+    "net": -8.0,
+    "tag": "study",
+    "note": "Medium pot with multiple decisions; useful for leak review.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the small blind $1.00",
+        "amount": 1.0
+      },
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.00",
+        "amount": 4.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $3.00",
+        "amount": 3.0
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
         "amount": 0.0
       }
     ]
@@ -590,10 +798,16 @@
       "Th",
       "Ac"
     ],
-    "net": -12.0,
+    "net": -14.0,
     "tag": "study",
     "note": "Medium pot with multiple decisions; useful for leak review.",
     "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the big blind $2.00",
+        "amount": 2.0
+      },
       {
         "street": "PREFLOP",
         "type": "call",

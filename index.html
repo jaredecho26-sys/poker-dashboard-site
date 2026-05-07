@@ -65,6 +65,48 @@
       </article>
     </section>
 
+    <!-- ===== ADVANCED STATS ===== -->
+    <section class="card stats-card" id="statsSection">
+      <div class="card-head">
+        <h2>Advanced Stats</h2>
+        <span class="muted" id="statsHandCount"></span>
+      </div>
+
+      <div class="stats-tabs" id="statsTabs">
+        <button class="stab active" data-tab="core">Core Metrics</button>
+        <button class="stab" data-tab="aggr">Aggression</button>
+        <button class="stab" data-tab="position">By Position</button>
+        <button class="stab" data-tab="session">Session Breakdown</button>
+      </div>
+
+      <div class="stats-panel" id="stats-core">
+        <div class="stat-grid" id="statsCoreGrid"></div>
+      </div>
+
+      <div class="stats-panel hidden" id="stats-aggr">
+        <div class="stat-grid" id="statsAggrGrid"></div>
+      </div>
+
+      <div class="stats-panel hidden" id="stats-position">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Position</th><th>Hands</th><th>Net P/L</th><th>BB/100</th><th>VPIP%</th><th>PFR%</th></tr></thead>
+            <tbody id="positionBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="stats-panel hidden" id="stats-session">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Session</th><th>Hands</th><th>BB/100</th><th>VPIP/PFR/3B</th><th>C-bet%</th><th>F-3bet%</th><th>Steal%</th><th>BBDef%</th><th>SDWon%</th></tr></thead>
+            <tbody id="sessionStatsBody"></tbody>
+          </table>
+        </div>
+        <p class="stats-note">Approximations: c-bet = PFR hero bet/raised on flop. Fold-to-cbet = saw flop as caller, faced bet, folded. Steal = raise from CO/BTN/SB with no prior raise. BB defend = any call/raise vs steal. Cells with &lt;10 opps shown muted.</p>
+      </div>
+    </section>
+
     <section class="card">
       <div class="card-head">
         <h2>How we'll use this</h2>

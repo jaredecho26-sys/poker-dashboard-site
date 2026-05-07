@@ -5,57 +5,1490 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Poker Lab — Trainer</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* =============================================
+       PROFESSIONAL POKER TABLE TRAINER STYLES
+       ============================================= */
+
+    /* ── Base overrides for trainer page ── */
+    body { background: #0a0d12; }
+
+    /* ── Page Layout ── */
+    .trainer-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: radial-gradient(ellipse at 50% 0%, #1a2540 0%, #0a0d12 70%);
+    }
+
+    .trainer-topbar {
+      width: 100%;
+      max-width: 900px;
+      padding: 12px 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .trainer-topbar a { color: #7ba5d4; text-decoration: none; font-size: 13px; }
+    .trainer-topbar a:hover { color: #fff; }
+    .trainer-logo { font-size: 18px; font-weight: 700; color: #e8d5a3; letter-spacing: 0.05em; }
+    .trainer-logo span { color: #c0392b; }
+
+    /* ── Mode & Level Tabs Bar ── */
+    .trainer-controls {
+      width: 100%;
+      max-width: 900px;
+      padding: 10px 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ctrl-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ctrl-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5a6a7a;
+      min-width: 48px;
+    }
+    .ctrl-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+    .ctrl-tab {
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid #2a3550;
+      background: #141c2c;
+      color: #7a90a8;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.03em;
+    }
+    .ctrl-tab:hover { border-color: #4a6080; color: #d0dde8; }
+    .ctrl-tab.active {
+      background: #1a3060;
+      border-color: #3a70c0;
+      color: #90c0f8;
+    }
+    .ctrl-tab.level-easy.active  { background:#0e2a14; border-color:#2a8a3a; color:#6ad87a; }
+    .ctrl-tab.level-medium.active { background:#2a2010; border-color:#c08a20; color:#f0c040; }
+    .ctrl-tab.level-hard.active  { background:#2a1010; border-color:#a02020; color:#f07060; }
+
+    /* ── Score HUD ── */
+    .score-hud {
+      width: 100%;
+      max-width: 900px;
+      padding: 8px 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hud-stat { display: flex; align-items: center; gap: 6px; }
+    .hud-lbl { font-size: 11px; color: #5a6a7a; text-transform: uppercase; letter-spacing: 0.06em; }
+    .hud-val { font-size: 14px; font-weight: 700; color: #c8d8e8; }
+    .hud-val.green { color: #4ad878; }
+    .hud-val.yellow { color: #f0c040; }
+    .hud-val.red { color: #f07060; }
+    .hud-bar-track { flex: 1; height: 4px; background: #1a2535; border-radius: 2px; overflow: hidden; }
+    .hud-bar-fill { height: 100%; background: linear-gradient(90deg, #1a7a3a, #4ad878); border-radius: 2px; transition: width 0.4s ease; }
+    .hud-sep { width: 1px; height: 20px; background: #2a3550; }
+
+    /* ─────────────────────────────────────────────
+       POKER TABLE SVG CONTAINER
+       ───────────────────────────────────────────── */
+    .table-container {
+      width: 100%;
+      max-width: 900px;
+      padding: 10px 20px;
+      position: relative;
+    }
+
+    .poker-table-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Table SVG element styles */
+    .tbl-outer-rail { fill: #5a0808; stroke: #7a1010; stroke-width: 2; }
+    .tbl-inner-rail { fill: #3d0606; }
+    .tbl-felt { fill: #0f5c2a; }
+    .tbl-felt-center { fill: #0d5226; }
+    .tbl-logo { fill: rgba(255,255,255,0.04); }
+
+    /* ── Player seat labels (HTML overlay) ── */
+    .seats-overlay {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      right: 20px;
+      bottom: 0;
+      pointer-events: none;
+    }
+    .seat {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      pointer-events: none;
+    }
+    .seat-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a2535 0%, #2a3550 100%);
+      border: 2px solid #3a5070;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #7a90a8;
+    }
+    .seat-avatar.hero-seat {
+      border-color: #4a9adf;
+      background: linear-gradient(135deg, #0d2040 0%, #1a4070 100%);
+      color: #90c8f8;
+    }
+    .seat-avatar.active-seat {
+      border-color: #e8c050;
+      box-shadow: 0 0 10px rgba(232,192,80,0.4);
+    }
+    .seat-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #c8d8e8;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+    .seat-stack {
+      font-size: 11px;
+      color: #6ad878;
+      font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+    .seat-pos-badge {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+    .pos-bb   { background: #7a2020; }
+    .pos-sb   { background: #205a30; }
+    .pos-btn  { background: #1a3a80; }
+    .pos-co   { background: #404040; }
+    .pos-hj   { background: #404040; }
+    .pos-utg  { background: #404040; }
+
+    /* ── Center Table Info ── */
+    .table-center-info {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+      pointer-events: none;
+    }
+    .tci-pot {
+      font-size: 22px;
+      font-weight: 700;
+      color: #e8d080;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      letter-spacing: 0.04em;
+    }
+    .tci-pot-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #7a9060;
+    }
+    .tci-blinds {
+      font-size: 11px;
+      color: #7a90a8;
+      letter-spacing: 0.02em;
+    }
+    .tci-street {
+      font-size: 11px;
+      font-weight: 600;
+      color: #a0b8c8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(0,0,0,0.4);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    /* ── Community Cards in Center ── */
+    .community-zone {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    /* ─────────────────────────────────────────────
+       PLAYING CARDS — Professional Style
+       ───────────────────────────────────────────── */
+    .pcard {
+      width: 40px;
+      height: 58px;
+      background: #f8f4ec;
+      border-radius: 5px;
+      border: 1px solid #d0c8bc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+    .pcard.card-back {
+      background: linear-gradient(135deg, #1a3a80 25%, #0d2050 25%, #0d2050 50%, #1a3a80 50%, #1a3a80 75%, #0d2050 75%);
+      background-size: 10px 10px;
+      border-color: #2a4a90;
+    }
+    .pcard.card-empty {
+      background: rgba(0,0,0,0.2);
+      border: 1px dashed rgba(255,255,255,0.1);
+      box-shadow: none;
+    }
+    .pcard-rank {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1;
+      font-family: 'Georgia', serif;
+    }
+    .pcard-suit {
+      font-size: 14px;
+      line-height: 1;
+      margin-top: 1px;
+    }
+    .pcard-tl {
+      position: absolute;
+      top: 3px;
+      left: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.1;
+      font-family: 'Georgia', serif;
+    }
+    .pcard-br {
+      position: absolute;
+      bottom: 3px;
+      right: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.1;
+      font-family: 'Georgia', serif;
+      transform: rotate(180deg);
+    }
+    .red { color: #c0201a; }
+    .black { color: #1a1a1a; }
+
+    /* Hero cards — larger */
+    .hero-zone {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-zone .pcard {
+      width: 54px;
+      height: 78px;
+      border-radius: 7px;
+    }
+    .hero-zone .pcard-rank { font-size: 24px; }
+    .hero-zone .pcard-suit { font-size: 18px; }
+    .hero-zone .pcard-tl { font-size: 12px; top: 4px; left: 5px; }
+    .hero-zone .pcard-br { font-size: 12px; bottom: 4px; right: 5px; }
+    .hero-cards-row { display: flex; gap: 8px; }
+    .hero-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #4a7a9a;
+      font-weight: 600;
+    }
+
+    /* ─────────────────────────────────────────────
+       QUIZ PANEL (below table)
+       ───────────────────────────────────────────── */
+    .quiz-panel {
+      width: 100%;
+      max-width: 900px;
+      padding: 0 20px 20px;
+    }
+
+    /* Prompt */
+    .quiz-prompt-box {
+      background: #0d1520;
+      border: 1px solid #1e3050;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+    }
+    .quiz-prompt-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .quiz-pos-badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+    .quiz-mode-tag {
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(40,80,140,0.3);
+      border: 1px solid rgba(70,120,200,0.3);
+      font-size: 11px;
+      color: #7ab0e0;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .quiz-diff-tag {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .diff-easy   { background: rgba(20,80,30,0.4); color: #6ad878; border: 1px solid rgba(50,150,70,0.3); }
+    .diff-medium { background: rgba(80,60,10,0.4); color: #f0c040; border: 1px solid rgba(160,120,20,0.3); }
+    .diff-hard   { background: rgba(80,20,20,0.4); color: #f07060; border: 1px solid rgba(160,50,50,0.3); }
+
+    .quiz-prompt-text {
+      font-size: 15px;
+      color: #d8e8f8;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .quiz-prompt-sub {
+      font-size: 12px;
+      color: #7a90a8;
+      margin-top: 4px;
+    }
+
+    /* Situation Info (stack/pot/action) */
+    .quiz-situation {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .sit-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #0d1520;
+      border: 1px solid #1e3050;
+      border-radius: 6px;
+      padding: 6px 12px;
+    }
+    .sit-chip-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #5a7a9a; }
+    .sit-chip-val   { font-size: 14px; font-weight: 700; color: #c8e0f8; }
+    .sit-chip-val.gold  { color: #e8d080; }
+    .sit-chip-val.green { color: #6ad878; }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .action-btn {
+      padding: 14px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .action-btn:disabled { opacity: 0.5; cursor: default; transform: none !important; box-shadow: none !important; }
+
+    .btn-fold {
+      background: linear-gradient(180deg, #3a1010 0%, #2a0808 100%);
+      border-color: #6a2020;
+      color: #f08080;
+    }
+    .btn-fold:not(:disabled):hover {
+      background: linear-gradient(180deg, #5a1818 0%, #3a1010 100%);
+      border-color: #b03030;
+      box-shadow: 0 0 14px rgba(180,30,30,0.35);
+    }
+
+    .btn-call {
+      background: linear-gradient(180deg, #103a10 0%, #082808 100%);
+      border-color: #208a30;
+      color: #80e890;
+    }
+    .btn-call:not(:disabled):hover {
+      background: linear-gradient(180deg, #185a18 0%, #103a10 100%);
+      border-color: #40b850;
+      box-shadow: 0 0 14px rgba(40,180,60,0.35);
+    }
+
+    .btn-raise {
+      background: linear-gradient(180deg, #103060 0%, #082040 100%);
+      border-color: #2060b0;
+      color: #80b8f8;
+    }
+    .btn-raise:not(:disabled):hover {
+      background: linear-gradient(180deg, #184880 0%, #103060 100%);
+      border-color: #4090e0;
+      box-shadow: 0 0 14px rgba(50,120,220,0.35);
+    }
+
+    .btn-check {
+      background: linear-gradient(180deg, #302010 0%, #201408 100%);
+      border-color: #806020;
+      color: #e8b840;
+    }
+    .btn-check:not(:disabled):hover {
+      background: linear-gradient(180deg, #504020 0%, #302010 100%);
+      border-color: #c09030;
+      box-shadow: 0 0 14px rgba(180,140,30,0.35);
+    }
+
+    .btn-jam {
+      background: linear-gradient(180deg, #401020 0%, #280810 100%);
+      border-color: #902040;
+      color: #f88090;
+    }
+    .btn-jam:not(:disabled):hover {
+      background: linear-gradient(180deg, #601830 0%, #401020 100%);
+      border-color: #c04060;
+      box-shadow: 0 0 14px rgba(200,40,80,0.35);
+    }
+
+    .btn-threebet {
+      background: linear-gradient(180deg, #201040 0%, #140828 100%);
+      border-color: #6030a0;
+      color: #c090f8;
+    }
+    .btn-threebet:not(:disabled):hover {
+      background: linear-gradient(180deg, #381860 0%, #201040 100%);
+      border-color: #9050e0;
+      box-shadow: 0 0 14px rgba(140,60,220,0.35);
+    }
+
+    /* Reveal states */
+    .action-btn.reveal-correct {
+      border-color: #40e060 !important;
+      box-shadow: 0 0 14px rgba(40,200,80,0.5) !important;
+      background: linear-gradient(180deg, #105a18 0%, #0a3a10 100%) !important;
+      color: #80f898 !important;
+    }
+    .action-btn.reveal-wrong {
+      border-color: #e04040 !important;
+      box-shadow: 0 0 14px rgba(200,40,40,0.4) !important;
+    }
+
+    /* Feedback */
+    .quiz-feedback {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .quiz-feedback.correct {
+      background: rgba(20,80,30,0.4);
+      border: 1px solid rgba(50,160,70,0.4);
+      color: #80e890;
+    }
+    .quiz-feedback.wrong {
+      background: rgba(80,20,20,0.4);
+      border: 1px solid rgba(160,50,50,0.4);
+      color: #f08888;
+    }
+    .feedback-verdict {
+      font-weight: 700;
+      font-size: 15px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Next button */
+    .btn-next-spot {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      background: linear-gradient(180deg, #1a3a70 0%, #0f2250 100%);
+      border: 2px solid #2a5aaa;
+      color: #90c0f8;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.05em;
+    }
+    .btn-next-spot:hover {
+      background: linear-gradient(180deg, #2a5898 0%, #1a3a70 100%);
+      border-color: #4a80d0;
+      box-shadow: 0 0 18px rgba(60,120,220,0.35);
+    }
+
+    /* Odds panels */
+    .odds-display {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid #1e3050;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+    }
+    .odds-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      flex: 1;
+      min-width: 70px;
+    }
+    .odds-cell-lbl { font-size: 10px; color: #5a7a9a; text-transform: uppercase; letter-spacing: 0.07em; }
+    .odds-cell-val { font-size: 18px; font-weight: 700; color: #c8e0f8; }
+    .odds-cell-val.gold { color: #e8d080; }
+    .odds-cell-val.green { color: #6ad878; }
+    .odds-cell-val.red { color: #f07060; }
+    .odds-sep { width: 1px; height: 36px; background: #1e3050; }
+    .odds-eq { font-size: 20px; color: #5a7a9a; align-self: center; }
+    .odds-eq-result { font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 4px; }
+    .odds-eq-result.pos { background: rgba(20,80,30,0.4); color: #6ad878; border: 1px solid rgba(50,150,70,0.3); }
+    .odds-eq-result.neg { background: rgba(80,20,20,0.4); color: #f07060; border: 1px solid rgba(160,50,50,0.3); }
+
+    /* Stack viz for shove/fold */
+    .stack-meter {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+    .stack-pip {
+      width: 8px;
+      height: 16px;
+      border-radius: 2px;
+      background: #1a2535;
+    }
+    .stack-pip.filled { background: #4a9a6a; }
+    .stack-pip.danger { background: #c04040; }
+
+    /* ── Pot Odds Quick Reference ── */
+    .odds-ref-section {
+      width: 100%;
+      max-width: 900px;
+      padding: 0 20px 20px;
+    }
+    .odds-ref-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #c8d8e8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+      padding-top: 4px;
+      border-top: 1px solid #1e3050;
+    }
+    .odds-ref-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .odds-ref-card {
+      background: #0d1520;
+      border: 1px solid #1e3050;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .odds-ref-card h4 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #90b0d0;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin: 0 0 10px;
+    }
+    .odds-formula {
+      font-size: 11px;
+      color: #a0b8c8;
+      background: rgba(0,0,0,0.3);
+      border-radius: 4px;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+      line-height: 1.6;
+      font-family: monospace;
+    }
+    .odds-ex { display: flex; justify-content: space-between; font-size: 12px; padding: 3px 0; border-bottom: 1px solid #1a2535; }
+    .odds-ex:last-child { border-bottom: none; }
+    .odds-ex span { color: #7a90a8; }
+    .odds-ex strong { color: #e8d080; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .trainer-controls { padding: 8px 12px 0; }
+      .score-hud { padding: 6px 12px 0; }
+      .table-container { padding: 6px 12px; }
+      .quiz-panel { padding: 0 12px 20px; }
+      .action-buttons { grid-template-columns: repeat(2, 1fr); }
+      .action-btn { padding: 12px 8px; font-size: 12px; }
+      .hero-zone .pcard { width: 44px; height: 64px; }
+      .hero-zone .pcard-rank { font-size: 20px; }
+    }
+
+    @media (max-width: 400px) {
+      .pcard { width: 32px; height: 46px; }
+      .pcard-rank { font-size: 14px; }
+      .pcard-suit { font-size: 11px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <div>
-        <p class="eyebrow">Interactive Trainer</p>
-        <h1>🎯 Study Trainer</h1>
-        <p class="sub">Drill range decisions, blind defense, board-texture c-bets, shove/fold, pot odds, and combo-level reads with a live game board.</p>
-      </div>
-    </header>
+<div class="trainer-page">
 
-    <section class="card trainer-card" id="quizSection">
-      <div class="trainer-header">
-        <div class="trainer-title-row">
-          <h2 class="trainer-title">🎯 Study Trainer</h2>
-          <div class="trainer-filters-right">
-            <span class="trainer-filter-label">Difficulty</span>
-            <div class="quiz-level-tabs">
-              <button class="quiz-level-btn active" data-level="all">All</button>
-              <button class="quiz-level-btn" data-level="easy">Easy</button>
-              <button class="quiz-level-btn" data-level="medium">Medium</button>
-              <button class="quiz-level-btn" data-level="hard">Hard</button>
-            </div>
-          </div>
-        </div>
-        <div class="trainer-mode-row">
-          <span class="trainer-filter-label">Mode</span>
-          <div class="quiz-mode-tabs">
-            <button class="quiz-mode-btn active" data-mode="pfr">PFR</button>
-            <button class="quiz-mode-btn" data-mode="threebet">3-Bet</button>
-            <button class="quiz-mode-btn" data-mode="blinddefense">BB Defend</button>
-            <button class="quiz-mode-btn" data-mode="cbet">C-Bet</button>
-            <button class="quiz-mode-btn" data-mode="shovefold">Shove / Fold</button>
-            <button class="quiz-mode-btn" data-mode="potodds">Pot Odds</button>
-            <button class="quiz-mode-btn" data-mode="combo">Combo Reads</button>
-          </div>
-        </div>
-      </div>
-      <div id="quizBody"></div>
-    </section>
-
-    <section class="card" id="oddsRefSection" hidden>
-      <div class="card-head">
-        <h2>📐 Pot Odds Quick Reference</h2>
-        <span class="muted">Memorize these — you'll use them every session</span>
-      </div>
-      <div id="oddsRef"></div>
-    </section>
+  <!-- Top bar -->
+  <div class="trainer-topbar">
+    <a href="index.html">← Dashboard</a>
+    <div class="trainer-logo">Poker<span>Lab</span> Trainer</div>
+    <div style="width:80px"></div>
   </div>
 
-  <script src="shared.js"></script>
-  <script src="trainer.js"></script>
+  <!-- Mode Tabs -->
+  <div class="trainer-controls">
+    <div class="ctrl-row">
+      <span class="ctrl-label">Mode</span>
+      <div class="ctrl-tabs" id="modeTabs">
+        <button class="ctrl-tab active" data-mode="pfr">PFR</button>
+        <button class="ctrl-tab" data-mode="threebet">3-Bet</button>
+        <button class="ctrl-tab" data-mode="blinddefense">BB Defend</button>
+        <button class="ctrl-tab" data-mode="cbet">C-Bet</button>
+        <button class="ctrl-tab" data-mode="shovefold">Shove / Fold</button>
+        <button class="ctrl-tab" data-mode="potodds">Pot Odds</button>
+        <button class="ctrl-tab" data-mode="combo">Combo Reads</button>
+      </div>
+    </div>
+    <div class="ctrl-row">
+      <span class="ctrl-label">Level</span>
+      <div class="ctrl-tabs" id="levelTabs">
+        <button class="ctrl-tab active" data-level="all">All</button>
+        <button class="ctrl-tab level-easy"   data-level="easy">Easy</button>
+        <button class="ctrl-tab level-medium" data-level="medium">Medium</button>
+        <button class="ctrl-tab level-hard"   data-level="hard">Hard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Score HUD -->
+  <div class="score-hud" id="scoreHud">
+    <div class="hud-stat"><span class="hud-lbl">Score</span><span class="hud-val" id="hudScore">0/0</span></div>
+    <div class="hud-sep"></div>
+    <div class="hud-bar-track"><div class="hud-bar-fill" id="hudBar" style="width:0%"></div></div>
+    <div class="hud-stat"><span class="hud-lbl">Acc</span><span class="hud-val" id="hudAcc">–</span></div>
+    <div class="hud-sep"></div>
+    <div class="hud-stat"><span class="hud-lbl">Streak</span><span class="hud-val" id="hudStreak">0</span></div>
+    <div class="hud-sep"></div>
+    <div class="hud-stat"><span class="hud-lbl">Pool</span><span class="hud-val" id="hudPool" style="color:#5a7a9a">–</span></div>
+  </div>
+
+  <!-- Poker Table -->
+  <div class="table-container" id="tableContainer">
+    <!-- SVG Oval Table -->
+    <svg class="poker-table-svg" viewBox="0 0 860 440" xmlns="http://www.w3.org/2000/svg" id="pokerTableSvg">
+      <!-- Outer shadow/glow -->
+      <defs>
+        <filter id="tableShadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="0.7"/>
+        </filter>
+        <filter id="feltTexture">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+          <feColorMatrix type="saturate" values="0"/>
+          <feBlend in="SourceGraphic" mode="multiply" result="blend"/>
+          <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+        </filter>
+        <radialGradient id="feltGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#147a38"/>
+          <stop offset="70%"  stop-color="#0d6030"/>
+          <stop offset="100%" stop-color="#094825"/>
+        </radialGradient>
+        <radialGradient id="railGrad" cx="50%" cy="40%" r="60%">
+          <stop offset="0%"   stop-color="#8a1818"/>
+          <stop offset="50%"  stop-color="#6a0e0e"/>
+          <stop offset="100%" stop-color="#3a0808"/>
+        </radialGradient>
+        <linearGradient id="railHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="rgba(255,255,255,0.12)"/>
+          <stop offset="30%"  stop-color="rgba(255,255,255,0.04)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0.3)"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Rail outer border (wood/plastic edge) -->
+      <ellipse cx="430" cy="220" rx="405" ry="205" fill="#1a0808" filter="url(#tableShadow)"/>
+      <!-- Red leather rail -->
+      <ellipse cx="430" cy="220" rx="403" ry="203" fill="url(#railGrad)"/>
+      <!-- Rail highlight -->
+      <ellipse cx="430" cy="220" rx="403" ry="203" fill="url(#railHighlight)"/>
+      <!-- Rail inner edge line -->
+      <ellipse cx="430" cy="220" rx="375" ry="178" fill="none" stroke="#2a0606" stroke-width="3"/>
+      <!-- Felt -->
+      <ellipse cx="430" cy="220" rx="372" ry="175" fill="url(#feltGrad)"/>
+      <!-- Subtle felt texture overlay -->
+      <ellipse cx="430" cy="220" rx="372" ry="175" fill="rgba(0,0,0,0.05)"/>
+      <!-- Felt center stripe / logo area -->
+      <ellipse cx="430" cy="220" rx="130" ry="55" fill="rgba(0,0,0,0.12)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <!-- Table logo text -->
+      <text x="430" y="215" text-anchor="middle" fill="rgba(255,255,255,0.06)" font-size="22" font-family="Georgia, serif" font-weight="bold" letter-spacing="4">POKER</text>
+      <text x="430" y="238" text-anchor="middle" fill="rgba(255,255,255,0.04)" font-size="11" font-family="Georgia, serif" letter-spacing="8">L A B</text>
+
+      <!-- Dealer button marker -->
+      <circle cx="430" cy="310" r="10" fill="#e8d080" stroke="#c0a840" stroke-width="1.5" opacity="0.9" id="dealerBtn"/>
+      <text x="430" y="314" text-anchor="middle" fill="#1a1008" font-size="9" font-weight="bold">D</text>
+    </svg>
+
+    <!-- Community cards overlay (absolute over SVG) -->
+    <div id="communityZone" style="
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    ">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- Center info overlay -->
+    <div id="centerInfo" style="
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    ">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- Seat overlays (positioned by JS) -->
+    <div id="seatsOverlay" style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;"></div>
+
+    <!-- Hero cards overlay at bottom of table -->
+    <div id="heroZone" style="
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    ">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <!-- Quiz Panel -->
+  <div class="quiz-panel" id="quizPanel">
+    <!-- filled by JS -->
+  </div>
+
+  <!-- Pot Odds Reference (shown in potodds mode) -->
+  <div class="odds-ref-section" id="oddsRefSection" style="display:none;">
+    <div class="odds-ref-title">📐 Pot Odds Quick Reference</div>
+    <div class="odds-ref-grid">
+      <div class="odds-ref-card">
+        <h4>The Formula</h4>
+        <div class="odds-formula">Call ÷ (Pot + Call) = Required equity</div>
+        <div class="odds-ex"><span>$50 into $100</span><strong>33%</strong></div>
+        <div class="odds-ex"><span>$25 into $100</span><strong>20%</strong></div>
+        <div class="odds-ex"><span>$75 into $100</span><strong>43%</strong></div>
+        <div class="odds-ex"><span>$100 into $100</span><strong>33%</strong></div>
+        <div class="odds-ex"><span>$200 into $100</span><strong>67%</strong></div>
+      </div>
+      <div class="odds-ref-card">
+        <h4>Rule of 2 &amp; 4</h4>
+        <div class="odds-formula">Outs × 4 = equity% (2 streets)<br>Outs × 2 = equity% (1 street)</div>
+        <div class="odds-ex"><span>Flush draw (9 outs)</span><strong>~36% / 18%</strong></div>
+        <div class="odds-ex"><span>OESD (8 outs)</span><strong>~32% / 16%</strong></div>
+        <div class="odds-ex"><span>Gutshot (4 outs)</span><strong>~16% / 8%</strong></div>
+        <div class="odds-ex"><span>Flush + OESD (12–15)</span><strong>~48–60%</strong></div>
+      </div>
+      <div class="odds-ref-card">
+        <h4>Bet Size → Required Equity</h4>
+        <div class="odds-ex"><span>¼ pot</span><strong>20%</strong></div>
+        <div class="odds-ex"><span>⅓ pot</span><strong>25%</strong></div>
+        <div class="odds-ex"><span>½ pot</span><strong>33%</strong></div>
+        <div class="odds-ex"><span>⅔ pot</span><strong>40%</strong></div>
+        <div class="odds-ex"><span>¾ pot</span><strong>43%</strong></div>
+        <div class="odds-ex"><span>Pot</span><strong>33%</strong></div>
+        <div class="odds-ex"><span>2× overbet</span><strong>67%</strong></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /trainer-page -->
+
+<script src="shared.js"></script>
+<script>
+// =============================================
+//  PROFESSIONAL POKER TABLE TRAINER
+// =============================================
+
+// ── Card rendering ──────────────────────────────────────────────────────────
+const SUIT_SYMS = { h:'♥', d:'♦', c:'♣', s:'♠' };
+const SUIT_COLORS = { h:'red', d:'red', c:'black', s:'black' };
+
+function renderCard(cardStr, size) {
+  // cardStr: "Ah", "Kd", "Tc", "2s"
+  if (!cardStr) return renderEmptyCard(size);
+  const rank = cardStr[0] === 'T' ? '10' : cardStr[0];
+  const suit = cardStr[1];
+  const sym = SUIT_SYMS[suit] || suit;
+  const col = SUIT_COLORS[suit] || 'black';
+  const sz = size || '';
+  return `<div class="pcard ${sz}">
+    <div class="pcard-tl ${col}">${rank}<br>${sym}</div>
+    <div class="pcard-rank ${col}">${rank}</div>
+    <div class="pcard-suit ${col}">${sym}</div>
+    <div class="pcard-br ${col}">${rank}<br>${sym}</div>
+  </div>`;
+}
+
+function renderEmptyCard(size) {
+  return `<div class="pcard card-empty ${size||''}"></div>`;
+}
+
+function renderCardBack(size) {
+  return `<div class="pcard card-back ${size||''}"></div>`;
+}
+
+// Build hand chips from shorthand like "AKs", "QTo", "77"
+function handToCards(handStr) {
+  if (!handStr || handStr.length < 2) return ['??', '??'];
+  const r1 = handStr[0], r2 = handStr[1], type = handStr[2] || '';
+  if (type === 's') return [r1 + 'h', r2 + 'h'];
+  if (type === 'o') return [r1 + 'h', r2 + 'c'];
+  return [r1 + 'h', r2 + 'd']; // pair
+}
+
+function handToCardsFromStr(str) {
+  if (!str || str.length < 4) return handToCards(str);
+  return [str.slice(0, 2), str.slice(2, 4)];
+}
+
+// ── Table layout: seat positions ───────────────────────────────────────────
+// For a 860×440 SVG, center = (430, 220), rx=372, ry=175
+// 6-handed seat positions (as % of container)
+const SEAT_POSITIONS_6 = [
+  // [top%, left%, name, posKey]  — fractions of svg dimensions
+  // Seat 1: BTN (bottom-right area, near hero but offset)
+  { id: 1, x: 0.685, y: 0.82, name: 'BTN', pos: 'BTN' },
+  // Seat 2: CO (right middle)
+  { id: 2, x: 0.88,  y: 0.52, name: 'CO',  pos: 'CO'  },
+  // Seat 3: HJ (top-right)
+  { id: 3, x: 0.73,  y: 0.10, name: 'HJ',  pos: 'HJ'  },
+  // Seat 4: UTG (top-left)
+  { id: 4, x: 0.27,  y: 0.10, name: 'UTG', pos: 'UTG' },
+  // Seat 5: SB (left middle)
+  { id: 5, x: 0.12,  y: 0.52, name: 'SB',  pos: 'SB'  },
+  // Seat 6: BB (bottom-left area)
+  { id: 6, x: 0.315, y: 0.82, name: 'BB',  pos: 'BB'  },
+];
+
+const VILLAIN_NAMES = ['Alex', 'Maria', 'Jordan', 'Nate', 'Sofia', 'Raj'];
+const VILLAIN_STACKS = ['$485', '$220', '$680', '$1,240', '$315', '$780'];
+const VILLAIN_EMOJIS = ['🎩', '💎', '🦊', '🐻', '🦁', '🎯'];
+
+function renderSeats(heroPosition) {
+  const overlay = document.getElementById('seatsOverlay');
+  if (!overlay) return;
+  const rect = overlay.getBoundingClientRect();
+  const W = overlay.offsetWidth, H = overlay.offsetHeight;
+
+  // Map hero to seat 6 (BB/bottom area) by default
+  const heroPosKey = (heroPosition || 'BB').trim().toUpperCase().replace(/^BB VS .+/, 'BB');
+
+  let html = '';
+  SEAT_POSITIONS_6.forEach((seat, i) => {
+    const isHero = seat.pos === heroPosKey;
+    const x = seat.x * W;
+    const y = seat.y * H;
+    const villainIdx = i % VILLAIN_NAMES.length;
+    const avatarCls = isHero ? 'seat-avatar hero-seat' : 'seat-avatar';
+    const name = isHero ? 'YOU' : VILLAIN_NAMES[villainIdx];
+    const stack = isHero ? '' : VILLAIN_STACKS[villainIdx];
+    const emoji = isHero ? '🃏' : VILLAIN_EMOJIS[villainIdx];
+    const posCls = `pos-${seat.pos.toLowerCase()}`;
+
+    html += `<div class="seat" style="left:${x}px;top:${y}px;transform:translate(-50%,-50%);">
+      <div class="${avatarCls}">${emoji}</div>
+      <div class="seat-name">${name}</div>
+      ${stack ? `<div class="seat-stack">${stack}</div>` : ''}
+      <div class="seat-pos-badge ${posCls}">${seat.pos}</div>
+    </div>`;
+  });
+  overlay.innerHTML = html;
+}
+
+// ── Community cards overlay ─────────────────────────────────────────────────
+function renderCommunityCards(cards, street) {
+  const zone = document.getElementById('communityZone');
+  if (!zone) return;
+  const W = zone.offsetWidth, H = zone.offsetHeight;
+  // Position: vertically ~35-42% of height, centered
+  const topPct = street === 'preflop' ? 0.40 : 0.38;
+  const topPx = topPct * H;
+
+  let cardHtml = '';
+  const slots = street === 'preflop' ? 5 : (street === 'flop' ? 3 : (street === 'turn' ? 4 : 5));
+  for (let i = 0; i < 5; i++) {
+    if (cards && cards[i]) cardHtml += renderCard(cards[i]);
+    else if (i < slots && street !== 'preflop') cardHtml += renderEmptyCard();
+    else cardHtml += `<div style="width:40px;height:58px;"></div>`;
+  }
+
+  zone.innerHTML = `<div style="
+    position: absolute;
+    top: ${topPx}px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 7px;
+  ">${cardHtml}</div>`;
+}
+
+// ── Center info ─────────────────────────────────────────────────────────────
+function renderCenterInfo(pot, street, blinds) {
+  const el = document.getElementById('centerInfo');
+  if (!el) return;
+  const H = el.offsetHeight;
+  const topPx = H * 0.55;
+
+  el.innerHTML = `<div style="
+    position: absolute;
+    top: ${topPx}px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    pointer-events: none;
+  ">
+    <div class="tci-pot-label">POT</div>
+    <div class="tci-pot">${pot || '$0'}</div>
+    ${street ? `<div class="tci-street">${street}</div>` : ''}
+    ${blinds ? `<div class="tci-blinds">${blinds}</div>` : ''}
+  </div>`;
+}
+
+// ── Hero cards ───────────────────────────────────────────────────────────────
+function renderHeroCards(cards) {
+  const zone = document.getElementById('heroZone');
+  if (!zone) return;
+  if (!cards || !cards.length) {
+    zone.innerHTML = '';
+    return;
+  }
+  const cardsHtml = cards.map(c => renderCard(c, 'hero-card')).join('');
+  zone.innerHTML = `<div class="hero-zone">
+    <div class="hero-label">Your Hand</div>
+    <div class="hero-cards-row">${cardsHtml}</div>
+  </div>`;
+
+  // style hero cards slightly larger
+  zone.querySelectorAll('.pcard').forEach(c => {
+    c.style.width = '52px';
+    c.style.height = '74px';
+    c.style.borderRadius = '7px';
+  });
+  zone.querySelectorAll('.pcard-rank').forEach(r => r.style.fontSize = '22px');
+  zone.querySelectorAll('.pcard-suit').forEach(r => r.style.fontSize = '16px');
+  zone.querySelectorAll('.pcard-tl,.pcard-br').forEach(r => r.style.fontSize = '11px');
+}
+
+// ── Seat position color ─────────────────────────────────────────────────────
+const POS_BADGE_COLORS = {
+  BTN:'#1a3a80', CO:'#303050', HJ:'#303050', UTG:'#303050', MP:'#303050',
+  SB:'#1a4a28', BB:'#6a1818',
+};
+function posBadgeStyle(pos) {
+  const key = (pos||'').toUpperCase().split(/\s+/)[0];
+  return `background:${POS_BADGE_COLORS[key]||'#303050'};color:#fff;`;
+}
+
+// ── Quiz rendering ──────────────────────────────────────────────────────────
+function renderQuizPanel(q, state, poolLen, answered) {
+  const panel = document.getElementById('quizPanel');
+  if (!panel) return;
+
+  const mode = q._mode || '';
+  const posLabel = q.position || q.scenario || '';
+  const diff = q.difficulty || 'medium';
+
+  // Situation chips
+  let situationHtml = '';
+  if (q.stackBb) {
+    const pips = Math.min(Math.round(q.stackBb / 2), 10);
+    const pipHtml = Array.from({length: 10}, (_, i) =>
+      `<div class="stack-pip${i < pips ? (pips <= 3 ? ' filled danger' : ' filled') : ''}"></div>`
+    ).join('');
+    situationHtml += `<div class="sit-chip">
+      <span class="sit-chip-label">Stack</span>
+      <span class="sit-chip-val green">${q.stackBb}bb</span>
+      <div class="stack-meter">${pipHtml}</div>
+    </div>`;
+  }
+  if (q.potSize !== undefined) {
+    situationHtml += `<div class="sit-chip">
+      <span class="sit-chip-label">Pot</span>
+      <span class="sit-chip-val gold">$${q.potSize}</span>
+    </div>`;
+  }
+  if (q.betSize) {
+    situationHtml += `<div class="sit-chip">
+      <span class="sit-chip-label">Villain Bet</span>
+      <span class="sit-chip-val">$${q.betSize}</span>
+    </div>`;
+  }
+  if (q.action) {
+    situationHtml += `<div class="sit-chip">
+      <span class="sit-chip-label">Action</span>
+      <span class="sit-chip-val">${q.action}</span>
+    </div>`;
+  }
+
+  // Odds display
+  let oddsHtml = '';
+  if (mode === 'potodds' && q.type) {
+    const potAfterCall = (q.potSize || 0) + (q.betSize || 0);
+    const reqEq = potAfterCall > 0 ? Math.round((q.betSize / potAfterCall) * 100) : 0;
+    if (q.type === 'calculate') {
+      oddsHtml = `<div class="odds-display">
+        <div class="odds-cell"><div class="odds-cell-lbl">Call</div><div class="odds-cell-val">$${q.betSize}</div></div>
+        <div class="odds-eq">÷</div>
+        <div class="odds-cell"><div class="odds-cell-lbl">Pot after call</div><div class="odds-cell-val gold">$${potAfterCall}</div></div>
+        <div class="odds-eq">=</div>
+        <div class="odds-cell"><div class="odds-cell-lbl">Required Eq</div><div class="odds-cell-val" style="color:#c090f8">?</div></div>
+      </div>`;
+    } else if (q.type === 'decision' && q.outs) {
+      const eq = q.outs * 4;
+      const isGood = eq >= reqEq;
+      oddsHtml = `<div class="odds-display">
+        <div class="odds-cell"><div class="odds-cell-lbl">Need</div><div class="odds-cell-val">${reqEq}%</div></div>
+        <div class="odds-eq">vs</div>
+        <div class="odds-cell"><div class="odds-cell-lbl">Equity (${q.outs} outs)</div><div class="odds-cell-val ${isGood?'green':'red'}">~${eq}%</div></div>
+        <div class="odds-eq">=</div>
+        <div class="odds-cell"><div class="odds-eq-result ${isGood?'pos':'neg'}">${isGood?'+EV':'-EV'}</div></div>
+      </div>`;
+    } else if (q.type === 'outs') {
+      oddsHtml = `<div class="odds-display">
+        <div class="odds-cell"><div class="odds-cell-lbl">Rule of 4</div><div class="odds-cell-val" style="color:#a0b8c8">Outs × 4 = Eq% (2 streets)</div></div>
+        <div class="odds-sep"></div>
+        <div class="odds-cell"><div class="odds-cell-lbl">Rule of 2</div><div class="odds-cell-val" style="color:#a0b8c8">Outs × 2 = Eq% (1 street)</div></div>
+      </div>`;
+    }
+  }
+
+  // Prompt
+  const promptText = q.prompt
+    || (posLabel.includes('vs')
+      ? `BB defense vs <strong>${posLabel.replace(/^BB vs /i,'')}</strong> — what's your action?`
+      : `Action from <strong>${posLabel}</strong> — open, fold, or mix?`);
+
+  const subText = q.line || q.context || '';
+
+  const modeLabels = { pfr:'PFR', threebet:'3-Bet', blinddefense:'BB Defend',
+    cbet:'C-Bet', shovefold:'Shove/Fold', potodds:'Pot Odds', combo:'Combo' };
+
+  // Answer buttons
+  const answers = q.answers || [];
+  const btnClassMap = {
+    'qa-fold':'btn-fold', 'qa-open':'btn-raise', 'qa-call':'btn-call',
+    'qa-mix':'btn-check', 'qa-threebet':'btn-threebet',
+  };
+  const btnLabels = {
+    fold:'✕  Fold', open:'↑  Open RFI', call:'→  Call', mix:'↕  Mix',
+    threebet:'↑↑  3-Bet', jam:'⚡  All-In', check:'—  Check',
+    value:'↑  3-Bet Value', bluff:'↑  3-Bet Bluff',
+    small:'½ Pot C-Bet', large:'¾ Pot C-Bet',
+  };
+
+  const btnsHtml = answers.map(a => {
+    const cls = btnClassMap[a.cls] || 'btn-call';
+    const label = btnLabels[a.key] || a.label;
+    const disabledAttr = answered ? 'disabled' : '';
+    return `<button class="action-btn ${cls}" data-key="${a.key}" ${disabledAttr}>${label}</button>`;
+  }).join('');
+
+  panel.innerHTML = `
+    <div class="quiz-prompt-box">
+      <div class="quiz-prompt-header">
+        ${posLabel ? `<div class="quiz-pos-badge" style="${posBadgeStyle(posLabel)}">${posLabel.split(/\s+/)[0]}</div>` : ''}
+        <div class="quiz-mode-tag">${modeLabels[mode] || mode.toUpperCase()}</div>
+        <div class="quiz-diff-tag diff-${diff}">${diff}</div>
+      </div>
+      <div class="quiz-prompt-text">${promptText}</div>
+      ${subText ? `<div class="quiz-prompt-sub">${subText}</div>` : ''}
+    </div>
+    ${situationHtml ? `<div class="quiz-situation">${situationHtml}</div>` : ''}
+    ${oddsHtml}
+    <div class="action-buttons" id="actionButtons">${btnsHtml}</div>
+    <div id="quizFeedback" style="display:none;" class="quiz-feedback"></div>
+    <div id="quizNextWrap" style="display:none;">
+      <button class="btn-next-spot" id="quizNext">Next Spot  →</button>
+    </div>
+  `;
+}
+
+function updateScoreHud(state, poolLen) {
+  const acc = state.total ? Math.round((state.score / state.total) * 100) : null;
+  const accStr = acc !== null ? acc + '%' : '–';
+  const accCls = acc === null ? '' : acc >= 70 ? 'green' : acc >= 50 ? 'yellow' : 'red';
+  const flame = state.streak >= 5 ? ' 🔥🔥' : state.streak >= 3 ? ' 🔥' : '';
+  document.getElementById('hudScore').textContent = `${state.score}/${state.total}`;
+  document.getElementById('hudAcc').textContent = accStr;
+  document.getElementById('hudAcc').className = `hud-val ${accCls}`;
+  document.getElementById('hudStreak').textContent = state.streak + flame;
+  document.getElementById('hudPool').textContent = poolLen + ' spots';
+  document.getElementById('hudBar').style.width = acc !== null ? acc + '%' : '0%';
+}
+
+// ── Render full question to the table ───────────────────────────────────────
+function renderQuestion(q, state, poolLen) {
+  const mode = q._mode || '';
+  const posLabel = q.position || q.scenario || '';
+
+  // Determine hero position
+  const heroPos = posLabel.includes('vs')
+    ? posLabel.replace(/^BB vs .*/i, 'BB')
+    : posLabel.split(/\s+/)[0];
+
+  // Seats
+  renderSeats(heroPos);
+
+  // Hero cards
+  let heroCards;
+  if (q.heroHand && q.heroHand.length >= 4) {
+    heroCards = handToCardsFromStr(q.heroHand);
+  } else if (q.hand) {
+    heroCards = handToCards(q.hand);
+  }
+  renderHeroCards(heroCards);
+
+  // Community cards
+  const board = q.board || [];
+  let street = 'preflop';
+  if (board.length >= 5) street = 'river';
+  else if (board.length === 4) street = 'turn';
+  else if (board.length === 3) street = 'flop';
+  renderCommunityCards(board, street);
+
+  // Center info
+  let pot = '';
+  if (q.potSize !== undefined) pot = `$${q.potSize}`;
+  else if (mode === 'pfr') pot = '$15';
+  else pot = '$60';
+  renderCenterInfo(pot, street === 'preflop' ? 'Pre-Flop' : street.charAt(0).toUpperCase() + street.slice(1), '1/2 NL');
+
+  // Quiz panel
+  renderQuizPanel(q, state, poolLen, false);
+  updateScoreHud(state, poolLen);
+}
+
+// ── Attach answer handlers ───────────────────────────────────────────────────
+function attachAnswerHandlers(q, state, poolLen, onNext) {
+  const btns = document.querySelectorAll('#actionButtons .action-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (state.answered) return;
+      state.answered = true;
+      state.total++;
+      const chosen = btn.dataset.key;
+      const correct = q.correctKey;
+      const isRight = chosen === correct;
+
+      if (isRight) {
+        state.score++;
+        state.streak++;
+        state.bestStreak = Math.max(state.bestStreak, state.streak);
+      } else {
+        state.streak = 0;
+      }
+
+      // Reveal buttons
+      btns.forEach(b => {
+        b.disabled = true;
+        if (b.dataset.key === correct) b.classList.add('reveal-correct');
+        if (b === btn && !isRight) b.classList.add('reveal-wrong');
+      });
+
+      // Feedback
+      const CORRECT_MSG = ['Correct!', 'Nailed it.', "That's right.", 'Good read.', 'Exactly.', 'Locked in.'];
+      const WRONG_MSG   = ['Not quite.', 'Missed that one.', 'Study this one.', 'Close, but no.', 'Wrong read.'];
+      const msgs = isRight ? CORRECT_MSG : WRONG_MSG;
+      const verdict = msgs[Math.floor(Math.random() * msgs.length)];
+
+      const fb = document.getElementById('quizFeedback');
+      fb.className = `quiz-feedback ${isRight ? 'correct' : 'wrong'}`;
+      fb.innerHTML = `<span class="feedback-verdict">${isRight ? '✓' : '✗'} ${verdict}</span>${q.explanation || ''}`;
+      fb.style.display = '';
+
+      document.getElementById('quizNextWrap').style.display = '';
+      document.getElementById('quizNext').addEventListener('click', onNext, { once: true });
+
+      updateScoreHud(state, poolLen);
+    });
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Copied helper functions from trainer.js (range building, etc.)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const RANKS = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
+function cellLabel(row, col) {
+  if (row === col) return `${RANKS[row]}${RANKS[col]}`;
+  if (row < col) return `${RANKS[row]}${RANKS[col]}s`;
+  return `${RANKS[col]}${RANKS[row]}o`;
+}
+
+function buildRangeQuestionPools(pfrRanges, threeBetRanges) {
+  const pfr = [], threebet = [], blinddefense = [];
+  const allActions = ['open', 'value', 'bluff', 'call', 'mix', 'fold'];
+
+  (pfrRanges.positions || []).forEach(pos => {
+    const map = {};
+    Object.entries(pos.actions).forEach(([act, hands]) => hands.forEach(h => { map[h] = act; }));
+    for (let r = 0; r < 13; r++) for (let c = 0; c < 13; c++) {
+      const hand = cellLabel(r, c);
+      const correct = map[hand] || 'fold';
+      pfr.push({ hand, position: pos.label, correct,
+        explanation: correct === 'open' ? `${hand} is a standard open from ${pos.label}.`
+          : correct === 'mix' ? `${hand} is mixed from ${pos.label}.`
+          : `${hand} folds from ${pos.label}.`,
+        difficulty: ['AA','KK','QQ','JJ','AKs','AKo'].includes(hand) ? 'easy' : (r+c) < 8 ? 'medium' : 'hard'
+      });
+    }
+  });
+
+  (threeBetRanges.scenarios || []).forEach(scen => {
+    const map = {};
+    Object.entries(scen.actions).forEach(([act, hands]) => hands.forEach(h => { map[h] = act; }));
+    for (let r = 0; r < 13; r++) for (let c = 0; c < 13; c++) {
+      const hand = cellLabel(r, c);
+      const correct = map[hand] || 'fold';
+      threebet.push({ hand, scenario: scen.label, correct,
+        explanation: correct === 'value' ? `${hand} is value in ${scen.label}.`
+          : correct === 'bluff' ? `${hand} is a 3-bet bluff in ${scen.label}.`
+          : correct === 'call' ? `${hand} calls in ${scen.label}.`
+          : `${hand} folds in ${scen.label}.`,
+        difficulty: (r+c) < 4 ? 'easy' : (r+c) < 10 ? 'medium' : 'hard'
+      });
+    }
+  });
+
+  const bbDefSamples = [
+    { hand:'T8s', vs:'BTN', correct:'call', exp:'T8s vs BTN is a comfortable call.' },
+    { hand:'K5s', vs:'BTN', correct:'call', exp:'K5s vs BTN: suited king, call.' },
+    { hand:'Q2o', vs:'BTN', correct:'fold', exp:'Q2o vs BTN: too loose, fold.' },
+    { hand:'A5s', vs:'UTG', correct:'threebet', exp:'A5s vs UTG: classic 3-bet bluff with nut blocker.' },
+    { hand:'77',  vs:'CO',  correct:'call', exp:'77 vs CO: set mine + playable postflop.' },
+    { hand:'J4o', vs:'BTN', correct:'fold', exp:'J4o vs BTN: fold, not wide enough.' },
+    { hand:'98s', vs:'CO',  correct:'call', exp:'98s vs CO: suited connector, call.' },
+    { hand:'K3o', vs:'BTN', correct:'fold', exp:'K3o vs BTN: fold, offsuit weak kings.' },
+    { hand:'A2s', vs:'UTG', correct:'threebet', exp:'A2s vs UTG: 3-bet bluff with nut blocker.' },
+    { hand:'QJo', vs:'BTN', correct:'call', exp:'QJo vs BTN: strong broadway, call.' },
+    { hand:'T6s', vs:'SB',  correct:'call', exp:'T6s vs SB: wide range spot, call.' },
+    { hand:'22',  vs:'UTG', correct:'call', exp:'22 vs UTG: set mine, call.' },
+    { hand:'Q8o', vs:'CO',  correct:'fold', exp:'Q8o vs CO: fold, too weak.' },
+    { hand:'A9o', vs:'CO',  correct:'call', exp:'A9o vs CO: call.' },
+    { hand:'KQs', vs:'UTG', correct:'threebet', exp:'KQs vs UTG: strong value 3-bet.' },
+  ];
+  bbDefSamples.forEach(s => {
+    blinddefense.push({
+      hand: s.hand,
+      position: `BB vs ${s.vs}`,
+      correct: s.correct,
+      explanation: s.exp,
+      difficulty: 'medium',
+    });
+  });
+
+  return { pfr, threebet, blinddefense };
+}
+
+function buildStructuredPools(trainerPack) {
+  return {
+    cbet: (trainerPack.cbet || []).map(q => ({
+      ...q,
+      answers: q.options.map(o => ({
+        key: o.key, label: o.label,
+        cls: o.key === 'small' ? 'qa-call' : o.key === 'check' ? 'qa-fold' : 'qa-open'
+      })),
+      correctKey: q.correct,
+    })),
+    shovefold: (trainerPack.shoveFold || []).map(q => ({
+      ...q,
+      answers: q.options.map(o => ({
+        key: o.key, label: o.label,
+        cls: o.key === 'jam' || o.key === 'call' ? 'qa-open' : 'qa-fold'
+      })),
+      correctKey: q.correct,
+    })),
+    potodds: (trainerPack.potOdds || []).map(q => ({
+      ...q,
+      answers: q.options.map(o => ({
+        key: o.key, label: o.label,
+        cls: ['raise','call','33','36','20','25'].includes(o.key) ? 'qa-open' : o.key === 'fold' ? 'qa-fold' : 'qa-call'
+      })),
+      correctKey: q.correct,
+    })),
+    combo: (trainerPack.comboDrills || []).map(q => ({
+      ...q,
+      answers: q.options.map(o => ({ key: o.key, label: o.label, cls: 'qa-call' })),
+      correctKey: q.correct,
+    })),
+  };
+}
+
+function filterPoolByLevel(pool, level) {
+  if (level === 'all') return pool;
+  return pool.filter(q => (q.difficulty || 'medium') === level);
+}
+
+function sampleQuestion(pool) {
+  if (!pool.length) return null;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function buildRangeAnswers(mode) {
+  const base = {
+    pfr: [
+      { key:'open', label:'Open RFI',  cls:'qa-open' },
+      { key:'mix',  label:'Mix / Limp', cls:'qa-mix'  },
+      { key:'fold', label:'Fold',        cls:'qa-fold' },
+    ],
+    threebet: [
+      { key:'value', label:'3-Bet Value', cls:'qa-open' },
+      { key:'bluff', label:'3-Bet Bluff', cls:'qa-mix'  },
+      { key:'call',  label:'Call',         cls:'qa-call' },
+      { key:'fold',  label:'Fold',         cls:'qa-fold' },
+    ],
+    blinddefense: [
+      { key:'call',     label:'Call (Defend)', cls:'qa-call' },
+      { key:'threebet', label:'3-Bet',         cls:'qa-open' },
+      { key:'fold',     label:'Fold',          cls:'qa-fold' },
+    ],
+  };
+  return base[mode] || base.pfr;
+}
+
+function buildFullQuestion(rawQ, mode) {
+  if (mode === 'pfr' || mode === 'threebet' || mode === 'blinddefense') {
+    return { ...rawQ, answers: buildRangeAnswers(mode), correctKey: rawQ.correct, _mode: mode };
+  }
+  return { ...rawQ, _mode: mode };
+}
+
+// ── MAIN INIT ────────────────────────────────────────────────────────────────
+async function initTrainer() {
+  // inject nav if shared.js provides it
+  if (typeof injectNav === 'function') injectNav();
+
+  const [pfrRanges, threeBetRanges, trainerPack] = await Promise.all([
+    loadJson('data/pfr-ranges.json'),
+    loadJson('data/3bet-ranges.json'),
+    loadJson('data/trainer-pack.json'),
+  ]);
+
+  const rangePools = buildRangeQuestionPools(pfrRanges, threeBetRanges);
+  const structuredPools = buildStructuredPools(trainerPack);
+
+  const allPools = {
+    pfr:          rangePools.pfr.map(q => buildFullQuestion(q, 'pfr')),
+    threebet:     rangePools.threebet.map(q => buildFullQuestion(q, 'threebet')),
+    blinddefense: rangePools.blinddefense.map(q => buildFullQuestion(q, 'blinddefense')),
+    cbet:         structuredPools.cbet.map(q => buildFullQuestion(q, 'cbet')),
+    shovefold:    structuredPools.shovefold.map(q => buildFullQuestion(q, 'shovefold')),
+    potodds:      structuredPools.potodds.map(q => buildFullQuestion(q, 'potodds')),
+    combo:        structuredPools.combo.map(q => buildFullQuestion(q, 'combo')),
+  };
+
+  const state = { mode:'pfr', level:'all', score:0, total:0, streak:0, bestStreak:0, answered:false };
+
+  function activePool() {
+    return filterPoolByLevel(allPools[state.mode] || [], state.level);
+  }
+
+  function nextQuestion() {
+    state.answered = false;
+    const pool = activePool();
+    const q = sampleQuestion(pool);
+    if (!q) {
+      document.getElementById('quizPanel').innerHTML =
+        `<div style="color:#5a7a9a;text-align:center;padding:20px;">No questions in this level yet.</div>`;
+      return;
+    }
+    renderQuestion(q, state, pool.length);
+    attachAnswerHandlers(q, state, pool.length, nextQuestion);
+  }
+
+  // Mode tabs
+  document.querySelectorAll('#modeTabs .ctrl-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.mode = btn.dataset.mode;
+      state.answered = false;
+      document.querySelectorAll('#modeTabs .ctrl-tab').forEach(b => b.classList.toggle('active', b === btn));
+      const oddsRef = document.getElementById('oddsRefSection');
+      if (oddsRef) oddsRef.style.display = state.mode === 'potodds' ? '' : 'none';
+      nextQuestion();
+    });
+  });
+
+  // Level tabs
+  document.querySelectorAll('#levelTabs .ctrl-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.level = btn.dataset.level;
+      state.answered = false;
+      document.querySelectorAll('#levelTabs .ctrl-tab').forEach(b => b.classList.toggle('active', b === btn));
+      nextQuestion();
+    });
+  });
+
+  nextQuestion();
+}
+
+initTrainer();
+</script>
 </body>
 </html>

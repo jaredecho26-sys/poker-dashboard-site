@@ -52,10 +52,46 @@
     "biggestLoss": -200.0,
     "notes": "Lost one full buy-in overall; biggest swing was KK into AA all-in preflop. Main strategic leak pattern was medium-pot bleed from loose blind defense and overly optimistic postflop stabs.",
     "studyFocus": "Tighten blind defense, eliminate low-plan flop floats, and reduce hopeful turn stabs.",
-    "manualResult": -199.13,
-    "buyIns": 400.0,
-    "cashOut": 200.87,
-    "resultSource": "manual"
+    "manualResult": 0.0,
+    "buyIns": 200.0,
+    "cashOut": 200.0,
+    "resultSource": "manual",
+    "turnBarrelPct": 20.0,
+    "turnBarrelOpps": 5,
+    "cbetMissedTotal": 5,
+    "cbetSuccessPct": 16.7,
+    "cbetTextureStats": {
+      "dry": {
+        "opps": 4,
+        "taken": 1,
+        "missed": 0,
+        "successPct": 100.0
+      },
+      "wet": {
+        "opps": 0,
+        "taken": 0,
+        "missed": 0,
+        "successPct": 0.0
+      },
+      "highcard": {
+        "opps": 3,
+        "taken": 3,
+        "missed": 3,
+        "successPct": 0.0
+      },
+      "lowcard": {
+        "opps": 0,
+        "taken": 0,
+        "missed": 0,
+        "successPct": 0.0
+      },
+      "paired": {
+        "opps": 3,
+        "taken": 2,
+        "missed": 2,
+        "successPct": 0.0
+      }
+    }
   },
   {
     "id": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
@@ -107,6 +143,46 @@
     "biggestWin": 65.24,
     "biggestLoss": -120.14,
     "notes": "",
-    "studyFocus": ""
+    "studyFocus": "",
+    "turnBarrelPct": 25.0,
+    "turnBarrelOpps": 4,
+    "cbetMissedTotal": 4,
+    "cbetSuccessPct": 0.0,
+    "cbetTextureStats": {
+      "dry": {
+        "opps": 4,
+        "taken": 3,
+        "missed": 3,
+        "successPct": 0.0
+      },
+      "wet": {
+        "opps": 0,
+        "taken": 0,
+        "missed": 0,
+        "successPct": 0.0
+      },
+      "highcard": {
+        "opps": 1,
+        "taken": 1,
+        "missed": 1,
+        "successPct": 0.0
+      },
+      "lowcard": {
+        "opps": 0,
+        "taken": 0,
+        "missed": 0,
+        "successPct": 0.0
+      },
+      "paired": {
+        "opps": 1,
+        "taken": 0,
+        "missed": 0,
+        "successPct": 0.0
+      }
+    },
+    "manualResult": -30.04,
+    "buyIns": 200.0,
+    "cashOut": 169.96,
+    "resultSource": "manual"
   }
 ]

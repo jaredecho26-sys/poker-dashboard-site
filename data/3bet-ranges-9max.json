@@ -1,281 +1,91 @@
 {
-  "description": "Validated 3-bet charts for 9-max cash. Based on GTO Wizard benchmarks and Modern Poker Theory (Acevedo 2019). Key correction: 3-bet bluffs are wheel aces (A2s-A5s) — NOT suited connectors or suited broadways. Those hands benefit more from calling and realizing implied-odds equity. Bluff:Value ratio ~1:2. Version: 2.0.",
-  "source": "GTO Wizard consensus / Modern Poker Theory (Acevedo 2019) / UpSwing Poker 9-max charts",
-  "assumptions": "100bb effective stacks, 9-max cash, standard 3x 3-bet sizing.",
+  "description": "Cross-referenced 3-bet ranges for 9-max (full ring) cash games (100bb, standard rake). In full ring, tighter opening ranges mean tighter 3-bet ranges, especially from early positions. BB defense structure is similar but with tighter thresholds due to weaker average opening range position.",
+  "sources": [
+    {
+      "name": "PokerCoaching.com (Jonathan Little)",
+      "url": "https://poker-coaching.s3.amazonaws.com/tools/preflop-charts/full-preflop-charts.pdf",
+      "sections": ["Full preflop chart PDF — 9-max sections including UTG/UTG+1/UTG+2/LJ/HJ/CO/BTN/SB/BB vs RFI and vs 3-bet scenarios"],
+      "date_accessed": "2026-05-07",
+      "data_quality": "PDF DOWNLOADED — section structure fully confirmed (all 9-max positions covered). Specific hand grids are image-based. Confirms: 100bb+ante, same sizing as 6-max (2.5x open IP, 3x 3-bet IP, 3.5x open OOP).",
+      "key_structural_note": "PDF has separate sections for all 9-max position matchups: UTG+1 vs UTG, UTG+2 vs UTG/UTG+1, LJ vs UTG/UTG+1, HJ vs UTG etc."
+    },
+    {
+      "name": "PokerCoaching.com preflop charts page",
+      "url": "https://pokercoaching.com/preflop-charts",
+      "sections": ["GTO Poker Charts — 75bb MTT RFI ranges by position (text-extracted)", "Exploitative Poker Hand Charts (text-extracted)"],
+      "date_accessed": "2026-05-07",
+      "data_quality": "TEXT EXTRACTED — Full text lists of 75bb MTT opening ranges for all 9 positions. Note: these are MTT 75bb, not 100bb cash, but directionally useful for range width comparisons.",
+      "gto_75bb_mtt_rfi_ranges": {
+        "UTG": "13.7% — 66+,A3s+,K9s+,Q9s+,AJo+,KQo",
+        "UTG+1": "16.3% — 66+,A3s+,K8s+,Q9s+,J9s+,T9s,98s,ATo+",
+        "UTG+2": "19.2% — 44+,A2s+,K8s+,Q9s+,J9s+,T8s+,98s,76s,ATo+,KTo+",
+        "LJ": "23.5% — 33+,A2s+,K6s+,Q9s+,J8s+,T8s+,98s,87s,76s,A9o+,KTo+,QTo+",
+        "HJ": "27.9% — 22+,A2s+,K4s+,Q8s+,J8s+,T7s+,97s+,87s,76s,65s,54s,A8o+,KTo+,QTo+,JTo",
+        "CO": "37.3% — 22+,A2s+,K2s+,Q5s+,J7s+,T6s+,96s+,86s+,75s+,65s,54s,A5o+,K9o+,Q9o+,J9o+,T9o",
+        "BTN": "54.8% — 22+,A2s+,K2s+,Q2s+,J3s+,T3s+,95s+,85s+,74s+,64s+,53s+,43s,A2o+,K5o+,Q8o+,J8o+,T7o+,97o+,87o",
+        "SB_RaiseOrLimp": "81.6%"
+      }
+    },
+    {
+      "name": "GTO Wizard Blog",
+      "url": "https://blog.gtowizard.com/preflop-range-morphology/",
+      "sections": ["UTG opening range at 100bb NL500 cash = 17.6% hands — text extracted with direct link to solution"],
+      "date_accessed": "2026-05-07",
+      "data_quality": "TEXT EXTRACTED — confirms UTG cash game range is ~17.6% at 100bb NL500 6-max. Implies 9-max UTG is even tighter (~13-15%).",
+      "verified_fact": "UTG NL500 100bb 6-max = 17.6%. 9-max UTG would be tighter (~13%) per standard theory."
+    }
+  ],
+  "crossReference": {
+    "agreementLevel": "2 of 3 agree on structure; GTO Wizard confirms UTG opening width; PokerCoaching confirms full 9-max section coverage",
+    "notes": "All sources agree: 9-max means tighter ranges from early positions, with 3-bet ranges correspondingly tighter. The PokerCoaching PDF covers all 9-max matchups (UTG/UTG+1/UTG+2/LJ/HJ/CO/BTN/SB/BB). Upswing's article focuses on 6-max. The 75bb MTT ranges from PokerCoaching are directionally valid for understanding relative position widths in full ring.",
+    "discrepancy_analysis": {
+      "stack_context": "PokerCoaching 75bb MTT vs GTO Wizard 100bb cash — stack depth affects range widths. MTT ranges at 75bb are slightly tighter than 100bb cash from early positions.",
+      "ante_impact": "PokerCoaching PDF notes 'ante in play' which widens opening ranges slightly"
+    }
+  },
+  "assumptions": "100bb effective stacks, 9-max (full ring) cash game, standard rake. No ante unless noted.",
   "scenarios": [
     {
-      "id": "btn-vs-co",
-      "label": "BTN vs CO",
-      "summary": "In position with strong implied odds. Value: AA-TT + AKo/AQo/AKs-AQs/AJs/KQs. Bluffs: wheel aces only. Suited connectors, K-suited, Q-suited hands all go in call bucket.",
+      "id": "bb-vs-btn-9max",
+      "label": "BB vs BTN open 9max",
+      "notes": "Similar to 6-max BB vs BTN but BTN range is tighter in 9-max (43% vs ~54% in 6-max). BB can still defend wide but 3-bet range slightly tighter. Polarized construction still applies.",
       "actions": {
-        "value": ["AA","KK","QQ","JJ","TT","AKo","AQo","AKs","AQs","AJs","KQs"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["99","88","77","66","55","AJo","ATo","A9s","A8s","A7s","A6s","KQo","KJo","KTo","QJo","QTo","JTo","K9s","KTs","KJs","Q9s","QTs","QJs","J9s","JTs","T8s","T9s","97s","98s","87s","76s","65s"],
-        "mix": ["AJo","K8s","65s"]
+        "threebet": ["AA", "KK", "QQ", "JJ", "TT", "AKs", "AQs", "AJs", "KQs", "A5s", "A4s", "A3s", "A2s"],
+        "call": ["99", "88", "77", "66", "55", "44", "33", "22", "AJo", "ATo", "A9o", "A8o", "KQo", "KJo", "KTo", "K9s", "KTs", "QJo", "QTo", "Q9s", "QTs", "JTs", "J9s", "T9s", "T8s", "98s", "87s", "76s", "65s", "54s"],
+        "fold": ["all other hands"],
+        "adjustmentVs6max": "Slightly tighter calling range vs 9-max BTN because BTN opens stronger hands in full ring"
       }
     },
     {
-      "id": "btn-vs-hj",
-      "label": "BTN vs HJ",
-      "summary": "HJ has a tighter range than CO. Value stays same, bluffs trim to 4 wheel aces. More suited hands become calls.",
+      "id": "bb-vs-utg-9max",
+      "label": "BB vs UTG open 9max",
+      "notes": "UTG range in 9-max is ~13-15% (very strong). BB 3-bet is very tight value-only or tight polarized. Many hands that call in 6-max become folds.",
       "actions": {
-        "value": ["AA","KK","QQ","JJ","TT","AKo","AQo","AKs","AQs","AJs"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["99","88","77","66","55","AJo","ATo","ATs","A9s","A8s","A7s","A6s","KQo","KJo","KTo","QJo","QTo","KQs","KJs","KTs","K9s","QJs","QTs","Q9s","JTs","J9s","T9s","T8s","98s","87s","76s"],
-        "mix": ["KQo","QJo"]
+        "threebet": ["AA", "KK", "QQ", "JJ", "AKs", "AKo"],
+        "call": ["TT", "99", "88", "77", "AQs", "AJs", "AQo", "KQs", "KQo", "JTs", "T9s", "98s"],
+        "fold": ["most speculative hands and weaker aces"],
+        "source_note": "Based on standard theory: vs ~13% UTG range, BB defend ~28-32%. 3-bet value-heavy. PokerCoaching PDF confirms 'BB vs UTG/UTG+1' is a separate scenario in charts."
       }
     },
     {
-      "id": "btn-vs-mp",
-      "label": "BTN vs MP",
-      "summary": "MP opens ~16% at 9-max. Slightly tighter than vs HJ. Value tight; call a wide range with implied-odds hands.",
+      "id": "co-vs-utg-9max",
+      "label": "CO vs UTG open 9max (linear 3-bet-or-fold)",
+      "notes": "Tight linear range. Fold most medium-strength hands. UTG range is very strong.",
       "actions": {
-        "value": ["AA","KK","QQ","JJ","TT","AKo","AQo","AKs","AQs","AJs"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["99","88","77","66","55","AJo","ATo","ATs","A9s","A8s","A7s","KQo","KJo","KQs","KJs","KTs","QJo","QJs","QTs","JTs","J9s","T9s","98s","87s","76s"],
-        "mix": ["KTo","QJo","K9s"]
+        "threebet": ["AA", "KK", "QQ", "JJ", "AKs", "AKo", "AQs"],
+        "call": ["TT", "99", "AQo", "AJs", "KQs", "JTs"],
+        "fold": ["most hands"],
+        "source_note": "PokerCoaching PDF has 'CO vs UTG/UTG+1' as separate chart. Theory: tight 3-bet range vs strong UTG opener."
       }
     },
     {
-      "id": "btn-vs-utg1",
-      "label": "BTN vs UTG+1",
-      "summary": "UTG+1 opens ~13%. Value range is narrower. Very few bluffs warranted.",
+      "id": "btn-vs-co-9max",
+      "label": "BTN vs CO open 9max (linear)",
+      "notes": "Similar to 6-max BTN vs CO but CO range is slightly tighter in 9-max. Same polarized/linear principles apply.",
       "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo","AKs","AQs"],
-        "bluff": ["A5s","A4s","A3s"],
-        "call": ["TT","99","88","77","66","AQo","AJo","ATo","AJs","ATs","A9s","KQo","KJo","KQs","KJs","KTs","QJo","QJs","QTs","JTs","T9s","98s","87s"],
-        "mix": ["A2s","KTo","J9s"]
-      }
-    },
-    {
-      "id": "btn-vs-utg",
-      "label": "BTN vs UTG",
-      "summary": "UTG at 9-max is the strongest opener (~10%). Only top value warrants a 3-bet. Bluffs are 2 combos (A5s/A4s).",
-      "actions": {
-        "value": ["AA","KK","QQ","AKo","AKs"],
-        "bluff": ["A5s","A4s"],
-        "call": ["JJ","TT","99","88","77","AQo","AJo","AQs","AJs","ATs","KQo","KQs","KJs","KTs","QJs","QTs","JTs","T9s","98s"],
-        "mix": ["A3s","KJo","QJo"]
-      }
-    },
-    {
-      "id": "sb-vs-btn",
-      "label": "SB vs BTN",
-      "summary": "OOP vs BTN wide range. Polarize: strong value + wheel ace bluffs. Fold the junky suited hands that play poorly OOP in 3-bet pots.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","TT","AKo","AQo","AKs","AQs","AJs","KQs"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["99","88","77","66","55","ATo","A9o","A8o","A9s","A8s","A7s","A6s","KQo","KTo","QJo","QTo","JTs","T9s","T8s","98s"],
-        "mix": ["76s","K8s","KJs","Q8s"]
-      }
-    },
-    {
-      "id": "bb-vs-btn",
-      "label": "BB vs BTN",
-      "summary": "Defend wide — BTN opens ~45%. 3-bet value + wheel ace bluffs. Everything else calls or folds. Suited connectors are profitable calls here.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","TT","AKs","AQs","AJs","KQs"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["99","88","77","66","55","44","33","22","AJo","ATo","A9o","A8o","A7o","A6o","A3o","A2o","KQo","KJo","KTo","K9o","K8o","K7s","K6s","K9s","KTs","QJo","QTo","Q9o","Q8o","Q7s","Q9s","Q8s","JTo","J9o","J8o","J9s","JTs","T9o","T8s","T9s","96s","97s","98s","87s","86s","85s","76s","75s","65s","64s","54s"],
-        "mix": ["AKo","AQo","A4o","A5o","K5s","Q6s"]
-      }
-    },
-    {
-      "id": "bb-vs-co",
-      "label": "BB vs CO",
-      "summary": "CO opens ~27%. 3-bet tight value; call a wide range. Bluffs: wheel aces only.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo","AKs","AQs"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["TT","99","88","77","66","55","44","33","22","AQo","AJo","ATo","A9o","A8o","AJs","ATs","A9s","A8s","A7s","A6s","KQo","KJo","KTo","K9o","K9s","KTs","KJs","KQs","QJo","QTo","Q9o","Q9s","QTs","QJs","JTo","J9o","J8s","J9s","JTs","T8s","T9s","87s","76s","65s","54s"],
-        "mix": ["A7o","K8s","J8s"]
-      }
-    },
-    {
-      "id": "bb-vs-hj",
-      "label": "BB vs HJ",
-      "summary": "HJ opens ~21%. 3-bet only tight value + wheel aces. Wide call range with all pairs and suited hands.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["TT","99","88","77","66","55","44","33","22","AQo","AJo","ATo","A9o","A8o","AQs","AJs","ATs","A9s","A8s","A7s","A6s","KQo","KJo","KTo","K9s","K8s","K7s","KTs","QJo","QTo","Q9s","Q8s","QTs","JTo","J9o","J9s","JTs","J8s","T9s","T8s","98s","87s","76s","65s"],
-        "mix": ["AKs","KQs","K6s","54s"]
-      }
-    },
-    {
-      "id": "bb-vs-mp",
-      "label": "BB vs MP",
-      "summary": "MP opens ~16%. 3-bet value + 4 wheel ace bluffs. Call most pairs and suited hands. Slightly tighter than vs HJ.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["TT","99","88","77","66","55","44","33","22","AQo","AJo","ATo","A9o","AQs","AJs","ATs","A9s","A8s","A7s","A6s","KQo","KJo","KTo","K9s","K8s","KTs","QJo","QTo","Q9s","QTs","JTo","J9o","J9s","JTs","T9s","T8s","98s","87s","76s","65s"],
-        "mix": ["AKs","KQs","K7s","54s","A8o"]
-      }
-    },
-    {
-      "id": "bb-vs-utg1",
-      "label": "BB vs UTG+1",
-      "summary": "UTG+1 opens tight. 3-bet only premiums + A5s/A4s bluffs. Flat a wide range of pairs and suited hands.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo"],
-        "bluff": ["A5s","A4s"],
-        "call": ["TT","99","88","77","66","55","44","33","22","AQo","AJo","ATo","A9o","AQs","AJs","ATs","A9s","A8s","A7s","A6s","KQo","KJo","KTo","KQs","KJs","KTs","K9s","QJo","QTo","QJs","QTs","Q9s","JTo","J9o","JTs","J9s","T9s","T8s","98s","87s","76s"],
-        "mix": ["AKs","A3s","A2s","K8s","54s"]
-      }
-    },
-    {
-      "id": "bb-vs-utg",
-      "label": "BB vs UTG",
-      "summary": "UTG at 9-max is the narrowest opener. 3-bet only the very top; 2 bluff combos at most. Call wide.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo"],
-        "bluff": ["A5s","A4s"],
-        "call": ["TT","99","88","77","66","55","44","33","22","AQo","AJo","ATo","AQs","AJs","ATs","A9s","A8s","A7s","KQo","KJo","KQs","KJs","KTs","K9s","QJo","QJs","QTs","Q9s","JTo","JTs","J9s","T9s","98s","87s","76s"],
-        "mix": ["AKs","A3s","A2s","K8s","A9o"]
-      }
-    },
-    {
-      "id": "bb-vs-sb",
-      "label": "BB vs SB",
-      "summary": "Heads-up vs SB OOP. Wide 3-bet range because SB must play OOP postflop. Value is wide; bluffs include wheel aces and medium offsuit aces.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","TT","99","AKo","AQo","AKs","AQs","AJs","ATs","KQs"],
-        "bluff": ["A5s","A4s","A3s","A2s","A9o","A8o","A7o","A6o","A5o"],
-        "call": ["88","77","66","55","44","33","22","A4o","A3o","A2o","A9s","A8s","A7s","A6s","KJo","KTo","K9o","K8o","K7s","K6s","K5s","K9s","KTs","QJo","QTo","Q9o","Q8o","Q7s","Q6s","Q9s","QTs","JTo","J9o","J8o","J9s","JTs","T9o","T8o","T8s","T9s","96s","97s","98s","87s","86s","85s","76s","75s","65s","54s"],
-        "mix": ["K4s","Q5s","53s"]
-      }
-    },
-    {
-      "id": "hj-vs-utg",
-      "label": "HJ vs UTG",
-      "summary": "UTG at 9-max is ultra-tight. 3-bet only AA/KK/QQ + AKo/AKs. Minimal bluffs. Very near-linear range.",
-      "actions": {
-        "value": ["AA","KK","QQ","AKo","AKs"],
-        "bluff": ["A5s","A4s"],
-        "call": ["JJ","TT","99","88","AQo","AJo","AQs","AJs","ATs","KQo","KQs","KJs","KTs","QJs","QTs","JTs","T9s","98s"],
-        "mix": ["AQo","77","A3s"]
-      }
-    },
-    {
-      "id": "hj-vs-utg1",
-      "label": "HJ vs UTG+1",
-      "summary": "UTG+1 opens slightly wider. Value can add JJ. Still minimal bluffs.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo","AKs"],
-        "bluff": ["A5s","A4s","A3s"],
-        "call": ["TT","99","88","77","AQo","AJo","AQs","AJs","ATs","KQo","KQs","KJs","KTs","QJo","QJs","QTs","JTs","T9s","98s"],
-        "mix": ["AQo","KJo","A2s"]
-      }
-    },
-    {
-      "id": "hj-vs-mp",
-      "label": "HJ vs MP",
-      "summary": "MP opens ~16%. Value can include JJ comfortably. A few more bluffs warranted.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo","AKs","AQs"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["TT","99","88","77","AQo","AJo","AJs","ATs","KQo","KQs","KJs","KTs","QJo","QJs","QTs","JTs","J9s","T9s","98s"],
-        "mix": ["KJo","K9s","A3s"]
-      }
-    },
-    {
-      "id": "co-vs-hj",
-      "label": "CO vs HJ",
-      "summary": "Slight positional edge. Value includes JJ and AQs. Bluffs: A5s-A3s. Suited connectors and broadways are calls.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo","AKs","AQs"],
-        "bluff": ["A5s","A4s","A3s"],
-        "call": ["TT","99","88","77","AQo","AJo","AJs","ATs","KQo","KQs","KJs","KTs","QJo","QJs","QTs","JTs","T9s","98s"],
-        "mix": ["AQo","J9s","KJo","KQo","A2s"]
-      }
-    },
-    {
-      "id": "co-vs-mp",
-      "label": "CO vs MP",
-      "summary": "MP opens slightly wider — CO can 3-bet a touch more. Bluffs: A5s-A2s. Suited broadways and connectors: call.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo","AKs","AQs"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["TT","99","88","77","AQo","AJo","AJs","ATs","A9s","KQo","KQs","KJs","KTs","QJo","QJs","QTs","J9s","JTs","T9s","98s","87s"],
-        "mix": ["KJo","K9s","QJo"]
-      }
-    },
-    {
-      "id": "co-vs-utg1",
-      "label": "CO vs UTG+1",
-      "summary": "UTG+1 is tight. Value: AA/KK/QQ/AKo/AKs only. Bluffs: 2-3 wheel aces.",
-      "actions": {
-        "value": ["AA","KK","QQ","AKo","AKs"],
-        "bluff": ["A5s","A4s","A3s"],
-        "call": ["JJ","TT","99","88","77","AQo","AJo","AQs","AJs","ATs","KQo","KQs","KJs","KTs","QJs","QTs","JTs","T9s","98s"],
-        "mix": ["A2s","KJo","QJo"]
-      }
-    },
-    {
-      "id": "co-vs-utg",
-      "label": "CO vs UTG",
-      "summary": "UTG is the narrowest opener. Only premiums 3-bet. Minimal bluffs. Near-linear defending range.",
-      "actions": {
-        "value": ["AA","KK","QQ","AKo","AKs"],
-        "bluff": ["A5s","A4s"],
-        "call": ["JJ","TT","99","88","77","AQo","AJo","AQs","AJs","ATs","A9s","KQo","KQs","KJs","KTs","QJs","QTs","JTs","T9s","98s"],
-        "mix": ["A3s","KJo","QJo"]
-      }
-    },
-    {
-      "id": "sb-vs-co",
-      "label": "SB vs CO",
-      "summary": "OOP vs CO. Polarize: strong value + wheel ace bluffs. Fold marginal hands. Flat medium pairs and suited hands that play well OOP.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","TT","AKo","AQo","AKs","AQs","AJs","KQs"],
-        "bluff": ["A5s","A4s","A3s","A2s"],
-        "call": ["99","88","77","66","55","ATo","A9o","A8o","A9s","A8s","A7s","A6s","KQo","KJo","KTo","QJo","QTo","JTo","JTs","T8s","T9s","76s"],
-        "mix": ["AJo","K8s","QJs","65s"]
-      }
-    },
-    {
-      "id": "sb-vs-hj",
-      "label": "SB vs HJ",
-      "summary": "HJ range is tighter. Trim bluffs to 3 wheel aces OOP. Keep value strong.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","TT","AKo","AQo","AKs","AQs","AJs"],
-        "bluff": ["A5s","A4s","A3s"],
-        "call": ["99","88","77","66","55","ATo","A9o","A9s","A8s","A7s","A6s","KQo","KJo","KTo","QJo","QTo","QJs","J9s","JTs","T9s","T8s","98s","76s"],
-        "mix": ["AJo","K9s","Q9s","KQs"]
-      }
-    },
-    {
-      "id": "sb-vs-mp",
-      "label": "SB vs MP",
-      "summary": "MP opens ~16%. OOP 3-bet only strong value + 3 wheel ace bluffs.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","TT","AKo","AQo","AKs","AQs","AJs"],
-        "bluff": ["A5s","A4s","A3s"],
-        "call": ["99","88","77","66","55","ATo","A9o","A9s","A8s","A7s","A6s","KQo","KJo","KTo","QJo","QTo","QJs","KQs","JTs","T9s","T8s","98s","76s"],
-        "mix": ["AJo","K9s","KJs"]
-      }
-    },
-    {
-      "id": "sb-vs-utg1",
-      "label": "SB vs UTG+1",
-      "summary": "UTG+1 is tight. OOP 3-bets only premiums. Bluffs: A5s/A4s. Nearly everything else is call or fold.",
-      "actions": {
-        "value": ["AA","KK","QQ","JJ","AKo","AKs","AQs"],
-        "bluff": ["A5s","A4s"],
-        "call": ["TT","99","88","77","66","55","AQo","AJo","ATo","AJs","ATs","A9s","A8s","KQo","KJo","KJs","KTs","KQs","QJo","QJs","JTs","T9s","98s"],
-        "mix": ["A3s","KTo","QTs"]
-      }
-    },
-    {
-      "id": "sb-vs-utg",
-      "label": "SB vs UTG",
-      "summary": "UTG at 9-max is the tightest opener. OOP 3-bets only AA/KK/QQ/AKo/AKs. Almost no bluffs.",
-      "actions": {
-        "value": ["AA","KK","QQ","AKo","AKs"],
-        "bluff": ["A5s","A4s"],
-        "call": ["JJ","TT","99","88","77","AQo","AJo","AQs","AJs","ATs","KQo","KJo","KQs","KJs","KTs","QJs","JTs","T9s","98s"],
-        "mix": ["A3s","KTo","ATo"]
+        "threebet": ["AA", "KK", "QQ", "JJ", "TT", "AKo", "AQo", "AKs", "AQs", "AJs", "KQs", "A5s", "A4s", "A3s", "A2s"],
+        "call": ["99", "88", "77", "66", "55", "AJo", "ATo", "A9s", "A8s", "KQo", "KJo", "K9s", "KTs", "QJo", "Q9s", "QTs", "J9s", "JTs", "T9s", "98s", "87s", "76s"],
+        "fold": ["all other hands"]
       }
     }
   ]

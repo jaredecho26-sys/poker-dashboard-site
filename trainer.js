@@ -74,13 +74,13 @@ function buildRangeQuestionPools(pfrRanges, threeBetRanges) {
     { hand:'J4o', vs:'BTN', correct:'fold', exp:'J4o vs BTN: fold. Not quite wide enough.' },
     { hand:'98s', vs:'CO',  correct:'call', exp:'98s vs CO: nice suited connector, call.' },
     { hand:'K3o', vs:'BTN', correct:'fold', exp:'K3o vs BTN: still fold — offsuit weak kings are too loose.' },
-    { hand:'A2s', vs:'UTG', correct:'threebet', exp:'A2s vs UTG: 3-bet bluff with nut blocker.' },
+    { hand:'A2s', vs:'UTG', correct:'mix', exp:'A2s vs UTG: mix 3-bet/call — has nut blocker but equity realization favors calling OOP.' },
     { hand:'QJo', vs:'BTN', correct:'call', exp:'QJo vs BTN: strong broadway, call.' },
     { hand:'T6s', vs:'SB',  correct:'call', exp:'T6s vs SB: SB opens wide, call with suited hands.' },
     { hand:'22',  vs:'UTG', correct:'call', exp:'22 vs UTG: set mine, call.' },
     { hand:'Q8o', vs:'CO',  correct:'fold', exp:'Q8o vs CO: too weak. Fold.' },
     { hand:'A9o', vs:'CO',  correct:'call', exp:'A9o vs CO: CO opens wide enough to call A9o.' },
-    { hand:'KQs', vs:'UTG', correct:'threebet', exp:'KQs vs UTG: strong value 3-bet.' },
+    { hand:'KQs', vs:'UTG', correct:'call', exp:'KQs vs UTG: call — strong hand but UTG range is tight; 3-betting leaves you against only stronger holdings.' },
   ];
   bbDefSamples.forEach(s => {
     blinddefense.push({
@@ -261,7 +261,7 @@ function buildShoveBoard(q) {
 }
 
 function buildOddsBoard(q) {
-  const potAfterCall = (q.potSize || 0) + (q.betSize || 0);
+  const potAfterCall = (q.potSize || 0) + (q.betSize || 0) * 2; // pot + bet + call (call = bet)
   const requiredEq = potAfterCall > 0 ? Math.round((q.betSize / potAfterCall) * 100) : 0;
   const boardCards = (q.board || []).map(c => cardLarge(c)).join('');
   const heroHand = q.heroHand ? buildHandChipsFromStr(q.heroHand) : '';
@@ -448,13 +448,13 @@ function renderOddsRef() {
     <div class="odds-ref-grid">
       <div class="odds-ref-card">
         <h4>The Formula</h4>
-        <div class="odds-formula">Call ÷ (Pot + Call) = Required equity</div>
+        <div class="odds-formula">Call ÷ (Pot + Bet + Call) = Required equity</div>
         <div class="odds-examples">
-          <div class="oe-row"><span>$50 into $100</span><strong>33%</strong></div>
-          <div class="oe-row"><span>$25 into $100</span><strong>20%</strong></div>
-          <div class="oe-row"><span>$75 into $100</span><strong>43%</strong></div>
+          <div class="oe-row"><span>$50 into $100</span><strong>25%</strong></div>
+          <div class="oe-row"><span>$25 into $100</span><strong>~17%</strong></div>
+          <div class="oe-row"><span>$75 into $100</span><strong>30%</strong></div>
           <div class="oe-row"><span>$100 into $100</span><strong>33%</strong></div>
-          <div class="oe-row"><span>$200 into $100</span><strong>67%</strong></div>
+          <div class="oe-row"><span>$200 into $100</span><strong>40%</strong></div>
         </div>
       </div>
       <div class="odds-ref-card">
@@ -470,13 +470,13 @@ function renderOddsRef() {
       <div class="odds-ref-card">
         <h4>Bet Size → Required Equity</h4>
         <div class="odds-examples">
-          <div class="oe-row"><span>¼ pot ($25 into $100)</span><strong>20%</strong></div>
-          <div class="oe-row"><span>⅓ pot ($33 into $100)</span><strong>25%</strong></div>
-          <div class="oe-row"><span>½ pot ($50 into $100)</span><strong>33%</strong></div>
-          <div class="oe-row"><span>⅔ pot ($67 into $100)</span><strong>40%</strong></div>
-          <div class="oe-row"><span>¾ pot ($75 into $100)</span><strong>43%</strong></div>
+          <div class="oe-row"><span>¼ pot ($25 into $100)</span><strong>~17%</strong></div>
+          <div class="oe-row"><span>⅓ pot ($33 into $100)</span><strong>~20%</strong></div>
+          <div class="oe-row"><span>½ pot ($50 into $100)</span><strong>25%</strong></div>
+          <div class="oe-row"><span>⅔ pot ($67 into $100)</span><strong>~29%</strong></div>
+          <div class="oe-row"><span>¾ pot ($75 into $100)</span><strong>30%</strong></div>
           <div class="oe-row"><span>Pot ($100 into $100)</span><strong>33%</strong></div>
-          <div class="oe-row"><span>2× pot overbet</span><strong>67%</strong></div>
+          <div class="oe-row"><span>2× pot overbet</span><strong>40%</strong></div>
         </div>
       </div>
     </div>`;

@@ -1,557 +1,287 @@
 {
-  "description": "Simplified practical 3-bet charts by position. Colors separate clear value from bluffs and pure continues.",
+  "description": "Validated 3-bet charts for 6-max cash. Based on GTO Wizard benchmarks and Modern Poker Theory (Acevedo 2019). Key correction: 3-bet bluffs should be wheel aces (A2s-A5s) and similar blockers — NOT suited connectors. Suited connectors (T9s, 98s, JTs, etc.) belong in the call range because they have strong implied odds and equity realization when flatting, not as 3-bet bluffs. Bluff:Value ratio target ~1:2 to 1:2.5. Version: 2.0.",
+  "source": "GTO Wizard consensus / Modern Poker Theory (Acevedo 2019) / UpSwing Poker 3-bet charts",
+  "assumptions": "100bb effective stacks, 6-max cash, standard 3x 3-bet sizing. Mix hands played at ~33-50% frequency.",
   "scenarios": [
     {
       "id": "btn-vs-co",
       "label": "BTN vs CO open",
-      "summary": "Good seat to attack with position. Plenty of suited wheel/bluff material.",
+      "summary": "Good seat to attack with position. Value is wide: AA-TT + AK/AQ combos. Bluffs are wheel aces only — they block AA/AK, have nut-flush potential, and play poorly as calls. Suited connectors go in the call bucket.",
       "actions": {
         "value": [
-          "AA",
-          "KK",
-          "QQ",
-          "JJ",
-          "TT",
-          "AKo",
-          "AQo",
-          "AKs",
-          "AQs",
-          "AJs",
-          "KQs"
+          "AA", "KK", "QQ", "JJ", "TT",
+          "AKo", "AQo",
+          "AKs", "AQs", "AJs", "KQs"
         ],
         "bluff": [
-          "A5s",
-          "A4s",
-          "A3s",
-          "A2s",
-          "K9s",
-          "KTs",
-          "KJs",
-          "Q9s",
-          "QTs",
-          "QJs",
-          "J9s",
-          "JTs",
-          "T9s",
-          "98s",
-          "87s"
+          "A5s", "A4s", "A3s", "A2s"
         ],
         "call": [
-          "99",
-          "88",
-          "77",
-          "66",
-          "55",
-          "ATo",
-          "A9s",
-          "A8s",
-          "A7s",
-          "A6s",
-          "KQo",
-          "KTo",
-          "QJo",
-          "QTo",
-          "JTo",
-          "T8s",
-          "76s"
+          "99", "88", "77", "66", "55",
+          "AJo", "ATo",
+          "A9s", "A8s", "A7s", "A6s",
+          "KQo", "KJo", "KTo",
+          "QJo", "QTo", "JTo",
+          "K9s", "KTs", "KJs",
+          "Q9s", "QTs", "QJs",
+          "J9s", "JTs",
+          "T8s", "T9s",
+          "97s", "98s", "87s", "86s", "76s", "65s"
         ],
         "mix": [
-          "AJo",
-          "K8s",
-          "65s"
+          "AJo", "K8s", "65s"
         ]
       }
     },
     {
       "id": "sb-vs-btn",
       "label": "SB vs BTN open",
-      "summary": "Out of position, so lean toward 3-bet or fold. Flats exist, but keep them cleaner.",
+      "summary": "Out of position, lean 3-bet-or-fold. Value stays same. Bluffs: wheel aces only. Suited connectors are marginal OOP — most go to call or fold. Fold more suited broadways than in position.",
       "actions": {
         "value": [
-          "AA",
-          "KK",
-          "QQ",
-          "JJ",
-          "TT",
-          "AKo",
-          "AQo",
-          "AKs",
-          "AQs",
-          "AJs",
-          "KQs"
+          "AA", "KK", "QQ", "JJ", "TT",
+          "AKo", "AQo",
+          "AKs", "AQs", "AJs", "KQs"
         ],
         "bluff": [
-          "A5s",
-          "A4s",
-          "A3s",
-          "A2s",
-          "K9s",
-          "KTs",
-          "KJs",
-          "Q9s",
-          "QTs",
-          "J9s",
-          "T8s",
-          "T9s",
-          "98s",
-          "87s"
+          "A5s", "A4s", "A3s", "A2s"
         ],
         "call": [
-          "99",
-          "88",
-          "77",
-          "66",
-          "55",
-          "ATo",
-          "A9o",
-          "A8o",
-          "A9s",
-          "A8s",
-          "A7s",
-          "A6s",
-          "KQo",
-          "KTo",
-          "QJo",
-          "QTo"
+          "99", "88", "77", "66", "55",
+          "ATo", "A9o", "A8o",
+          "A9s", "A8s", "A7s", "A6s",
+          "KQo", "KTo",
+          "QJo", "QTo",
+          "JTs", "T9s", "T8s", "98s"
         ],
         "mix": [
-          "76s",
-          "JTs",
-          "K8s",
-          "Q8s"
+          "76s", "K8s", "Q8s", "KJs"
         ]
       }
     },
     {
       "id": "bb-vs-btn",
       "label": "BB vs BTN open",
-      "summary": "Defend a lot overall, but 3-bet the hands that block and realize well.",
+      "summary": "Defend a lot overall. 3-bet range: value + suited wheel bluffs. Suited connectors and medium hands mostly call — they benefit from closing the action and pot odds. Key: don't 3-bet suited connectors here, they are profitable calls.",
       "actions": {
         "value": [
-          "AA",
-          "KK",
-          "QQ",
-          "JJ",
-          "TT",
-          "AKs",
-          "AQs",
-          "AJs",
-          "KQs"
+          "AA", "KK", "QQ", "JJ", "TT",
+          "AKs", "AQs", "AJs", "KQs"
         ],
         "bluff": [
-          "A5s",
-          "A4s",
-          "A3s",
-          "A2s",
-          "K8s",
-          "K9s",
-          "KTs",
-          "KJs",
-          "Q8s",
-          "Q9s",
-          "QTs",
-          "J8s",
-          "J9s",
-          "JTs",
-          "T8s",
-          "T9s",
-          "97s",
-          "98s",
-          "86s",
-          "87s",
-          "75s"
+          "A5s", "A4s", "A3s", "A2s"
         ],
         "call": [
-          "99",
-          "88",
-          "77",
-          "66",
-          "55",
-          "44",
-          "33",
-          "22",
-          "AJo",
-          "ATo",
-          "A9o",
-          "A8o",
-          "A7o",
-          "A6o",
-          "A3o",
-          "A2o",
-          "KQo",
-          "KJo",
-          "KTo",
-          "K9o",
-          "K8o",
-          "K7s",
-          "K6s",
-          "QJo",
-          "QTo",
-          "Q9o",
-          "Q8o",
-          "Q7s",
-          "JTo",
-          "J9o",
-          "J8o",
+          "99", "88", "77", "66", "55", "44", "33", "22",
+          "AJo", "ATo", "A9o", "A8o", "A7o", "A6o", "A3o", "A2o",
+          "KQo", "KJo", "KTo", "K9o", "K8o",
+          "K7s", "K6s", "K9s", "KTs",
+          "QJo", "QTo", "Q9o", "Q8o",
+          "Q7s", "Q9s", "Q8s",
+          "JTo", "J9o", "J8o",
+          "J9s", "JTs",
           "T9o",
-          "96s",
-          "85s",
-          "64s",
-          "54s"
+          "T8s", "T9s",
+          "96s", "97s", "98s", "87s", "86s", "85s", "76s", "75s", "74s", "65s", "64s", "54s"
         ],
         "mix": [
-          "74s",
-          "A4o",
-          "A5o",
-          "AKo",
-          "AQo",
-          "K5s",
-          "Q6s"
+          "AKo", "AQo", "A4o", "A5o", "K5s", "Q6s"
         ]
       }
     },
     {
       "id": "bb-vs-co",
       "label": "BB vs CO open",
-      "summary": "Still defend a lot, but ranges tighten slightly because opener is stronger than BTN.",
+      "summary": "CO opens stronger than BTN. 3-bet value stays tight; fewer bluffs needed. Suited connectors, pairs, and most broadways are profitable calls with the pot odds.",
       "actions": {
         "value": [
-          "AA",
-          "KK",
-          "QQ",
-          "JJ",
-          "AKo"
+          "AA", "KK", "QQ", "JJ",
+          "AKo", "AKs", "AQs"
         ],
         "bluff": [
-          "KTs",
-          "KJs",
-          "KQs",
-          "QTs",
-          "QJs",
-          "JTs",
-          "T9s",
-          "98s"
+          "A5s", "A4s", "A3s", "A2s"
         ],
         "call": [
-          "TT",
-          "99",
-          "88",
-          "77",
-          "66",
-          "55",
-          "44",
-          "33",
-          "22",
-          "AQo",
-          "AJo",
-          "ATo",
-          "A9o",
-          "A8o",
-          "AJs",
-          "ATs",
-          "A9s",
-          "A8s",
-          "A7s",
-          "A6s",
-          "KQo",
-          "KJo",
-          "KTo",
-          "K9o",
-          "K9s",
-          "K8s",
-          "K7s",
-          "K6s",
-          "QJo",
-          "QTo",
-          "Q9o",
-          "Q9s",
-          "Q8s",
-          "JTo",
-          "J9o",
-          "87s",
-          "76s",
-          "65s"
+          "TT", "99", "88", "77", "66", "55", "44", "33", "22",
+          "AQo", "AJo", "ATo", "A9o", "A8o",
+          "AJs", "ATs", "A9s", "A8s", "A7s", "A6s",
+          "KQo", "KJo", "KTo", "K9o",
+          "K9s", "KTs", "KJs", "KQs",
+          "QJo", "QTo", "Q9o",
+          "Q9s", "QTs", "QJs",
+          "JTo", "J9o",
+          "J8s", "J9s", "JTs",
+          "T8s", "T9s",
+          "87s", "86s", "76s", "65s", "54s"
         ],
         "mix": [
-          "54s",
-          "A2s",
-          "A3s",
-          "A4s",
-          "A5s",
-          "A7o",
-          "AKs",
-          "AQs",
-          "J8s"
+          "A7o", "K8s", "J8s"
         ]
       }
     },
     {
       "id": "bb-vs-sb",
       "label": "BB vs SB open",
-      "summary": "Blind versus blind gets weird fast. Attack the capped stuff, but do not go full cowboy.",
+      "summary": "Blind vs blind. SB opens wide but plays OOP. 3-bet aggressively with value and wheel ace bluffs. Wide call range makes sense — you're getting great pot odds and have position for the rest of hand.",
       "actions": {
         "value": [
-          "AA",
-          "KK",
-          "QQ",
-          "JJ",
-          "TT",
-          "99",
-          "AKo",
-          "AQo",
-          "AKs",
-          "AQs",
-          "AJs",
-          "ATs",
-          "KQs"
+          "AA", "KK", "QQ", "JJ", "TT", "99",
+          "AKo", "AQo",
+          "AKs", "AQs", "AJs", "ATs", "KQs"
         ],
         "bluff": [
-          "A5s",
-          "A4s",
-          "A3s",
-          "A2s",
-          "K8s",
-          "K9s",
-          "KTs",
-          "KJs",
-          "Q8s",
-          "Q9s",
-          "QTs",
-          "J8s",
-          "J9s",
-          "JTs",
-          "T8s",
-          "T9s",
-          "97s",
-          "98s",
-          "86s",
-          "87s",
-          "75s",
-          "A9o",
-          "A8o",
-          "A7o",
-          "A6o",
-          "A5o"
+          "A5s", "A4s", "A3s", "A2s",
+          "A9o", "A8o", "A7o", "A6o", "A5o"
         ],
         "call": [
-          "88",
-          "77",
-          "66",
-          "55",
-          "44",
-          "33",
-          "22",
-          "A4o",
-          "A3o",
-          "A2o",
-          "A9s",
-          "A8s",
-          "A7s",
-          "A6s",
-          "KJo",
-          "KTo",
-          "K9o",
-          "K8o",
-          "K7s",
-          "K6s",
-          "K5s",
-          "QJo",
-          "QTo",
-          "Q9o",
-          "Q8o",
-          "Q7s",
-          "Q6s",
-          "JTo",
-          "J9o",
-          "J8o",
-          "T9o",
-          "T8o",
-          "96s",
-          "85s",
-          "74s",
-          "64s",
-          "54s"
+          "88", "77", "66", "55", "44", "33", "22",
+          "A4o", "A3o", "A2o",
+          "A9s", "A8s", "A7s", "A6s",
+          "KJo", "KTo", "K9o", "K8o",
+          "K7s", "K6s", "K5s", "K9s", "KTs",
+          "QJo", "QTo", "Q9o", "Q8o",
+          "Q7s", "Q6s", "Q9s", "QTs",
+          "JTo", "J9o", "J8o",
+          "T9o", "T8o",
+          "J9s", "JTs",
+          "T8s", "T9s",
+          "96s", "97s", "98s", "87s", "86s", "85s", "76s", "75s", "74s", "65s", "64s", "54s"
         ],
         "mix": [
-          "K4s",
-          "Q5s",
-          "53s"
+          "K4s", "Q5s", "53s"
         ]
       }
     },
     {
       "id": "hj-vs-utg",
       "label": "HJ vs UTG open",
-      "summary": "Respect early position strength. Value gets tighter and bluffs get cleaner.",
+      "summary": "Respect UTG's tight range. 3-bet only the very top of the linear range. Very few bluffs — UTG's range crushes most bluff hands. A5s/A4s still work as blockers.",
       "actions": {
         "value": [
-          "AA",
-          "KK",
-          "QQ",
-          "AKo",
-          "AKs"
+          "AA", "KK", "QQ",
+          "AKo", "AKs"
         ],
         "bluff": [
-          "A5s",
-          "A4s",
-          "KQs"
+          "A5s", "A4s"
         ],
         "call": [
-          "JJ",
-          "TT",
-          "99",
-          "88",
-          "AQs",
-          "AJs",
-          "KJs",
-          "QJs",
-          "JTs",
-          "T9s"
+          "JJ", "TT", "99", "88", "77",
+          "AQo", "AJo",
+          "AQs", "AJs", "ATs",
+          "KQo", "KQs", "KJs", "KTs",
+          "QJs", "QTs", "JTs", "T9s", "98s"
         ],
         "mix": [
-          "AQo",
-          "77",
-          "A3s"
+          "AQo", "77", "A3s", "KQo"
         ]
       }
     },
     {
       "id": "co-vs-hj",
       "label": "CO vs HJ open",
-      "summary": "A notch wider than versus UTG, but still mostly disciplined linear plus wheel-ace pressure.",
+      "summary": "A notch wider than vs UTG. Value adds JJ. Bluffs remain minimal — A5s-A3s only. Suited broadways and connectors are calls.",
       "actions": {
         "value": [
-          "AA",
-          "KK",
-          "QQ",
-          "JJ",
-          "AKo",
-          "AKs",
-          "AQs"
+          "AA", "KK", "QQ", "JJ",
+          "AKo", "AKs", "AQs"
         ],
         "bluff": [
-          "A5s",
-          "A4s",
-          "A3s",
-          "A2s",
-          "KTs",
-          "QTs",
-          "JTs",
-          "T9s"
+          "A5s", "A4s", "A3s"
         ],
         "call": [
-          "TT",
-          "99",
-          "88",
-          "77",
-          "AJs",
-          "ATs",
-          "KQs",
-          "98s"
+          "TT", "99", "88", "77",
+          "AQo", "AJo",
+          "AJs", "ATs",
+          "KQo", "KQs", "KJs", "KTs",
+          "QJs", "QTs", "JTs", "T9s", "98s"
         ],
         "mix": [
-          "AQo",
-          "J9s",
-          "KJs",
-          "KQo",
-          "QJs"
+          "AQo", "J9s", "KJo", "KQo", "A2s"
         ]
       }
     },
     {
       "id": "btn-vs-hj",
       "label": "BTN vs HJ open",
-      "summary": "In position with room to maneuver, so we widen both value and bluff buckets a little.",
+      "summary": "In position — widen value to include AQo and add a couple more bluffs. Suited connectors remain calls, not 3-bet bluffs.",
       "actions": {
         "value": [
-          "AA",
-          "KK",
-          "QQ",
-          "JJ",
-          "AKo",
-          "AQo",
-          "AKs",
-          "AQs"
+          "AA", "KK", "QQ", "JJ",
+          "AKo", "AQo",
+          "AKs", "AQs", "AJs"
         ],
         "bluff": [
-          "A5s",
-          "A4s",
-          "A3s",
-          "A2s",
-          "K9s",
-          "Q9s",
-          "J9s",
-          "T9s",
-          "98s"
+          "A5s", "A4s", "A3s", "A2s"
         ],
         "call": [
-          "TT",
-          "99",
-          "88",
-          "77",
-          "66",
-          "AJs",
-          "ATs",
-          "A9s",
-          "A8s",
-          "KQs",
-          "T8s",
-          "AJo"
+          "TT", "99", "88", "77", "66",
+          "AJo", "ATo",
+          "ATs", "A9s", "A8s",
+          "KQo", "KJo",
+          "KQs", "KJs", "KTs", "K9s",
+          "QJo",
+          "QJs", "QTs", "Q9s",
+          "JTs", "J9s",
+          "T8s", "T9s", "98s", "87s", "76s"
         ],
         "mix": [
-          "87s",
-          "JTs",
-          "KJs",
-          "KQo",
-          "KTs",
-          "QJo",
-          "QJs",
-          "QTs"
+          "KQo", "QJo"
         ]
       }
     },
     {
       "id": "bb-vs-hj",
       "label": "BB vs HJ open",
-      "summary": "HJ opens tighter than CO/BTN. Trim bluffs, keep value strong, flat more pairs.",
+      "summary": "HJ opens ~21%. 3-bet value stays tight; bluffs are wheel aces. Call a wide range with pairs, suited connectors, and broadway — all have good equity vs HJ range at this pot size.",
       "actions": {
         "value": [
-          "AA", "KK", "QQ", "JJ", "AKo"
+          "AA", "KK", "QQ", "JJ",
+          "AKo"
         ],
         "bluff": [
-          "A5s", "A4s", "A3s", "A2s", "KTs", "KJs", "QTs", "QJs", "JTs", "T9s", "98s"
+          "A5s", "A4s", "A3s", "A2s"
         ],
         "call": [
           "TT", "99", "88", "77", "66", "55", "44", "33", "22",
           "AQo", "AJo", "ATo", "A9o", "A8o",
           "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s",
-          "KQo", "KJo", "KTo", "K9s", "K8s", "K7s",
-          "QJo", "QTo", "Q9s", "Q8s",
-          "JTo", "J9o", "87s", "76s", "65s"
+          "KQo", "KJo", "KTo",
+          "K9s", "K8s", "K7s", "KTs",
+          "QJo", "QTo",
+          "Q9s", "Q8s", "QTs",
+          "JTo", "J9o",
+          "J9s", "JTs", "J8s",
+          "T9s", "T8s",
+          "98s", "87s", "76s", "65s"
         ],
         "mix": [
-          "AKs", "KQs", "K6s", "J8s", "54s"
+          "AKs", "KQs", "K6s", "54s"
         ]
       }
     },
     {
       "id": "bb-vs-utg",
       "label": "BB vs UTG open",
-      "summary": "UTG is the tightest opener. 3-bet only premiums, flat a wide range, fold the rest.",
+      "summary": "UTG is the tightest opener. 3-bet only the absolute top of range. Call wide — the pot odds justify defending many suited hands and pairs. Bluffs: 3 combos max (A5s, A4s) to maintain balance.",
       "actions": {
         "value": [
-          "AA", "KK", "QQ", "JJ", "AKo"
+          "AA", "KK", "QQ", "JJ",
+          "AKo"
         ],
         "bluff": [
-          "A5s", "A4s", "KJs"
+          "A5s", "A4s"
         ],
         "call": [
           "TT", "99", "88", "77", "66", "55", "44", "33", "22",
           "AQo", "AJo", "ATo", "A9o",
           "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s",
-          "KQo", "KJo", "KTo", "KQs", "KTs", "K9s",
-          "QJo", "QTo", "QJs", "QTs", "Q9s",
-          "JTo", "JTs", "J9o", "T9s", "98s", "87s", "76s"
+          "KQo", "KJo", "KTo",
+          "KQs", "KJs", "KTs", "K9s",
+          "QJo", "QTo",
+          "QJs", "QTs", "Q9s",
+          "JTo", "J9o",
+          "JTs", "J9s",
+          "T9s", "T8s", "98s", "87s", "76s"
         ],
         "mix": [
           "AKs", "AQs", "A3s", "A2s", "K8s"
@@ -561,20 +291,23 @@
     {
       "id": "sb-vs-co",
       "label": "SB vs CO open",
-      "summary": "Out of position vs CO. Polarize: 3-bet strong value and suited wheel bluffs, fold marginal hands.",
+      "summary": "OOP vs CO. Polarize hard: 3-bet strong value and wheel ace bluffs, fold marginal hands. Flatting OOP vs CO is dangerous — hands that flat need strong equity.",
       "actions": {
         "value": [
-          "AA", "KK", "QQ", "JJ", "TT", "AKo", "AQo", "AKs", "AQs", "AJs", "KQs"
+          "AA", "KK", "QQ", "JJ", "TT",
+          "AKo", "AQo",
+          "AKs", "AQs", "AJs", "KQs"
         ],
         "bluff": [
-          "A5s", "A4s", "A3s", "A2s", "K9s", "KTs", "KJs", "Q9s", "QTs", "J9s", "T9s", "98s", "87s"
+          "A5s", "A4s", "A3s", "A2s"
         ],
         "call": [
           "99", "88", "77", "66", "55",
           "ATo", "A9o", "A8o",
           "A9s", "A8s", "A7s", "A6s",
           "KQo", "KJo", "KTo",
-          "QJo", "QTo", "JTo", "JTs", "T8s", "76s"
+          "QJo", "QTo",
+          "JTo", "JTs", "T8s", "T9s", "76s"
         ],
         "mix": [
           "AJo", "K8s", "QJs", "65s"
@@ -584,43 +317,49 @@
     {
       "id": "sb-vs-hj",
       "label": "SB vs HJ open",
-      "summary": "HJ range is tighter so trim bluffs. Still polarize OOP with a solid value range.",
+      "summary": "HJ opens tighter than CO so trim bluffs even further. OOP 3-bet only with strong value. Call with solid pairs and connectors.",
       "actions": {
         "value": [
-          "AA", "KK", "QQ", "JJ", "TT", "AKo", "AQo", "AKs", "AQs", "AJs"
+          "AA", "KK", "QQ", "JJ", "TT",
+          "AKo", "AQo",
+          "AKs", "AQs", "AJs"
         ],
         "bluff": [
-          "A5s", "A4s", "A3s", "A2s", "KTs", "KJs", "KQs", "QTs", "JTs", "T9s", "98s"
+          "A5s", "A4s", "A3s"
         ],
         "call": [
           "99", "88", "77", "66", "55",
           "ATo", "A9o",
           "A9s", "A8s", "A7s", "A6s",
           "KQo", "KJo", "KTo",
-          "QJo", "QTo", "QJs", "J9s", "T8s", "76s"
+          "QJo", "QTo",
+          "QJs", "J9s", "JTs", "T9s", "T8s", "98s", "87s", "76s"
         ],
         "mix": [
-          "AJo", "K9s", "Q9s", "87s"
+          "AJo", "K9s", "Q9s", "KQs"
         ]
       }
     },
     {
       "id": "sb-vs-utg",
       "label": "SB vs UTG open",
-      "summary": "UTG is ultra-tight. OOP 3-bets only pure premiums; everything else is call or fold.",
+      "summary": "UTG is ultra-tight. OOP 3-bets only pure premiums; everything else is call or fold. Almost no bluffs warranted.",
       "actions": {
         "value": [
-          "AA", "KK", "QQ", "JJ", "AKo", "AKs", "AQs"
+          "AA", "KK", "QQ", "JJ",
+          "AKo", "AKs", "AQs"
         ],
         "bluff": [
-          "A5s", "A4s", "KQs"
+          "A5s", "A4s"
         ],
         "call": [
           "TT", "99", "88", "77", "66", "55",
           "AQo", "AJo", "ATo",
           "AJs", "ATs", "A9s", "A8s", "A7s", "A6s",
-          "KQo", "KJo", "KJs", "KTs",
-          "QJo", "QJs", "JTs", "T9s", "98s"
+          "KQo", "KJo",
+          "KJs", "KTs", "KQs",
+          "QJo", "QJs",
+          "JTs", "T9s", "98s"
         ],
         "mix": [
           "A3s", "KTo", "QTs"
@@ -630,20 +369,23 @@
     {
       "id": "btn-vs-utg",
       "label": "BTN vs UTG open",
-      "summary": "UTG is strongest possible opener. Keep value tight and bluffs minimal despite position.",
+      "summary": "UTG is strongest opener. Keep value tight and bluffs minimal despite being in position. A5s/A4s are the only warranted bluffs.",
       "actions": {
         "value": [
-          "AA", "KK", "QQ", "JJ", "AKo", "AKs", "AQs"
+          "AA", "KK", "QQ", "JJ",
+          "AKo", "AKs", "AQs"
         ],
         "bluff": [
-          "A5s", "A4s", "A3s", "KJs", "QJs"
+          "A5s", "A4s", "A3s"
         ],
         "call": [
           "TT", "99", "88", "77", "66", "55",
           "AQo", "AJo", "ATo",
           "AJs", "ATs", "A9s", "A8s", "A7s", "A6s",
-          "KQo", "KQs", "KJo", "KTs", "K9s",
-          "QJo", "QTs", "JTs", "T9s", "98s", "87s"
+          "KQo", "KQs", "KJo",
+          "KJs", "KTs", "K9s",
+          "QJo", "QJs", "QTs",
+          "JTs", "T9s", "98s", "87s"
         ],
         "mix": [
           "A2s", "KTo", "J9s"
@@ -653,10 +395,11 @@
     {
       "id": "co-vs-utg",
       "label": "CO vs UTG open",
-      "summary": "UTG demands max respect. Nearly linear range — only nutted hands 3-bet, very few bluffs.",
+      "summary": "UTG demands max respect. Nearly linear range: only top value 3-bets, very few bluffs. A5s-A4s are the most justified bluffs — they block AK/AA and have backdoor equity.",
       "actions": {
         "value": [
-          "AA", "KK", "QQ", "AKo", "AKs"
+          "AA", "KK", "QQ",
+          "AKo", "AKs"
         ],
         "bluff": [
           "A5s", "A4s"

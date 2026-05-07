@@ -59,7 +59,7 @@
     },
     {
       "group": "Mental note",
-      "hands": "Any hand where your only reason to continue is 'it feels defendable'", 
+      "hands": "Any hand where your only reason to continue is 'it feels defendable'",
       "why": "That sentence is usually the warning light, not the green light."
     }
   ],
@@ -133,6 +133,72 @@
       "tag": "study",
       "title": "JJ on A-5-5-K-A",
       "takeaway": "Useful river discipline hand. Good fold, but worth reviewing sizing and whether flop c-bet is best versus that pool/player."
+    }
+  ],
+  "sessionAnalysis": [
+    {
+      "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
+      "date": "2026-05-06",
+      "stakes": "1/2",
+      "rangeVersion": "v2.0 corrected",
+      "utg_leaks": [
+        {
+          "hand": "ATo",
+          "action": "open",
+          "verdict": "LEAK \u2014 ATo not in UTG range (mix is AJo only). Fold preflop."
+        }
+      ],
+      "bb_defend_leaks": [
+        {
+          "hand": "94o",
+          "count": 2,
+          "verdict": "LEAK \u2014 on explicit avoid list. Fold vs all opens."
+        },
+        {
+          "hand": "A8o",
+          "count": 1,
+          "verdict": "LEAK \u2014 weak offsuit ace, dominated OOP. Fold vs UTG/MP."
+        }
+      ],
+      "key_leaks": [
+        "UTG range discipline: opened ATo (non-mix hand)",
+        "BB defend trash: 94o x2 and A8o \u2014 combined -$18.5",
+        "C-bet fold equity near zero (4.3%) \u2014 opponents not folding; stop bluffing unimproved",
+        "3-bet frequency too low (0.9%) \u2014 missing steal defence EV"
+      ],
+      "study_priority": "BB defense range discipline + texture-based c-betting strategy"
+    },
+    {
+      "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+      "date": "2026-05-07",
+      "stakes": "1/2",
+      "rangeVersion": "v2.0 corrected",
+      "utg_leaks": [
+        {
+          "hand": "QJh",
+          "action": "open",
+          "verdict": "CLEAN \u2014 QJs is in UTG range. Postflop loss (-$120) not a preflop error."
+        }
+      ],
+      "bb_defend_leaks": [
+        {
+          "hand": "A2o",
+          "count": 1,
+          "verdict": "LEAK \u2014 offsuit wheel ace, terrible OOP. Fold."
+        },
+        {
+          "hand": "83s",
+          "count": 1,
+          "verdict": "LEAK \u2014 bottom-of-range suited connector, too weak vs any reasonable open."
+        }
+      ],
+      "key_leaks": [
+        "BB defend range continues to bleed with off-chart hands (A2o, 83s)",
+        "0% 3-bet rate \u2014 pattern from session 1 continuing; need squeeze spots and blind defence 3-bets",
+        "C-bet fold equity still 0% \u2014 opponents are sticky; adjust to smaller sizes or x/b approach",
+        "QJh trips call-off: run through solver \u2014 likely correct call with trips but worth checking pot odds (corrected: 29-33% required equity)"
+      ],
+      "study_priority": "3-bet frequency + BB defense range vs each position + pot odds on triple barrel spots"
     }
   ]
 }

@@ -141,12 +141,15 @@ function renderBbDefend(bbDefend) {
   function render() {
     const scen = scenarios.find(s => s.id === active);
     const actionDefs = [
-      { key: 'call',     label: 'Call (defend)',  cls: 'call'  },
+      { key: 'call',     label: 'Call (defend)',      cls: 'call'  },
       { key: 'threebet', label: '3-Bet (value/bluff)', cls: 'bluff' },
-      { key: 'fold',     label: 'Fold',           cls: 'fold'  },
+      { key: 'mix',      label: 'Mixed defend',       cls: 'mix'   },
+      { key: 'fold',     label: 'Fold',               cls: 'fold'  },
     ];
-    const { combos, total } = buildRangeStats(scen.actions);
+    const { combos } = buildRangeStats(scen.actions);
     const notes = (scen.notes || []).map(n => `<li>${n}</li>`).join('');
+    const defendedCombos = (combos.call || 0) + (combos.threebet || 0) + (combos.mix || 0);
+    const defendedClasses = (scen.actions.call || []).length + (scen.actions.threebet || []).length + (scen.actions.mix || []).length;
     wrap.innerHTML = `
       <div class="range-tabs">${scenarios.map(s =>
         `<button class="range-btn${s.id === active ? ' active' : ''}" data-scen="${s.id}">${s.label}</button>`
@@ -154,7 +157,7 @@ function renderBbDefend(bbDefend) {
       <div class="bb-defend-shell">
         <div class="bb-defend-header">
           <div>
-            <div class="bb-freq-badge">Defense freq: <strong>${scen.defenseFrequency}</strong></div>
+            <div class="bb-freq-badge">Defended: <strong>${(defendedCombos / 1326 * 100).toFixed(1)}%</strong> combos · <strong>${(defendedClasses / 169 * 100).toFixed(1)}%</strong> classes</div>
             <p class="range-summary">${scen.summary}</p>
           </div>
           ${notes ? `<ul class="bb-notes">${notes}</ul>` : ''}
@@ -175,9 +178,14 @@ function renderBbDefend(bbDefend) {
             <div class="range-stat-label">${(((combos.threebet||0)/1326)*100).toFixed(1)}% of hands</div>
           </div>
           <div class="range-stat">
+            <div class="range-stat-label">Mixed defend combos</div>
+            <div class="range-stat-value mix">${combos.mix || 0}</div>
+            <div class="range-stat-label">${(((combos.mix||0)/1326)*100).toFixed(1)}% of hands</div>
+          </div>
+          <div class="range-stat">
             <div class="range-stat-label">Total defended</div>
-            <div class="range-stat-value green">${(combos.call||0)+(combos.threebet||0)}</div>
-            <div class="range-stat-label">${((((combos.call||0)+(combos.threebet||0))/1326)*100).toFixed(1)}% of hands</div>
+            <div class="range-stat-value green">${defendedCombos}</div>
+            <div class="range-stat-label">${((defendedCombos/1326)*100).toFixed(1)}% of hands</div>
           </div>
         </div>
       </div>`;

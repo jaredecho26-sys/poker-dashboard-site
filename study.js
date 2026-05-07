@@ -110,50 +110,146 @@ function renderPfrExplorer(pfrRanges6, pfrRanges9) {
 }
 
 // ── 3-Bet Range Explorer ────────────────────────────────────────────────────
+// Position metadata for display order and labels
+const POSITIONS_6MAX = [
+  { id: 'utg', label: 'UTG' },
+  { id: 'hj',  label: 'HJ'  },
+  { id: 'co',  label: 'CO'  },
+  { id: 'btn', label: 'BTN' },
+  { id: 'sb',  label: 'SB'  },
+  { id: 'bb',  label: 'BB'  },
+];
+const POSITIONS_9MAX = [
+  { id: 'utg',  label: 'UTG'  },
+  { id: 'utg1', label: 'UTG+1' },
+  { id: 'mp',   label: 'MP'   },
+  { id: 'hj',   label: 'HJ'   },
+  { id: 'co',   label: 'CO'   },
+  { id: 'btn',  label: 'BTN'  },
+  { id: 'sb',   label: 'SB'   },
+  { id: 'bb',   label: 'BB'   },
+];
+
 function renderThreeBetExplorer(threeBetRanges6, threeBetRanges9) {
   const wrap = document.getElementById('threeBetExplorer');
   let format = '6max';
-  let active = threeBetRanges6.scenarios[0].id;
 
-  function currentData() { return format === '6max' ? threeBetRanges6 : threeBetRanges9; }
+  // Parse scenario ids to build hero→[villain] map
+  function buildPositionMap(scenarios) {
+    const map = {};
+    scenarios.forEach(s => {
+      const [hero, , villain] = s.id.split('-');
+      if (!map[hero]) map[hero] = [];
+      if (!map[hero].includes(villain)) map[hero].push(villain);
+    });
+    return map;
+  }
+
+  function currentData()    { return format === '6max' ? threeBetRanges6 : threeBetRanges9; }
+  function currentPositions(){ return format === '6max' ? POSITIONS_6MAX : POSITIONS_9MAX; }
+
+  // State
+  let heroPos   = null;
+  let villainPos = null;
+
+  function initDefaults() {
+    const posMap = buildPositionMap(currentData().scenarios);
+    const allPositions = currentPositions();
+    // default: first hero that has scenarios
+    heroPos = allPositions.find(p => posMap[p.id])?.id || Object.keys(posMap)[0];
+    villainPos = posMap[heroPos]?.[0] || null;
+  }
 
   function render() {
-    const scenarios = currentData().scenarios;
-    if (!scenarios.find(s => s.id === active)) active = scenarios[0].id;
-    const scen = scenarios.find(s => s.id === active);
-    const { combos, total } = buildRangeStats(scen.actions);
+    const scenarios  = currentData().scenarios;
+    const posMap     = buildPositionMap(scenarios);
+    const allPos     = currentPositions();
+
+    // Validate state
+    if (!posMap[heroPos]) {
+      heroPos = allPos.find(p => posMap[p.id])?.id || Object.keys(posMap)[0];
+    }
+    const validVillains = posMap[heroPos] || [];
+    if (!validVillains.includes(villainPos)) villainPos = validVillains[0];
+
+    const scenId = `${heroPos}-vs-${villainPos}`;
+    const scen   = scenarios.find(s => s.id === scenId);
+
     const actionDefs = [
       { key: 'value', label: 'Value 3-bet', cls: 'value' },
       { key: 'bluff', label: 'Bluff 3-bet', cls: 'bluff' },
       { key: 'call',  label: 'Flat call',   cls: 'call'  },
       { key: 'mix',   label: 'Mixed',        cls: 'mix'   },
     ];
+
+    // Build hero row — only positions that have at least one scenario
+    const heroButtons = allPos
+      .filter(p => posMap[p.id])
+      .map(p => `<button class="pos-btn${p.id === heroPos ? ' active' : ''}" data-role="hero" data-pos="${p.id}">${p.label}</button>`)
+      .join('');
+
+    // Build villain row — only valid opponents for current hero
+    const villainButtons = allPos
+      .filter(p => validVillains.includes(p.id))
+      .map(p => `<button class="pos-btn${p.id === villainPos ? ' active' : ''}" data-role="villain" data-pos="${p.id}">${p.label}</button>`)
+      .join('');
+
+    let rangeHTML = '';
+    if (scen) {
+      const { combos } = buildRangeStats(scen.actions);
+      rangeHTML = `
+        <div class="range-chart-shell">
+          <div class="tbet-scenario-label">You in <strong>${heroPos.toUpperCase()}</strong> vs raiser in <strong>${villainPos.toUpperCase()}</strong></div>
+          <div class="range-legend">${actionDefs.map(a =>
+            `<span class="legend-item"><span class="legend-swatch ${a.cls}"></span>${a.label}</span>`
+          ).concat(['<span class="legend-item"><span class="legend-swatch fold"></span>Fold</span>']).join('')}</div>
+          <p class="range-summary">${scen.summary}</p>
+          <div class="matrix-scroll">${matrixGrid(scen.actions)}</div>
+          <div class="range-stats">${actionDefs.filter(a => combos[a.key]).map(a => `
+            <div class="range-stat">
+              <div class="range-stat-label">${a.label}</div>
+              <div class="range-stat-value ${a.cls}">${combos[a.key]} combos</div>
+              <div class="range-stat-label">${((combos[a.key]/1326)*100).toFixed(1)}% of hands</div>
+            </div>`).join('')}
+          </div>
+        </div>`;
+    } else {
+      rangeHTML = `<div class="tbet-no-scenario">No range charted for this position combo — fold is default.</div>`;
+    }
+
     wrap.innerHTML = `
       ${formatToggleHTML(format)}
-      <div class="range-tabs">${scenarios.map(s =>
-        `<button class="range-btn${s.id === active ? ' active' : ''}" data-scen="${s.id}">${s.label}</button>`
-      ).join('')}</div>
-      <div class="range-chart-shell">
-        <div class="range-legend">${actionDefs.map(a =>
-          `<span class="legend-item"><span class="legend-swatch ${a.cls}"></span>${a.label}</span>`
-        ).concat(['<span class="legend-item"><span class="legend-swatch fold"></span>Fold</span>']).join('')}</div>
-        <p class="range-summary">${scen.summary}</p>
-        <div class="matrix-scroll">${matrixGrid(scen.actions)}</div>
-        <div class="range-stats">${actionDefs.filter(a => combos[a.key]).map(a => `
-          <div class="range-stat">
-            <div class="range-stat-label">${a.label}</div>
-            <div class="range-stat-value ${a.cls}">${combos[a.key]} combos</div>
-            <div class="range-stat-label">${((combos[a.key]/1326)*100).toFixed(1)}% of hands</div>
-          </div>`).join('')}
+      <div class="tbet-selectors">
+        <div class="tbet-selector-group">
+          <div class="tbet-selector-label">Your Position</div>
+          <div class="tbet-pos-row">${heroButtons}</div>
         </div>
-      </div>`;
+        <div class="tbet-selector-group">
+          <div class="tbet-selector-label">Raiser Position</div>
+          <div class="tbet-pos-row">${villainButtons}</div>
+        </div>
+      </div>
+      ${rangeHTML}`;
+
     wrap.querySelectorAll('.fmt-btn').forEach(btn => {
-      btn.addEventListener('click', () => { format = btn.dataset.fmt; render(); });
+      btn.addEventListener('click', () => { format = btn.dataset.fmt; initDefaults(); render(); });
     });
-    wrap.querySelectorAll('.range-btn').forEach(btn => {
-      btn.addEventListener('click', () => { active = btn.dataset.scen; render(); });
+    wrap.querySelectorAll('.pos-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.role === 'hero') {
+          heroPos = btn.dataset.pos;
+          // reset villain to first valid
+          const pm = buildPositionMap(currentData().scenarios);
+          villainPos = pm[heroPos]?.[0] || null;
+        } else {
+          villainPos = btn.dataset.pos;
+        }
+        render();
+      });
     });
   }
+
+  initDefaults();
   render();
 }
 

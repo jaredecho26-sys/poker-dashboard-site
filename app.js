@@ -4,6 +4,18 @@ async function loadJson(path) {
   return res.json();
 }
 
+// Convert UTC ISO timestamp to local date string (YYYY-MM-DD) in America/Los_Angeles timezone
+function localDateString(utcIsoString) {
+  const date = new Date(utcIsoString);
+  const parts = date.toLocaleDateString('en-US', { 
+    timeZone: 'America/Los_Angeles', 
+    year: 'numeric', 
+    month: '2-digit', 
+    day: '2-digit' 
+  }).split('/');
+  return `${parts[2]}-${parts[0]}-${parts[1]}`; // Convert MM/DD/YYYY to YYYY-MM-DD
+}
+
 function fmtCurrency(n) {
   const abs = Math.abs(n).toFixed(2);
   if (n < 0) return `-$${abs}`;
@@ -56,7 +68,7 @@ function renderSessions(sessions) {
   body.innerHTML = sessions.slice().reverse().map(s => {
     const result = s.resultSource === 'manual' ? (s.manualResult ?? s.result) : s.result;
     return `<tr>
-      <td>${s.startedAt.slice(0,10)}</td>
+      <td>${localDateString(s.startedAt)}</td>
       <td>${s.platform}</td>
       <td>${s.hands}</td>
       <td class="${result >= 0 ? 'result-pos' : 'result-neg'}">${fmtCurrency(result)}</td>
@@ -160,7 +172,7 @@ function renderHandCards(hands, filter) {
     <div class="hc-cards">${cardsHtml(h.heroCards)}</div>
     <div class="hc-mid">
       <div class="hc-id">Hand #${h.handId}</div>
-      <div class="hc-time">${h.timestamp.slice(0,10)}</div>
+      <div class="hc-time">${localDateString(h.timestamp)}</div>
     </div>
     <div class="hc-right">
       <div class="hc-net ${netCls}">${fmtCurrency(h.net)}</div>
@@ -261,7 +273,7 @@ function renderChart(sessions) {
   sessions.forEach(s => {
     const result = s.resultSource === 'manual' ? (s.manualResult ?? s.result) : s.result;
     cumulative += result;
-    labels.push(s.startedAt.slice(0,10));
+    labels.push(localDateString(s.startedAt));
     points.push(cumulative.toFixed(2));
   });
 

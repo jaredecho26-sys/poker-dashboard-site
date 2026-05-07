@@ -91,12 +91,26 @@ const TAG_META = {
 };
 
 const ACTION_BADGE = {
-  bet:   { cls: 'ab-bet',   icon: '↑' },
-  raise: { cls: 'ab-raise', icon: '⬆' },
-  call:  { cls: 'ab-call',  icon: '→' },
-  check: { cls: 'ab-check', icon: '✓' },
-  fold:  { cls: 'ab-fold',  icon: '×' },
+  bet:   { cls: 'ab-bet',   icon: '↑', label: 'Bet' },
+  raise: { cls: 'ab-raise', icon: '⬆', label: 'Raise' },
+  call:  { cls: 'ab-call',  icon: '→', label: 'Call' },
+  check: { cls: 'ab-check', icon: '✓', label: 'Check' },
+  fold:  { cls: 'ab-fold',  icon: '×', label: 'Fold' },
 };
+
+function actionActor(action) {
+  const line = action?.line || '';
+  if (/^PopeMyCherry\b/.test(line)) return { label: 'You', cls: 'actor-you' };
+  const name = line.split(/\s+/)[0];
+  return { label: name || 'Villain', cls: 'actor-villain' };
+}
+
+function actionDetailText(action) {
+  const line = action?.line || '';
+  const actor = actionActor(action);
+  if (!line) return '';
+  return line.replace(new RegExp(`^${actor.label === 'You' ? 'PopeMyCherry' : actor.label}\\b\\s*`), '').trim();
+}
 
 function buildTimeline(actions) {
   if (!actions || !actions.length) return '';
@@ -110,9 +124,15 @@ function buildTimeline(actions) {
   return streetOrder.filter(s => streets[s]).map(s => {
     const acts = streets[s].map(a => {
       const t = (a.type || '').toLowerCase();
-      const b = ACTION_BADGE[t] || { cls: 'ab-other', icon: '·' };
-      const amt = a.amount > 0 ? `<span class="ab-amt">$${a.amount.toFixed(0)}</span>` : '';
-      return `<span class="action-badge ${b.cls}">${b.icon} ${t}${amt}</span>`;
+      const b = ACTION_BADGE[t] || { cls: 'ab-other', icon: '·', label: t || 'Action' };
+      const actor = actionActor(a);
+      const detail = actionDetailText(a);
+      const amt = a.amount > 0 ? `<span class="ab-amt">$${a.amount.toFixed(2)}</span>` : '';
+      return `<div class="action-row">
+        <span class="action-actor ${actor.cls}">${actor.label}</span>
+        <span class="action-badge ${b.cls}">${b.icon} ${b.label}${amt}</span>
+        ${detail ? `<span class="action-line">${detail}</span>` : ''}
+      </div>`;
     }).join('');
     return `<div class="timeline-street"><span class="street-label">${s}</span><div class="street-actions">${acts}</div></div>`;
   }).join('');
@@ -150,6 +170,7 @@ function renderHandCards(hands, filter) {
   ${boardCards ? `<div class="hc-board"><span class="board-label">Board</span>${boardCards}</div>` : ''}
   <button class="hc-toggle" onclick="toggleHandDetail('${id}')" aria-expanded="false">Show details ▾</button>
   <div class="hc-detail" id="${id}" hidden>
+    <div class="hc-detail-note">Action log below is currently your line, explicitly labeled so it's easier to scan.</div>
     <div class="hc-timeline">${tlHtml}</div>
     <div class="hc-note">${h.note || ''}</div>
   </div>

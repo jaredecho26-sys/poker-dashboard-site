@@ -190,6 +190,38 @@
     .pos-hj   { background: #404040; }
     .pos-utg  { background: #404040; }
 
+    /* ── Folded seat dimming ── */
+    .seat.seat-folded {
+      opacity: 0.28;
+      filter: grayscale(0.7);
+    }
+    .seat.seat-out {
+      display: none;
+    }
+    .seat-action-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #e8c060;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(200,160,40,0.4);
+      border-radius: 3px;
+      padding: 1px 6px;
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+    .seat-action-label.act-fold   { color: #f07878; border-color: rgba(200,80,80,0.4); }
+    .seat-action-label.act-raise  { color: #80c0f8; border-color: rgba(80,160,240,0.4); }
+    .seat-action-label.act-call   { color: #6ad878; border-color: rgba(80,200,100,0.4); }
+    .seat-action-label.act-check  { color: #b0a0c8; border-color: rgba(160,130,200,0.4); }
+    .seat-action-label.act-bet    { color: #f0b040; border-color: rgba(200,150,40,0.4); }
+    .seat-action-label.act-allin  { color: #ff6060; border-color: rgba(255,80,80,0.5); }
+    /* Villain seat highlight */
+    .seat-avatar.villain-seat {
+      border-color: #d06030;
+      background: linear-gradient(135deg, #201508 0%, #3a2010 100%);
+      color: #f0a060;
+    }
+
     /* ── Dealer button & blind chips ── */
     .dealer-btn-chip {
       position: absolute;
@@ -965,94 +997,280 @@ function handToCardsFromStr(str) {
 }
 
 // ── Table layout: seat positions ───────────────────────────────────────────
-// For a 860×440 SVG, center = (430, 220), rx=372, ry=175
-// 6-handed seat positions (as % of container)
 const SEAT_POSITIONS_6 = [
-  // [top%, left%, name, posKey]  — fractions of svg dimensions
-  // Seat 1: BTN (bottom-right area, near hero but offset)
-  { id: 1, x: 0.685, y: 0.82, name: 'BTN', pos: 'BTN' },
-  // Seat 2: CO (right middle)
-  { id: 2, x: 0.88,  y: 0.52, name: 'CO',  pos: 'CO'  },
-  // Seat 3: HJ (top-right)
-  { id: 3, x: 0.73,  y: 0.10, name: 'HJ',  pos: 'HJ'  },
-  // Seat 4: UTG (top-left)
-  { id: 4, x: 0.27,  y: 0.10, name: 'UTG', pos: 'UTG' },
-  // Seat 5: SB (left middle)
-  { id: 5, x: 0.12,  y: 0.52, name: 'SB',  pos: 'SB'  },
-  // Seat 6: BB (bottom-left area)
-  { id: 6, x: 0.315, y: 0.82, name: 'BB',  pos: 'BB'  },
+  { id: 1, x: 0.685, y: 0.82, pos: 'BTN' },
+  { id: 2, x: 0.88,  y: 0.52, pos: 'CO'  },
+  { id: 3, x: 0.73,  y: 0.10, pos: 'HJ'  },
+  { id: 4, x: 0.27,  y: 0.10, pos: 'UTG' },
+  { id: 5, x: 0.12,  y: 0.52, pos: 'SB'  },
+  { id: 6, x: 0.315, y: 0.82, pos: 'BB'  },
 ];
 
 const VILLAIN_NAMES = ['Alex', 'Maria', 'Jordan', 'Nate', 'Sofia', 'Raj'];
-const VILLAIN_STACKS = ['$485', '$220', '$680', '$1,240', '$315', '$780'];
 const VILLAIN_EMOJIS = ['🎩', '💎', '🦊', '🐻', '🦁', '🎯'];
+const V_NAME_MAP = { BTN: 'Alex', CO: 'Maria', HJ: 'Jordan', UTG: 'Nate', SB: 'Sofia', BB: 'Riley' };
+const V_EMOJI_MAP = { BTN: '🎩', CO: '💎', HJ: '🦊', UTG: '🐻', SB: '🦁', BB: '🎯' };
 
-function renderSeats(heroPosition) {
+// ── SCENARIO BUILDER ─────────────────────────────────────────────────────────
+function buildScenarioFromQuestion(q) {
+  const mode = q._mode || 'pfr';
+  const SB_AMT = 1, BB_AMT = 2;
+  const DEFAULT_STACK = 200; // 100bb at $1/$2
+
+  // Full stacks, post blinds
+  const stacks = { UTG: DEFAULT_STACK, HJ: DEFAULT_STACK, CO: DEFAULT_STACK,
+                   BTN: DEFAULT_STACK, SB: DEFAULT_STACK - SB_AMT, BB: DEFAULT_STACK - BB_AMT };
+
+  const rawPos = ((q.position || q.scenario || '')).toUpperCase().trim();
+  const ORDER = ['UTG', 'HJ', 'CO', 'BTN', 'SB', 'BB'];
+
+  // Helpers
+  function makePlayer(pos, status, actionLabel, customStack) {
+    return {
+      pos,
+      isHero: false,
+      status,              // 'hero' | 'villain' | 'active' | 'folded' | 'out'
+      stack: customStack !== undefined ? customStack : stacks[pos],
+      actionLabel: actionLabel || '',
+    };
+  }
+
+  let players = [];
+  let pot = SB_AMT + BB_AMT; // blinds always posted
+  let heroPos = 'BB';
+  let dealerPos = 'BTN';
+  let street = 'preflop';
+  let actionLog = [`SB posts $${SB_AMT}`, `BB posts $${BB_AMT}`];
+
+  // ── PFR: hero is considering opening ──────────────────────────────────────
+  if (mode === 'pfr') {
+    heroPos = rawPos.split(/\s+/)[0] || 'BTN';
+    if (!ORDER.includes(heroPos)) heroPos = 'BTN';
+    const heroIdx = ORDER.indexOf(heroPos);
+
+    players = ORDER.map((pos, i) => {
+      if (i < heroIdx) {
+        // positions that act before hero have folded
+        return makePlayer(pos, 'folded', 'Fold');
+      } else if (pos === heroPos) {
+        return { ...makePlayer(pos, 'hero', ''), isHero: true };
+      } else if (pos === 'SB') {
+        return makePlayer(pos, 'active', 'SB $1');
+      } else if (pos === 'BB') {
+        return makePlayer(pos, 'active', 'BB $2');
+      } else {
+        return makePlayer(pos, 'active', '');
+      }
+    });
+    if (heroIdx > 0) {
+      actionLog.push(ORDER.slice(0, heroIdx).join(', ') + ' fold');
+    }
+    actionLog.push(`${heroPos} has action`);
+
+  // ── 3-BET: hero 3-bets vs opener ─────────────────────────────────────────
+  } else if (mode === 'threebet') {
+    const parts = rawPos.split(/\s+VS\s+/);
+    heroPos = parts[0] || 'BB';
+    const villainP = (parts[1] || 'BTN').split(/\s+/)[0];
+    if (!ORDER.includes(heroPos)) heroPos = 'BB';
+    if (!ORDER.includes(villainP)) { /* keep */ }
+    const openSize = 6; // standard 3bb open
+    stacks[villainP] -= openSize;
+    pot = SB_AMT + BB_AMT + openSize;
+
+    const villainIdx = ORDER.indexOf(villainP);
+    const heroIdx    = ORDER.indexOf(heroPos);
+
+    players = ORDER.map((pos, i) => {
+      if (i < villainIdx) return makePlayer(pos, 'folded', 'Fold');
+      if (pos === villainP) return makePlayer(pos, 'villain', `Raise $${openSize}`);
+      if (i > villainIdx && i < heroIdx) return makePlayer(pos, 'folded', 'Fold');
+      if (pos === heroPos) return { ...makePlayer(pos, 'hero', ''), isHero: true };
+      // Remaining players after hero who haven't acted (SB already folded if villain is BTN/CO)
+      if (pos === 'SB' && heroPos !== 'SB') return makePlayer(pos, 'folded', 'Fold');
+      if (pos === 'BB' && heroPos !== 'BB') return makePlayer(pos, 'folded', 'Fold');
+      return makePlayer(pos, 'folded', 'Fold');
+    });
+    actionLog.push(`${villainP} raises to $${openSize}`);
+    if (villainIdx > 0) actionLog.push(ORDER.slice(0, villainIdx).join(', ') + ' fold');
+    actionLog.push(`${heroPos} faces 3-bet decision`);
+
+  // ── BB DEFENSE: BB defending vs open ──────────────────────────────────────
+  } else if (mode === 'blinddefense') {
+    heroPos = 'BB';
+    const parts = rawPos.split(/\s+VS\s+/);
+    const villainP = (parts[1] || 'BTN').split(/\s+/)[0];
+    if (!ORDER.includes(villainP)) { /* keep */ }
+    const openSize = 6;
+    stacks[villainP] -= openSize;
+    pot = SB_AMT + BB_AMT + openSize;
+
+    const villainIdx = ORDER.indexOf(villainP);
+    players = ORDER.map((pos, i) => {
+      if (i < villainIdx) return makePlayer(pos, 'folded', 'Fold');
+      if (pos === villainP) return makePlayer(pos, 'villain', `Raise $${openSize}`);
+      if (i > villainIdx && pos !== 'SB' && pos !== 'BB') return makePlayer(pos, 'folded', 'Fold');
+      if (pos === 'SB') return makePlayer(pos, 'folded', 'Fold'); // SB folds before BB in this scenario
+      if (pos === 'BB') return { ...makePlayer(pos, 'hero', ''), isHero: true };
+      return makePlayer(pos, 'folded', 'Fold');
+    });
+    actionLog.push(`${villainP} raises to $${openSize}`, 'SB folds', 'BB has action');
+
+  // ── C-BET: hero on flop as PFR ────────────────────────────────────────────
+  } else if (mode === 'cbet') {
+    heroPos = (rawPos.split(/\s+/)[0]) || 'BTN';
+    if (!ORDER.includes(heroPos)) heroPos = 'BTN';
+    pot = q.potSize || 15;
+    street = 'flop';
+    const villainP = heroPos === 'BB' ? 'BTN' : 'BB';
+    // Hero & villain remain; others are out
+    players = ORDER.map(pos => {
+      if (pos === heroPos) return { ...makePlayer(pos, 'hero', ''), isHero: true };
+      if (pos === villainP) return makePlayer(pos, 'villain', 'Check');
+      return makePlayer(pos, 'out', '');
+    });
+    actionLog.push(`Pot: $${pot}`, `${villainP} checks to ${heroPos}`);
+
+  // ── SHOVE / FOLD ──────────────────────────────────────────────────────────
+  } else if (mode === 'shovefold') {
+    heroPos = (rawPos.split(/\s+/)[0]) || 'BTN';
+    if (!ORDER.includes(heroPos)) heroPos = 'BTN';
+    const heroStackAmt = (q.stackBb || 20) * BB_AMT; // stack in $
+    const heroIdx = ORDER.indexOf(heroPos);
+
+    players = ORDER.map((pos, i) => {
+      const thisStack = pos === heroPos ? heroStackAmt : DEFAULT_STACK;
+      if (i < heroIdx) return makePlayer(pos, 'folded', 'Fold', thisStack);
+      if (pos === heroPos) return { ...makePlayer(pos, 'hero', '', heroStackAmt), isHero: true };
+      if (pos === 'SB') return makePlayer(pos, 'active', `SB $${SB_AMT}`, DEFAULT_STACK - SB_AMT);
+      if (pos === 'BB') return makePlayer(pos, 'active', `BB $${BB_AMT}`, DEFAULT_STACK - BB_AMT);
+      return makePlayer(pos, 'active', '', DEFAULT_STACK);
+    });
+    pot = SB_AMT + BB_AMT;
+    if (heroIdx > 0) actionLog.push(ORDER.slice(0, heroIdx).join(', ') + ' fold');
+    actionLog.push(`${heroPos} (${q.stackBb || 20}bb) shove or fold?`);
+
+  // ── POT ODDS: hero facing a bet ───────────────────────────────────────────
+  } else if (mode === 'potodds') {
+    heroPos = 'BB';
+    pot = q.potSize || 40;
+    street = (q.board || []).length >= 3 ? 'flop' : 'preflop';
+    const betSize = q.betSize || 0;
+    const villainP = 'BTN';
+    stacks[villainP] -= betSize;
+    players = ORDER.map(pos => {
+      if (pos === villainP) return makePlayer(pos, 'villain', betSize ? `Bet $${betSize}` : 'Bet');
+      if (pos === 'BB') return { ...makePlayer(pos, 'hero', ''), isHero: true };
+      return makePlayer(pos, 'out', '');
+    });
+    if (betSize) actionLog.push(`Villain bets $${betSize} into $${pot - betSize}`);
+
+  // ── COMBO: two players, various streets ───────────────────────────────────
+  } else if (mode === 'combo') {
+    heroPos = 'BTN';
+    pot = q.potSize || 30;
+    street = (q.board || []).length >= 3 ? 'flop' : 'preflop';
+    players = ORDER.map(pos => {
+      if (pos === 'BTN') return { ...makePlayer(pos, 'hero', ''), isHero: true };
+      if (pos === 'BB')  return makePlayer(pos, 'villain', '');
+      return makePlayer(pos, 'out', '');
+    });
+  }
+
+  return { players, pot, heroPos, dealerPos, street, actionLog };
+}
+
+function renderSeats(scenario) {
   const overlay = document.getElementById('seatsOverlay');
   if (!overlay) return;
-  const rect = overlay.getBoundingClientRect();
   const W = overlay.offsetWidth, H = overlay.offsetHeight;
 
-  // Map hero to seat 6 (BB/bottom area) by default
-  const heroPosKey = (heroPosition || 'BB').trim().toUpperCase().replace(/^BB VS .+/, 'BB');
-
   let html = '';
-  SEAT_POSITIONS_6.forEach((seat, i) => {
-    const isHero = seat.pos === heroPosKey;
-    const x = seat.x * W;
-    const y = seat.y * H;
-    const villainIdx = i % VILLAIN_NAMES.length;
-    const avatarCls = isHero ? 'seat-avatar hero-seat' : 'seat-avatar';
-    const name = isHero ? 'YOU' : VILLAIN_NAMES[villainIdx];
-    const stack = isHero ? '' : VILLAIN_STACKS[villainIdx];
-    const emoji = isHero ? '🃏' : VILLAIN_EMOJIS[villainIdx];
-    const posCls = `pos-${seat.pos.toLowerCase()}`;
+  SEAT_POSITIONS_6.forEach((seatPos, i) => {
+    const player = (scenario.players || []).find(p => p.pos === seatPos.pos);
+    if (!player || player.status === 'out') return;
 
-    html += `<div class="seat" style="left:${x}px;top:${y}px;transform:translate(-50%,-50%);">
+    const x = seatPos.x * W;
+    const y = seatPos.y * H;
+    const isFolded = player.status === 'folded';
+    const isHero   = player.isHero;
+    const isVillain = player.status === 'villain';
+
+    const avatarCls = isHero ? 'seat-avatar hero-seat'
+                    : isVillain ? 'seat-avatar villain-seat'
+                    : 'seat-avatar';
+    const name  = isHero ? 'YOU' : (V_NAME_MAP[seatPos.pos] || seatPos.pos);
+    const emoji = isHero ? '🃏' : (V_EMOJI_MAP[seatPos.pos] || '🎲');
+    const posCls = `pos-${seatPos.pos.toLowerCase()}`;
+    const seatCls = isFolded ? 'seat seat-folded' : 'seat';
+
+    // Stack display: in dollars
+    const stackStr = `$${player.stack}`;
+
+    // Action label CSS class
+    let actCls = '';
+    const al = (player.actionLabel || '').toLowerCase();
+    if (al.startsWith('fold')) actCls = 'act-fold';
+    else if (al.startsWith('raise') || al.startsWith('3-bet')) actCls = 'act-raise';
+    else if (al.startsWith('call')) actCls = 'act-call';
+    else if (al.startsWith('check')) actCls = 'act-check';
+    else if (al.startsWith('bet')) actCls = 'act-bet';
+    else if (al.startsWith('all-in') || al.startsWith('jam')) actCls = 'act-allin';
+    else if (al.startsWith('sb') || al.startsWith('bb')) actCls = 'act-check';
+
+    html += `<div class="${seatCls}" style="left:${x}px;top:${y}px;transform:translate(-50%,-50%)">
       <div class="${avatarCls}">${emoji}</div>
+      ${player.actionLabel ? `<div class="seat-action-label ${actCls}">${player.actionLabel}</div>` : ''}
       <div class="seat-name">${name}</div>
-      ${stack ? `<div class="seat-stack">${stack}</div>` : ''}
-      <div class="seat-pos-badge ${posCls}">${seat.pos}</div>
+      <div class="seat-stack">${stackStr}</div>
+      <div class="seat-pos-badge ${posCls}">${seatPos.pos}</div>
     </div>`;
   });
   overlay.innerHTML = html;
 }
 
 // ── Dealer button & blind chips ────────────────────────────────────────────
-// Offsets (as fraction of seat position) to place chips near but not on top of seat
-const CHIP_OFFSET = {
+const CHIP_INNER_OFFSET = {
   BTN: { dx: -0.06, dy: -0.12 },
-  SB:  { dx:  0.06, dy: -0.12 },
+  SB:  { dx:  0.07, dy: -0.12 },
   BB:  { dx:  0.06, dy: -0.12 },
 };
 
-function renderPositionChips(heroPosition) {
+// Chip offsets relative toward center of table for any seat
+function chipOffset(seatX, seatY, W, H) {
+  // Vector from seat toward table center (430/860, 220/440)
+  const cx = 0.5, cy = 0.5;
+  const dx = (cx - seatX / W) * 0.12;
+  const dy = (cy - seatY / H) * 0.18;
+  return { dx: dx * W, dy: dy * H };
+}
+
+function renderPositionChips(scenario) {
   const overlay = document.getElementById('chipsOverlay');
   if (!overlay) return;
   const W = overlay.offsetWidth, H = overlay.offsetHeight;
 
-  const heroPosKey = (heroPosition || 'BB').trim().toUpperCase().replace(/^BB VS .+/, 'BB');
+  const dealerPos = (scenario && scenario.dealerPos) || 'BTN';
+  const players   = (scenario && scenario.players)   || [];
+
+  // Find which positions are active (not 'out')
+  const activePosSet = new Set(players.filter(p => p.status !== 'out').map(p => p.pos));
 
   let html = '';
   SEAT_POSITIONS_6.forEach(seat => {
+    if (!activePosSet.has(seat.pos)) return;
     const seatX = seat.x * W;
     const seatY = seat.y * H;
+    const off = chipOffset(seatX, seatY, W, H);
+    const cx = seatX + off.dx;
+    const cy = seatY + off.dy;
 
-    if (seat.pos === 'BTN') {
-      const off = CHIP_OFFSET.BTN;
-      const cx = seatX + off.dx * W;
-      const cy = seatY + off.dy * H;
+    if (seat.pos === dealerPos) {
       html += `<div class="dealer-btn-chip" style="left:${cx}px;top:${cy}px;">D</div>`;
     } else if (seat.pos === 'SB') {
-      const off = CHIP_OFFSET.SB;
-      const cx = seatX + off.dx * W;
-      const cy = seatY + off.dy * H;
-      html += `<div class="sb-chip" style="left:${cx}px;top:${cy}px;">SB</div>`;
+      html += `<div class="sb-chip" style="left:${cx - 12}px;top:${cy}px;">SB</div>`;
     } else if (seat.pos === 'BB') {
-      const off = CHIP_OFFSET.BB;
-      const cx = seatX + off.dx * W;
-      const cy = seatY + off.dy * H;
-      html += `<div class="bb-chip" style="left:${cx}px;top:${cy}px;">BB</div>`;
+      html += `<div class="bb-chip" style="left:${cx + 4}px;top:${cy}px;">BB</div>`;
     }
   });
   overlay.innerHTML = html;
@@ -1285,17 +1503,12 @@ function updateScoreHud(state, poolLen) {
 
 // ── Render full question to the table ───────────────────────────────────────
 function renderQuestion(q, state, poolLen) {
-  const mode = q._mode || '';
-  const posLabel = q.position || q.scenario || '';
+  // Build dynamic scenario from question data
+  const scenario = buildScenarioFromQuestion(q);
 
-  // Determine hero position
-  const heroPos = posLabel.includes('vs')
-    ? posLabel.replace(/^BB vs .*/i, 'BB')
-    : posLabel.split(/\s+/)[0];
-
-  // Seats
-  renderSeats(heroPos);
-  renderPositionChips(heroPos);
+  // Seats & chips use scenario
+  renderSeats(scenario);
+  renderPositionChips(scenario);
 
   // Hero cards
   let heroCards;
@@ -1308,18 +1521,14 @@ function renderQuestion(q, state, poolLen) {
 
   // Community cards
   const board = q.board || [];
-  let street = 'preflop';
-  if (board.length >= 5) street = 'river';
-  else if (board.length === 4) street = 'turn';
-  else if (board.length === 3) street = 'flop';
+  const street = scenario.street || (board.length >= 5 ? 'river' : board.length === 4 ? 'turn' : board.length === 3 ? 'flop' : 'preflop');
   renderCommunityCards(board, street);
 
-  // Center info
-  let pot = '';
-  if (q.potSize !== undefined) pot = `$${q.potSize}`;
-  else if (mode === 'pfr') pot = '$15';
-  else pot = '$60';
-  renderCenterInfo(pot, street === 'preflop' ? 'Pre-Flop' : street.charAt(0).toUpperCase() + street.slice(1), '1/2 NL');
+  // Center info — pot from scenario (accurate)
+  const potStr = `$${scenario.pot}`;
+  const streetLabel = street === 'preflop' ? 'Pre-Flop'
+                    : street.charAt(0).toUpperCase() + street.slice(1);
+  renderCenterInfo(potStr, streetLabel, '$1/$2 NL');
 
   // Quiz panel
   renderQuizPanel(q, state, poolLen, false);

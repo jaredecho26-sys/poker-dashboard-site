@@ -45,7 +45,8 @@
         "line": "PopeMyCherry checks",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "highcard"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
@@ -99,7 +100,8 @@
         "line": "PopeMyCherry folds",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "wet"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
@@ -139,6 +141,56 @@
         "type": "fold",
         "line": "PopeMyCherry folds",
         "amount": 0.0
+      }
+    ],
+    "boardTexture": "paired"
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
+    "handId": "2731964537",
+    "timestamp": "2026-05-07T05:35:14Z",
+    "heroCards": "9h As",
+    "board": [
+      "9s",
+      "3s",
+      "3h",
+      "9d",
+      "2s"
+    ],
+    "boardTexture": "paired",
+    "net": 12.6,
+    "tag": "cbet-miss",
+    "note": "C-bet called on flop (paired board). Review bet sizing and range construction.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the small blind $1.00",
+        "amount": 1.0
+      },
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $3.00 to $4.00",
+        "amount": 3.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $3.00",
+        "amount": 3.0
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "RIVER",
+        "type": "bet",
+        "line": "PopeMyCherry bets $7.00",
+        "amount": 7.0
       }
     ]
   },
@@ -182,7 +234,8 @@
         "line": "PopeMyCherry checks",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "lowcard"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
@@ -228,6 +281,43 @@
         "type": "fold",
         "line": "PopeMyCherry folds",
         "amount": 0.0
+      }
+    ],
+    "boardTexture": "dry"
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
+    "handId": "2731972844",
+    "timestamp": "2026-05-07T05:55:31Z",
+    "heroCards": "8c Qd",
+    "board": [
+      "9s",
+      "3c",
+      "Qc",
+      "7s"
+    ],
+    "boardTexture": "highcard",
+    "net": -0.41,
+    "tag": "cbet-miss",
+    "note": "C-bet called on flop (highcard board). Review bet sizing and range construction.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $3.63",
+        "amount": 3.63
+      },
+      {
+        "street": "TURN",
+        "type": "bet",
+        "line": "PopeMyCherry bets $9.13",
+        "amount": 9.13
       }
     ]
   },
@@ -283,7 +373,8 @@
         "line": "PopeMyCherry bets $35.18",
         "amount": 35.18
       }
-    ]
+    ],
+    "boardTexture": "dry"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
@@ -324,7 +415,8 @@
         "line": "PopeMyCherry folds",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "highcard"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
@@ -366,7 +458,8 @@
         "line": "PopeMyCherry folds",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "dry"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
@@ -426,7 +519,8 @@
         "line": "PopeMyCherry folds",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "highcard"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
@@ -456,7 +550,8 @@
         "line": "PopeMyCherry calls $126.00",
         "amount": 126.0
       }
-    ]
+    ],
+    "boardTexture": "unknown"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
@@ -498,7 +593,8 @@
         "line": "PopeMyCherry folds",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "paired"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
@@ -545,7 +641,8 @@
         "line": "PopeMyCherry folds",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "dry"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
@@ -605,7 +702,8 @@
         "line": "PopeMyCherry bets $35.37",
         "amount": 35.37
       }
-    ]
+    ],
+    "boardTexture": "highcard"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
@@ -646,7 +744,8 @@
         "line": "PopeMyCherry folds",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "dry"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
@@ -700,7 +799,8 @@
         "line": "PopeMyCherry checks",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "paired"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
@@ -741,6 +841,56 @@
         "type": "call",
         "line": "PopeMyCherry calls $22.89",
         "amount": 22.89
+      }
+    ],
+    "boardTexture": "wet"
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "handId": "2732184786",
+    "timestamp": "2026-05-07T16:54:25Z",
+    "heroCards": "As Ad",
+    "board": [
+      "9d",
+      "3c",
+      "7d",
+      "8h",
+      "4h"
+    ],
+    "boardTexture": "dry",
+    "net": 26.12,
+    "tag": "cbet-miss",
+    "note": "C-bet raised on flop (dry board). Review bet sizing and range construction.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $3.63",
+        "amount": 3.63
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $8.02",
+        "amount": 8.02
+      },
+      {
+        "street": "TURN",
+        "type": "call",
+        "line": "PopeMyCherry calls $11.31",
+        "amount": 11.31
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
       }
     ]
   },
@@ -784,7 +934,8 @@
         "line": "PopeMyCherry bets $60.32",
         "amount": 60.32
       }
-    ]
+    ],
+    "boardTexture": "highcard"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
@@ -832,7 +983,8 @@
         "line": "PopeMyCherry checks",
         "amount": 0.0
       }
-    ]
+    ],
+    "boardTexture": "dry"
   },
   {
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
@@ -879,6 +1031,196 @@
         "type": "fold",
         "line": "PopeMyCherry folds",
         "amount": 0.0
+      }
+    ],
+    "boardTexture": "dry"
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-mahomet_2026-05-07_session3",
+    "handId": "2732285788",
+    "timestamp": "2026-05-07T19:22:20Z",
+    "heroCards": "Ks Kc",
+    "board": [
+      "9h",
+      "8d",
+      "Jd",
+      "3c",
+      "Ac"
+    ],
+    "boardTexture": "wet",
+    "net": -32.64,
+    "tag": "bad",
+    "note": "Large losing hand worth reviewing for structural leak or unavoidable variance.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $9.00 to $9.00",
+        "amount": 9.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $10.37",
+        "amount": 10.37
+      },
+      {
+        "street": "TURN",
+        "type": "bet",
+        "line": "PopeMyCherry bets $13.27",
+        "amount": 13.27
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-mahomet_2026-05-07_session3",
+    "handId": "2732300150",
+    "timestamp": "2026-05-07T19:37:54Z",
+    "heroCards": "8d Jc",
+    "board": [
+      "2d",
+      "9d",
+      "8c",
+      "3c",
+      "Ad"
+    ],
+    "boardTexture": "dry",
+    "net": -11.0,
+    "tag": "study",
+    "note": "Medium pot with multiple decisions; useful for leak review.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $2.50 to $2.50",
+        "amount": 2.5
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $3.25",
+        "amount": 3.25
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $5.25",
+        "amount": 5.25
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-mahomet_2026-05-07_session3",
+    "handId": "2732331086",
+    "timestamp": "2026-05-07T20:16:34Z",
+    "heroCards": "Qd Ac",
+    "board": [
+      "Jh",
+      "Tc",
+      "Ad",
+      "5s",
+      "2s"
+    ],
+    "boardTexture": "highcard",
+    "net": 40.49,
+    "tag": "good",
+    "note": "Large winning hand worth reviewing for value line quality.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $2.50 to $2.50",
+        "amount": 2.5
+      },
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $8.00",
+        "amount": 8.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $10.47",
+        "amount": 10.47
+      },
+      {
+        "street": "FLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $21.52 to $31.99 and is all-in",
+        "amount": 21.519999999999996
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-mahomet_2026-05-07_session3",
+    "handId": "2732334372",
+    "timestamp": "2026-05-07T20:20:21Z",
+    "heroCards": "Ac Qc",
+    "board": [
+      "8c",
+      "Ad",
+      "7d",
+      "Qs"
+    ],
+    "boardTexture": "highcard",
+    "net": 85.69,
+    "tag": "good",
+    "note": "Large winning hand worth reviewing for value line quality.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "post",
+        "line": "PopeMyCherry posts the big blind $1.00",
+        "amount": 1.0
+      },
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $7.12 to $8.12",
+        "amount": 7.119999999999999
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $6.02",
+        "amount": 6.02
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $23.08",
+        "amount": 23.08
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "call",
+        "line": "PopeMyCherry calls $49.97 and is all-in",
+        "amount": 49.97
       }
     ]
   }

@@ -16,12 +16,22 @@
       </div>
     </header>
 
-    <section class="card" id="quizSection">
-      <div class="card-head quiz-head">
-        <div>
-          <h2>Game Board</h2>
+    <section class="card trainer-card" id="quizSection">
+      <div class="trainer-header">
+        <div class="trainer-title-row">
+          <h2 class="trainer-title">🎯 Study Trainer</h2>
+          <div class="trainer-filters-right">
+            <span class="trainer-filter-label">Difficulty</span>
+            <div class="quiz-level-tabs">
+              <button class="quiz-level-btn active" data-level="all">All</button>
+              <button class="quiz-level-btn" data-level="easy">Easy</button>
+              <button class="quiz-level-btn" data-level="medium">Medium</button>
+              <button class="quiz-level-btn" data-level="hard">Hard</button>
+            </div>
+          </div>
         </div>
-        <div class="quiz-controls">
+        <div class="trainer-mode-row">
+          <span class="trainer-filter-label">Mode</span>
           <div class="quiz-mode-tabs">
             <button class="quiz-mode-btn active" data-mode="pfr">PFR</button>
             <button class="quiz-mode-btn" data-mode="threebet">3-Bet</button>
@@ -30,12 +40,6 @@
             <button class="quiz-mode-btn" data-mode="shovefold">Shove / Fold</button>
             <button class="quiz-mode-btn" data-mode="potodds">Pot Odds</button>
             <button class="quiz-mode-btn" data-mode="combo">Combo Reads</button>
-          </div>
-          <div class="quiz-level-tabs">
-            <button class="quiz-level-btn active" data-level="all">All</button>
-            <button class="quiz-level-btn" data-level="easy">Easy</button>
-            <button class="quiz-level-btn" data-level="medium">Medium</button>
-            <button class="quiz-level-btn" data-level="hard">Hard</button>
           </div>
         </div>
       </div>

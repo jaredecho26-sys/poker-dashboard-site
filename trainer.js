@@ -163,22 +163,32 @@ function scoreHtml(state, pool) {
 
 // ── GAME BOARD renderers ────────────────────────────────────────────────────
 
+const MODE_LABELS = { pfr:'PFR', threebet:'3-Bet', blinddefense:'BB Defend', cbet:'C-Bet', shovefold:'Shove/Fold', potodds:'Pot Odds', combo:'Combo' };
+const PREFLOP_SLOTS = Array(5).fill(null).map(() => '<div class="card-empty-slot"></div>').join('');
+
 function buildRangeBoard(q, mode) {
   const posLabel = q.position || q.scenario || '';
-  const handDisplay = cardsLargeHtml ? cardsLargeHtml(q.hand ? q.hand.split('').map((c,i,a) =>
-    i === 0 ? null : a[i-1]+c).filter((_,i) => i%2===1) : []) : '';
+  const modeLabel = MODE_LABELS[mode] || mode.toUpperCase();
+  const prompt = posLabel.includes('vs')
+    ? `BB defense vs <strong>${posLabel.replace(/^BB vs /i,'')}</strong> open — what do you do?`
+    : `Action from <strong>${posLabel}</strong> — open, fold, or mix?`;
   return `
   <div class="game-board">
     <div class="board-meta-row">
       ${posBadge(posLabel)}
-      <div class="board-mode-chip">${mode}</div>
+      <div class="board-mode-chip">${modeLabel}</div>
       <div class="board-pot-chip difficulty-${q.difficulty || 'medium'}">${q.difficulty || 'medium'}</div>
     </div>
     <div class="board-hero-zone">
       <span class="board-zone-label">YOUR HAND</span>
-      <div class="hero-cards">${cardChip ? buildHandChips(q.hand) : q.hand}</div>
+      <div class="hero-cards">${buildHandChips(q.hand)}</div>
     </div>
-    <div class="board-prompt">${q.position ? `Position: <strong>${q.position || q.scenario}</strong>` : ''} ${posLabel.includes('vs') ? '' : ''}</div>
+    <div class="board-community-zone board-community-preflop">
+      <span class="board-zone-label">BOARD</span>
+      <div class="community-cards">${PREFLOP_SLOTS}</div>
+      <span class="preflop-label">Pre-flop</span>
+    </div>
+    <div class="board-prompt">${prompt}</div>
   </div>`;
 }
 
@@ -199,18 +209,25 @@ function buildHandChips(handStr) {
 
 function buildCBetBoard(q) {
   const boardCards = (q.board || []).map(c => cardLarge(c)).join('');
+  const heroCards = q.heroHand ? `
+    <div class="board-hero-zone">
+      <span class="board-zone-label">YOUR HAND</span>
+      <div class="hero-cards">${buildHandChipsFromStr(q.heroHand)}</div>
+    </div>` : '';
   return `
   <div class="game-board">
     <div class="board-meta-row">
-      <div class="board-mode-chip">${q.potType || 'SRP'}</div>
-      <div class="board-pos-info">${q.line || ''}</div>
+      ${q.position ? posBadge(q.position) : ''}
+      <div class="board-mode-chip">C-Bet</div>
+      <div class="board-mode-chip" style="background:rgba(46,204,113,.12);border-color:rgba(46,204,113,.3);color:var(--green)">${q.potType || 'SRP'}</div>
       <div class="board-pot-chip difficulty-${q.difficulty}">${q.difficulty}</div>
     </div>
+    ${heroCards}
     <div class="board-community-zone">
       <span class="board-zone-label">BOARD</span>
       <div class="community-cards">${boardCards}</div>
     </div>
-    <div class="board-prompt">${q.prompt}</div>
+    <div class="board-prompt">${q.line ? `<span style="color:var(--muted);font-size:12px">${q.line}</span><br>` : ''}${q.prompt}</div>
   </div>`;
 }
 
@@ -222,6 +239,7 @@ function buildShoveBoard(q) {
   <div class="game-board">
     <div class="board-meta-row">
       ${posBadge(q.position)}
+      <div class="board-mode-chip">Shove/Fold</div>
       <div class="board-stack-info">
         <span class="stack-label">Stack</span>
         <span class="stack-value">${q.stackBb}bb</span>
@@ -233,8 +251,12 @@ function buildShoveBoard(q) {
       <span class="board-zone-label">YOUR HAND</span>
       <div class="hero-cards">${buildHandChips(q.heroHand)}</div>
     </div>
-    <div class="board-situation">${q.action}</div>
-    <div class="board-prompt">${q.prompt}</div>
+    <div class="board-community-zone board-community-preflop">
+      <span class="board-zone-label">BOARD</span>
+      <div class="community-cards">${PREFLOP_SLOTS}</div>
+      <span class="preflop-label">Pre-flop</span>
+    </div>
+    <div class="board-prompt"><span style="color:var(--muted);font-size:12px">${q.action}</span><br>${q.prompt}</div>
   </div>`;
 }
 

@@ -294,11 +294,11 @@ canvas { width: 100% !important; height: 340px !important; }
 .quiz-controls { display: grid; gap: 10px; justify-items: end; }
 .quiz-subnote { margin-top: 8px; max-width: 620px; }
 .quiz-level-tabs, .quiz-stack-badges {
-  display: flex; gap: 8px; flex-wrap: wrap;
+  display: flex; gap: 5px; flex-wrap: wrap;
 }
 .quiz-level-btn, .quiz-stack-badge {
-  padding: 7px 12px; border: 1px solid var(--border); background: transparent;
-  color: var(--muted); border-radius: 999px; font-size: 12px; font-weight: 700;
+  padding: 5px 11px; border: 1px solid var(--border); background: transparent;
+  color: var(--muted); border-radius: 999px; font-size: 11px; font-weight: 700;
 }
 .quiz-level-btn { cursor: pointer; transition: all 0.18s; }
 .quiz-level-btn:hover { border-color: var(--yellow); color: var(--text); }
@@ -349,9 +349,9 @@ canvas { width: 100% !important; height: 340px !important; }
 .game-board {
   background: radial-gradient(ellipse at 60% 30%, #0d3d1e 0%, #071a0d 80%, #060f06 100%);
   border: 2px solid #1a5a30;
-  border-radius: 24px;
-  box-shadow: 0 0 50px rgba(0,140,50,.12), inset 0 1px 0 rgba(255,255,255,.04);
-  padding: 22px 24px 18px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0,140,50,.1), inset 0 1px 0 rgba(255,255,255,.04);
+  padding: 16px 18px 14px;
   position: relative; overflow: hidden;
   margin-bottom: 0;
 }
@@ -364,8 +364,8 @@ canvas { width: 100% !important; height: 340px !important; }
 
 /* Board meta row */
 .board-meta-row {
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 12px;
 }
 .board-mode-chip {
   font-size: 10px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase;
@@ -380,9 +380,9 @@ canvas { width: 100% !important; height: 340px !important; }
 /* Position badges */
 .pos-badge {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 52px; height: 52px; border-radius: 50%;
-  font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em;
-  box-shadow: 0 4px 14px rgba(0,0,0,.5);
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em;
+  box-shadow: 0 3px 10px rgba(0,0,0,.5);
   flex-shrink: 0;
 }
 .pos-btn  { background: radial-gradient(circle,#2a4a1a,#163010); border: 2px solid #4a9a30; color: #9afa70; }
@@ -402,8 +402,8 @@ canvas { width: 100% !important; height: 340px !important; }
 
 /* Community cards zone */
 .board-community-zone, .board-hero-zone {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
-  background: rgba(0,0,0,.35); border-radius: 16px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+  background: rgba(0,0,0,.35); border-radius: 14px; padding: 10px 14px;
   border: 1px solid rgba(255,255,255,.06);
 }
 .board-hero-zone { background: rgba(110,168,254,.06); border-color: rgba(110,168,254,.2); }
@@ -412,22 +412,42 @@ canvas { width: 100% !important; height: 340px !important; }
   color: rgba(255,255,255,.4); writing-mode: vertical-lr; transform: rotate(180deg);
   flex-shrink: 0;
 }
-.community-cards, .hero-cards { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.community-cards, .hero-cards { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center; flex: 1; }
+
+/* Empty card slots (pre-flop board placeholder) */
+.card-empty-slot {
+  width: 52px; height: 72px; border-radius: 10px;
+  border: 2px dashed rgba(255,255,255,.15);
+  background: rgba(255,255,255,.03);
+  flex-shrink: 0;
+}
+.board-community-preflop { opacity: 0.55; }
+.preflop-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); white-space: nowrap;
+}
 
 /* Large playing cards */
 .card-lg {
-  width: 52px; height: 72px; border-radius: 10px;
+  width: 60px; height: 84px; border-radius: 12px;
   background: #fff; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 2px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.9);
+  box-shadow: 0 6px 20px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.9);
   flex-shrink: 0;
 }
+/* Hero cards in hero zone: bigger */
+.board-hero-zone .card-lg {
+  width: 72px; height: 100px; border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.8), 0 0 0 2px rgba(110,168,254,.3), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.board-hero-zone .clg-rank { font-size: 30px; }
+.board-hero-zone .clg-suit { font-size: 18px; }
 .card-lg.cs .clg-rank, .card-lg.cs .clg-suit { color: #1a1a2e; }
 .card-lg.ch .clg-rank, .card-lg.ch .clg-suit { color: #c0392b; }
 .card-lg.cd .clg-rank, .card-lg.cd .clg-suit { color: #c04800; }
 .card-lg.cc .clg-rank, .card-lg.cc .clg-suit { color: #1a7a2e; }
-.clg-rank { font-size: 22px; font-weight: 900; line-height: 1; }
-.clg-suit { font-size: 14px; line-height: 1; }
+.clg-rank { font-size: 24px; font-weight: 900; line-height: 1; }
+.clg-suit { font-size: 15px; line-height: 1; }
 
 /* Stack visualizer */
 .board-stack-info { display: flex; align-items: baseline; gap: 6px; }
@@ -447,15 +467,15 @@ canvas { width: 100% !important; height: 340px !important; }
 
 /* ── GAME ANSWER BUTTONS ─────────────────────────────────────────────────── */
 .answer-zone {
-  display: flex; gap: 12px; flex-wrap: wrap;
-  justify-content: center; margin: 16px 0;
+  display: flex; gap: 10px; flex-wrap: wrap;
+  justify-content: center; margin: 12px 0 10px;
 }
 .game-ans {
-  min-width: 150px; padding: 14px 22px;
-  border-radius: 16px; font-size: 15px; font-weight: 800;
+  min-width: 130px; padding: 12px 20px;
+  border-radius: 14px; font-size: 14px; font-weight: 800;
   border: 2px solid; cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
-  box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  box-shadow: 0 3px 10px rgba(0,0,0,.3);
   text-align: center;
 }
 .game-ans:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.45); }
@@ -463,13 +483,13 @@ canvas { width: 100% !important; height: 340px !important; }
 
 /* ── HUD SCOREBAR ────────────────────────────────────────────────────────── */
 .hud-scorebar {
-  background: var(--panel); border: 1px solid var(--border); border-radius: 16px;
-  padding: 14px 18px; margin-bottom: 14px;
-  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+  padding: 10px 16px; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
 }
 .hud-stat { display: flex; flex-direction: column; align-items: center; gap: 3px; }
 .hud-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
-.hud-value { font-size: 18px; font-weight: 800; color: var(--text); }
+.hud-value { font-size: 16px; font-weight: 800; color: var(--text); }
 .hud-green { color: var(--green); }
 .hud-yellow { color: var(--yellow); }
 .hud-red { color: var(--red); }
@@ -550,11 +570,26 @@ canvas { width: 100% !important; height: 340px !important; }
 .bb-notes li { font-size: 12px; color: var(--muted); padding-left: 14px; position: relative; }
 .bb-notes li::before { content: '→'; position: absolute; left: 0; color: var(--blue); font-size: 10px; }
 
+/* ── TRAINER HEADER ─────────────────────────────────────────────────────── */
+.trainer-card { padding: 20px 20px 16px; }
+.trainer-header { margin-bottom: 18px; }
+.trainer-title-row {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.trainer-title { margin: 0; font-size: 20px; }
+.trainer-filters-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.trainer-filter-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted); white-space: nowrap;
+}
+.trainer-mode-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
 /* ── TRAINER MODE TABS ───────────────────────────────────────────────────── */
 .quiz-mode-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
 .quiz-mode-btn {
-  padding: 9px 14px; border: 1px solid var(--border); background: transparent;
-  color: var(--muted); border-radius: 999px; cursor: pointer; font-size: 13px;
+  padding: 7px 13px; border: 1px solid var(--border); background: transparent;
+  color: var(--muted); border-radius: 999px; cursor: pointer; font-size: 12px;
   transition: all 0.18s; font-weight: 600;
 }
 .quiz-mode-btn:hover { border-color: var(--blue); color: var(--text); }
@@ -603,8 +638,8 @@ canvas { width: 100% !important; height: 340px !important; }
 
 @media (max-width: 1024px) {
   .metrics, .top-grid, .bottom-grid, .study-grid, .top-hands-grid, .workflow, .quiz-meta-grid { grid-template-columns: 1fr; }
-  .hero, .quiz-head { flex-direction: column; }
-  .quiz-controls { justify-items: start; width: 100%; }
+  .hero { flex-direction: column; }
+  .trainer-title-row { flex-direction: column; align-items: flex-start; }
   .odds-ref-grid { grid-template-columns: 1fr; }
   .bb-defend-header { flex-direction: column; gap: 10px; }
 }

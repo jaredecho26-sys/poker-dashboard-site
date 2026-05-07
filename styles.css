@@ -84,7 +84,7 @@ th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spa
 .hand-matrix { display: inline-grid; grid-template-columns: repeat(13, 1fr); gap: 3px; min-width: max-content; }
 .hand-cell { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 7px; font-size: 11px; font-weight: 700; border: 1px solid rgba(255,255,255,.08); }
 .hand-cell.open, .hand-cell.value { background: rgba(46,204,113,.92); color: white; }
-.hand-cell.bluff { background: rgba(110,168,254,.92); color: white; }
+.hand-cell.bluff, .hand-cell.threebet { background: rgba(110,168,254,.92); color: white; }
 .hand-cell.mix { background: rgba(246,196,69,.95); color: #10182c; }
 .hand-cell.call { background: rgba(178,191,216,.9); color: #10182c; }
 .hand-cell.fold { background: transparent; color: #56627f; border-color: #33415e; }

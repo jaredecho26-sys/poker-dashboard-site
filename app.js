@@ -379,12 +379,13 @@ function setupRangeExplorer(containerId, data, config) {
 }
 
 (async function init() {
-  const [sessions, hands, study, pfrRanges, threeBetRanges] = await Promise.all([
+  const [sessions, hands, study, pfrRanges, threeBetRanges, trainerPack] = await Promise.all([
     loadJson('data/sessions.json'),
     loadJson('data/hands.json'),
     loadJson('data/study.json'),
     loadJson('data/pfr-ranges.json'),
-    loadJson('data/3bet-ranges.json')
+    loadJson('data/3bet-ranges.json'),
+    loadJson('data/trainer-pack.json')
   ]);
 
   renderMetrics(sessions);
@@ -425,10 +426,27 @@ function setupRangeExplorer(containerId, data, config) {
     ]
   });
 
-  initQuiz(pfrRanges, threeBetRanges);
+  initQuiz(pfrRanges, threeBetRanges, trainerPack);
 })();
 
-// ── PREFLOP TRAINER QUIZ ───────────────────────────────────────────────
+// ── STUDY TRAINER QUIZ ───────────────────────────────────────────────
+
+const HAND_VALUE = { A: 14, K: 13, Q: 12, J: 11, T: 10, 9: 9, 8: 8, 7: 7, 6: 6, 5: 5, 4: 4, 3: 3, 2: 2 };
+const LEVEL_LABELS = { all: 'All Levels', easy: 'Easy', medium: 'Medium', hard: 'Hard' };
+const MODE_LABELS = {
+  pfr: 'PFR Decisions',
+  threebet: '3-Bet Decisions',
+  blinddefense: 'Blind Defense',
+  cbet: 'C-Bet Trainer',
+  shovefold: 'Shove / Fold'
+};
+const MODE_DESCRIPTIONS = {
+  pfr: 'Full 6-max raise-first-in drilling across all 169 starting-hand classes.',
+  threebet: 'Attack common 3-bet formations with value, bluff, call, fold, and mix recognition.',
+  blinddefense: 'Specifically train SB/BB defense decisions where leaks pile up fast.',
+  cbet: 'Board-texture drills for practical flop c-bet defaults.',
+  shovefold: 'Short-stack tournament-style jam/fold reps to hardwire thresholds.'
+};
 
 function generateAllHands() {
   const hands = [];
@@ -442,65 +460,66 @@ function generateAllHands() {
   return hands;
 }
 
-function buildPfrLookup(pfrRanges) {
-  // Map: positionId -> hand -> 'open'|'mix'|'fold'
-  const lookup = {};
-  pfrRanges.positions.forEach(pos => {
-    const map = {};
-    generateAllHands().forEach(h => { map[h] = 'fold'; });
-    (pos.actions.open || []).forEach(h => { map[h] = 'open'; });
-    (pos.actions.mix  || []).forEach(h => { map[h] = 'mix';  });
-    lookup[pos.id] = { label: pos.label, summary: pos.summary, map };
-  });
-  return lookup;
+function handMeta(handStr) {
+  const pair = handStr.length === 2;
+  const suited = handStr.endsWith('s');
+  const offsuit = handStr.endsWith('o');
+  const r1 = handStr[0];
+  const r2 = pair ? handStr[1] : handStr[1];
+  const v1 = HAND_VALUE[r1] || 0;
+  const v2 = HAND_VALUE[r2] || 0;
+  const gap = Math.max(0, Math.abs(v1 - v2) - 1);
+  return { pair, suited, offsuit, r1, r2, v1, v2, gap, high: Math.max(v1, v2), low: Math.min(v1, v2) };
 }
 
-function build3betLookup(threeBetRanges) {
-  // Map: scenarioId -> hand -> 'value'|'bluff'|'call'|'mix'|'fold'
-  const lookup = {};
-  threeBetRanges.scenarios.forEach(sc => {
-    const map = {};
-    // start all folds
-    generateAllHands().forEach(h => { map[h] = 'fold'; });
-    (sc.actions.value || []).forEach(h => { map[h] = 'value'; });
-    (sc.actions.bluff || []).forEach(h => { map[h] = 'bluff'; });
-    (sc.actions.call  || []).forEach(h => { map[h] = 'call';  });
-    (sc.actions.mix   || []).forEach(h => { map[h] = 'mix';   });
-    lookup[sc.id] = { label: sc.label, summary: sc.summary, map };
-  });
-  return lookup;
+function handStrengthScore(handStr) {
+  const meta = handMeta(handStr);
+  if (meta.pair) return 30 + meta.v1;
+  let score = meta.v1 + meta.v2;
+  if (meta.suited) score += 2.25;
+  if (meta.gap === 0) score += 1.2;
+  else if (meta.gap === 1) score += 0.5;
+  if (meta.r1 === 'A' || meta.r2 === 'A') score += 1.1;
+  if ((meta.r1 === 'K' || meta.r2 === 'K') && meta.high >= 12) score += 0.4;
+  return score;
 }
 
-function pickWeightedHand(handMap) {
-  // Weight interesting hands more, pure folds less
-  const all = generateAllHands();
-  const weights = all.map(h => {
-    const a = handMap[h];
-    if (a === 'fold') return 0.15;
-    if (a === 'mix')  return 2.5;
-    return 1.0;
-  });
-  const total = weights.reduce((a, b) => a + b, 0);
-  let r = Math.random() * total;
-  for (let i = 0; i < all.length; i++) {
-    r -= weights[i];
-    if (r <= 0) return all[i];
+function classifyPfrDifficulty(hand, action) {
+  if (action === 'mix') return 'hard';
+  const score = handStrengthScore(hand);
+  if (action === 'open') {
+    if (score >= 27) return 'easy';
+    if (score >= 22) return 'medium';
+    return 'hard';
   }
-  return all[all.length - 1];
+  if (score <= 15.5) return 'easy';
+  if (score <= 20.5) return 'medium';
+  return 'hard';
+}
+
+function classifyAggroDifficulty(hand, action) {
+  if (action === 'mix') return 'hard';
+  if (action === 'value') return 'easy';
+  if (action === 'bluff') return 'hard';
+  if (action === 'call') return 'medium';
+  const score = handStrengthScore(hand);
+  if (score <= 14.5) return 'easy';
+  if (score <= 20) return 'medium';
+  return 'hard';
+}
+
+function boardCardsHtml(cards = []) {
+  return `<div class="quiz-board-row"><span class="board-label">Board</span><div class="quiz-board-cards">${cards.map(cardChip).join('')}</div></div>`;
 }
 
 function bigCardHtml(handStr) {
-  // handStr like "AKs", "TT", "87o"
-  const isPair   = handStr.length === 2;
+  const isPair = handStr.length === 2;
   const isSuited = handStr.endsWith('s');
-  const isOffsuit = handStr.endsWith('o');
   const r1 = handStr[0];
-  const r2 = handStr.length >= 2 ? (isPair ? handStr[1] : handStr[1]) : handStr[0];
+  const r2 = handStr[1] || handStr[0];
   const suit1 = isSuited ? 's' : (isPair ? 'h' : 'c');
   const suit2 = isSuited ? 's' : (isPair ? 'd' : 'h');
-  const card1 = `${r1}${suit1}`;
-  const card2 = `${r2}${suit2}`;
-  const suitLabel = isPair ? '' : (isSuited ? ' suited' : ' offsuit');
+  const suitLabel = isPair ? ' pair' : (isSuited ? ' suited' : ' offsuit');
   return `<div class="quiz-cards">
     <div class="quiz-card ${SUIT_COLORS[suit1]}">
       <div class="qc-rank">${r1}</div>
@@ -516,42 +535,313 @@ function bigCardHtml(handStr) {
 
 const PFR_ANSWERS = [
   { key: 'open', label: '🚀 Open', cls: 'qa-open' },
-  { key: 'mix',  label: '🎲 Mixed', cls: 'qa-mix' },
+  { key: 'mix', label: '🎲 Mix', cls: 'qa-mix' },
   { key: 'fold', label: '🏳️ Fold', cls: 'qa-fold' },
 ];
 
-const THREEBET_ANSWERS = [
-  { key: '3bet', label: '🚀 3-Bet', cls: 'qa-open', matches: ['value', 'bluff'] },
-  { key: 'call', label: '📞 Call', cls: 'qa-call', matches: ['call'] },
-  { key: 'fold', label: '🏳️ Fold', cls: 'qa-fold', matches: ['fold'] },
+const AGGRO_ANSWERS = [
+  { key: '3bet', label: '🚀 3-Bet', cls: 'qa-open' },
+  { key: 'call', label: '📞 Call', cls: 'qa-call' },
+  { key: 'mix', label: '🎲 Mix', cls: 'qa-mix' },
+  { key: 'fold', label: '🏳️ Fold', cls: 'qa-fold' },
 ];
 
 const CORRECT_MESSAGES = ['Nice! ✔️', 'Correct! 👏', 'That\'s right! ✅', 'Spot on! 🎯', 'Solid! ✨'];
-const WRONG_MESSAGES   = ['Not quite ❌', 'Missed this one 👎', 'Not quite... 🤔', 'Think tighter 👀'];
+const WRONG_MESSAGES = ['Not quite ❌', 'Missed this one 👎', 'Close, but no 🤔', 'That leaks money 👀'];
 
 function randOf(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function shuffle(arr) { return arr.slice().sort(() => Math.random() - 0.5); }
+function normalizeAggroAction(action) { return action === 'value' || action === 'bluff' ? '3bet' : action; }
 
-function initQuiz(pfrRanges, threeBetRanges) {
-  const pfrLookup    = buildPfrLookup(pfrRanges);
+function buildPfrLookup(pfrRanges) {
+  const lookup = {};
+  pfrRanges.positions.forEach(pos => {
+    const map = {};
+    generateAllHands().forEach(h => { map[h] = 'fold'; });
+    (pos.actions.open || []).forEach(h => { map[h] = 'open'; });
+    (pos.actions.mix || []).forEach(h => { map[h] = 'mix'; });
+    lookup[pos.id] = { label: pos.label, summary: pos.summary, map };
+  });
+  return lookup;
+}
+
+function build3betLookup(threeBetRanges) {
+  const lookup = {};
+  threeBetRanges.scenarios.forEach(sc => {
+    const map = {};
+    generateAllHands().forEach(h => { map[h] = 'fold'; });
+    (sc.actions.value || []).forEach(h => { map[h] = 'value'; });
+    (sc.actions.bluff || []).forEach(h => { map[h] = 'bluff'; });
+    (sc.actions.call || []).forEach(h => { map[h] = 'call'; });
+    (sc.actions.mix || []).forEach(h => { map[h] = 'mix'; });
+    lookup[sc.id] = { label: sc.label, summary: sc.summary, map };
+  });
+  return lookup;
+}
+
+function buildRangeQuestionPools(pfrRanges, threeBetRanges) {
+  const allHands = generateAllHands();
+  const pfrLookup = buildPfrLookup(pfrRanges);
   const threeBetLookup = build3betLookup(threeBetRanges);
-  const pfrPositions   = Object.keys(pfrLookup);
-  const tbScenarios    = Object.keys(threeBetLookup);
+  const pfr = [];
+  const threebet = [];
+  const blinddefense = [];
+
+  pfrRanges.positions.forEach(pos => {
+    allHands.forEach(hand => {
+      const action = pfrLookup[pos.id].map[hand] || 'fold';
+      const difficulty = classifyPfrDifficulty(hand, action);
+      const explainMap = {
+        open: 'Open / raise first-in. This hand clears the threshold from this position.',
+        mix: 'Mixed frequency spot. This one sits right near the edge of your range.',
+        fold: 'Fold. This hand under-realizes or gets dominated too often from this seat.'
+      };
+      pfr.push({
+        mode: 'pfr',
+        difficulty,
+        contextLabel: pos.label,
+        contextSummary: pos.summary,
+        hand,
+        answers: PFR_ANSWERS,
+        correctKey: action,
+        explanation: explainMap[action],
+        prompt: `What do you do from ${pos.label}?`,
+      });
+    });
+  });
+
+  threeBetRanges.scenarios.forEach(sc => {
+    const isBlind = /^sb-|^bb-/.test(sc.id);
+    allHands.forEach(hand => {
+      const rawAction = threeBetLookup[sc.id].map[hand] || 'fold';
+      const difficulty = classifyAggroDifficulty(hand, rawAction);
+      const correctKey = normalizeAggroAction(rawAction);
+      const explainMap = {
+        value: '3-bet for value. You want action from worse and this hand stands the heat.',
+        bluff: '3-bet bluff. Good blocker / playability candidate for pressure.',
+        call: 'Flat call. Strong enough to continue, not mandatory to 3-bet.',
+        mix: 'Mixed frequency spot. This one genuinely lives near the boundary.',
+        fold: 'Fold. Too dominated or too weak to continue profitably here.'
+      };
+      const item = {
+        mode: isBlind ? 'blinddefense' : 'threebet',
+        difficulty,
+        contextLabel: sc.label,
+        contextSummary: sc.summary,
+        hand,
+        answers: AGGRO_ANSWERS,
+        correctKey,
+        explanation: explainMap[rawAction],
+        prompt: isBlind ? `Defending from the blinds in ${sc.label} — what's your move?` : `Facing an open in ${sc.label} — what's your move?`,
+      };
+      threebet.push({ ...item, mode: 'threebet' });
+      if (isBlind) blinddefense.push({ ...item, mode: 'blinddefense' });
+    });
+  });
+
+  return { pfr, threebet, blinddefense };
+}
+
+function buildStructuredPools(trainerPack) {
+  const cbet = (trainerPack.cbet || []).map(item => ({
+    ...item,
+    mode: 'cbet',
+    answers: item.options || [],
+    correctKey: item.correct,
+  }));
+  const shovefold = (trainerPack.shoveFold || []).map(item => ({
+    ...item,
+    mode: 'shovefold',
+    answers: item.options || [],
+    correctKey: item.correct,
+  }));
+  return { cbet, shovefold };
+}
+
+function filterPoolByLevel(pool, level) {
+  if (level === 'all') return pool;
+  return pool.filter(item => item.difficulty === level);
+}
+
+function sampleQuestion(pool) {
+  if (!pool.length) return null;
+  const weighted = pool.map(item => {
+    let weight = 1;
+    if (item.difficulty === 'hard') weight = 1.45;
+    else if (item.difficulty === 'medium') weight = 1.15;
+    if (item.correctKey === 'mix') weight += 0.2;
+    return weight;
+  });
+  const total = weighted.reduce((a, b) => a + b, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < pool.length; i++) {
+    r -= weighted[i];
+    if (r <= 0) return pool[i];
+  }
+  return pool[pool.length - 1];
+}
+
+function metaCard(label, value, sub = '') {
+  return `<div class="quiz-meta-card"><div class="quiz-meta-label">${label}</div><div class="quiz-meta-value">${value}</div>${sub ? `<div class="quiz-meta-sub">${sub}</div>` : ''}</div>`;
+}
+
+function scoreHtml(state, activePool, trainerMeta) {
+  const acc = state.total ? Math.round(state.score / state.total * 100) : 0;
+  const handClassText = trainerMeta?.handClasses ? `${trainerMeta.handClasses}` : '—';
+  const comboText = trainerMeta?.totalCombos ? `${trainerMeta.totalCombos}` : '—';
+  return `<div class="quiz-scorebar">
+      <div class="quiz-score-item">✅ <span>${state.score}/${state.total}</span></div>
+      <div class="quiz-score-item">🎯 <span>${acc}%</span></div>
+      <div class="quiz-score-item">🔥 <span>${state.streak} streak</span></div>
+      <div class="quiz-score-item">⭐ <span>Best ${state.bestStreak}</span></div>
+    </div>
+    <div class="quiz-meta-grid">
+      ${metaCard('Mode', MODE_LABELS[state.mode], MODE_DESCRIPTIONS[state.mode])}
+      ${metaCard('Level', LEVEL_LABELS[state.level], `${activePool.length.toLocaleString()} spots in this pool`) }
+      ${metaCard('Hand Classes', handClassText, 'Strategically distinct starting hands')}
+      ${metaCard('Raw Combos', comboText, 'All two-card combinations')}
+    </div>`;
+}
+
+function renderAnswerButtons(answers) {
+  return answers.map(a => `<button class="quiz-ans ${a.cls || 'qa-call'}" data-key="${a.key}">${a.label}</button>`).join('');
+}
+
+function renderRangePrompt(question) {
+  return `
+    <div class="quiz-prompt">
+      <div class="quiz-context-badge">📍 ${question.contextLabel}</div>
+      <div class="quiz-context-sub">${question.contextSummary}</div>
+      ${bigCardHtml(question.hand)}
+      <div class="quiz-question">${question.prompt}</div>
+    </div>`;
+}
+
+function renderCbetPrompt(question) {
+  return `
+    <div class="quiz-prompt">
+      <div class="quiz-stack-badges">
+        <span class="quiz-stack-badge">🧠 ${question.line}</span>
+        <span class="quiz-stack-badge">🪙 ${question.potType}</span>
+        <span class="quiz-stack-badge">${question.difficulty.toUpperCase()}</span>
+      </div>
+      ${boardCardsHtml(question.board)}
+      <div class="quiz-question">${question.prompt}</div>
+      <div class="quiz-context-sub">Think in terms of practical default sizing, not solver cosplay.</div>
+    </div>`;
+}
+
+function renderShovePrompt(question) {
+  return `
+    <div class="quiz-prompt">
+      <div class="quiz-stack-badges">
+        <span class="quiz-stack-badge">📍 ${question.position}</span>
+        <span class="quiz-stack-badge">📏 ${question.stackBb}bb</span>
+        <span class="quiz-stack-badge">🔄 ${question.action}</span>
+      </div>
+      ${bigCardHtml(question.heroHand)}
+      <div class="quiz-question">${question.prompt}</div>
+      <div class="quiz-context-sub">Short-stack reps. This is where certainty matters.</div>
+    </div>`;
+}
+
+function buildQuestionHtml(state, activePool, trainerMeta) {
+  const q = state.currentQuestion;
+  const promptHtml = q.mode === 'cbet' ? renderCbetPrompt(q)
+    : q.mode === 'shovefold' ? renderShovePrompt(q)
+    : renderRangePrompt(q);
+  return `
+    ${scoreHtml(state, activePool, trainerMeta)}
+    ${promptHtml}
+    <div class="quiz-answers" id="quizAnswers">${renderAnswerButtons(q.answers)}</div>
+    <div class="quiz-feedback" id="quizFeedback" hidden></div>
+    <button class="quiz-next" id="quizNext" hidden>Next Spot →</button>
+  `;
+}
+
+function initQuiz(pfrRanges, threeBetRanges, trainerPack) {
+  const rangePools = buildRangeQuestionPools(pfrRanges, threeBetRanges);
+  const structuredPools = buildStructuredPools(trainerPack);
+  const pools = {
+    pfr: rangePools.pfr,
+    threebet: rangePools.threebet,
+    blinddefense: rangePools.blinddefense,
+    cbet: structuredPools.cbet,
+    shovefold: structuredPools.shovefold,
+  };
 
   const state = {
     mode: 'pfr',
+    level: 'all',
     score: 0,
     total: 0,
     streak: 0,
     bestStreak: 0,
     answered: false,
-    currentHand: null,
-    currentContext: null,
-    correctAction: null,
+    currentQuestion: null,
   };
 
   const quizBody = document.getElementById('quizBody');
 
-  // Mode tabs
+  function activePool() {
+    return filterPoolByLevel(pools[state.mode] || [], state.level);
+  }
+
+  function nextQuestion() {
+    state.answered = false;
+    const pool = activePool();
+    state.currentQuestion = sampleQuestion(pool);
+    if (!state.currentQuestion) {
+      quizBody.innerHTML = `<div class="quiz-empty">No questions in this level yet.</div>`;
+      return;
+    }
+    quizBody.innerHTML = buildQuestionHtml(state, pool, trainerPack.meta || {});
+    attachAnswerHandlers(pool);
+  }
+
+  function revealAnswer(selectedBtn, correctKey, explanation) {
+    const answersEl = document.getElementById('quizAnswers');
+    const fbEl = document.getElementById('quizFeedback');
+    const nextEl = document.getElementById('quizNext');
+    answersEl.querySelectorAll('.quiz-ans').forEach(btn => {
+      btn.disabled = true;
+      if (btn.dataset.key === correctKey) btn.classList.add('qa-correct-reveal');
+      if (btn === selectedBtn && btn.dataset.key !== correctKey) btn.classList.add('qa-wrong-reveal');
+    });
+
+    const correct = selectedBtn.dataset.key === correctKey;
+    if (correct) {
+      state.score += 1;
+      state.streak += 1;
+      state.bestStreak = Math.max(state.bestStreak, state.streak);
+      fbEl.innerHTML = `<span class="fb-correct">${randOf(CORRECT_MESSAGES)} ${explanation}</span>`;
+    } else {
+      state.streak = 0;
+      fbEl.innerHTML = `<span class="fb-wrong">${randOf(WRONG_MESSAGES)} ${explanation}</span>`;
+    }
+    fbEl.hidden = false;
+    nextEl.hidden = false;
+    nextEl.addEventListener('click', nextQuestion, { once: true });
+  }
+
+  function attachAnswerHandlers(pool) {
+    const q = state.currentQuestion;
+    document.querySelectorAll('.quiz-ans').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (state.answered) return;
+        state.answered = true;
+        state.total += 1;
+        revealAnswer(btn, q.correctKey, q.explanation);
+        const scorebarEl = quizBody.querySelector('.quiz-scorebar');
+        const metaEl = quizBody.querySelector('.quiz-meta-grid');
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = scoreHtml(state, pool, trainerPack.meta || {});
+        scorebarEl.replaceWith(wrapper.firstElementChild);
+        metaEl.replaceWith(wrapper.lastElementChild);
+      });
+    });
+  }
+
   document.querySelectorAll('.quiz-mode-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       state.mode = btn.dataset.mode;
@@ -561,141 +851,14 @@ function initQuiz(pfrRanges, threeBetRanges) {
     });
   });
 
-  function nextQuestion() {
-    state.answered = false;
-    if (state.mode === 'pfr') {
-      const posId  = randOf(pfrPositions);
-      const posData = pfrLookup[posId];
-      state.currentContext  = { id: posId, ...posData };
-      state.currentHand     = pickWeightedHand(posData.map);
-      state.correctAction   = posData.map[state.currentHand] || 'fold';
-      renderPfrQuestion();
-    } else {
-      const scId   = randOf(tbScenarios);
-      const scData = threeBetLookup[scId];
-      state.currentContext  = { id: scId, ...scData };
-      state.currentHand     = pickWeightedHand(scData.map);
-      state.correctAction   = scData.map[state.currentHand] || 'fold';
-      render3betQuestion();
-    }
-  }
-
-  function scoreHtml() {
-    const acc = state.total ? Math.round(state.score / state.total * 100) : 0;
-    return `<div class="quiz-scorebar">
-      <div class="quiz-score-item">✅ <span>${state.score}/${state.total}</span></div>
-      <div class="quiz-score-item">🎯 <span>${acc}%</span></div>
-      <div class="quiz-score-item">🔥 <span>${state.streak} streak</span></div>
-      <div class="quiz-score-item">⭐ <span>Best ${state.bestStreak}</span></div>
-    </div>`;
-  }
-
-  function renderPfrQuestion() {
-    const ctx   = state.currentContext;
-    quizBody.innerHTML = `
-      ${scoreHtml()}
-      <div class="quiz-prompt">
-        <div class="quiz-context-badge">📍 ${ctx.label}</div>
-        <div class="quiz-context-sub">${ctx.summary}</div>
-        ${bigCardHtml(state.currentHand)}
-        <div class="quiz-question">What do you do from <strong>${ctx.label}</strong>?</div>
-      </div>
-      <div class="quiz-answers" id="quizAnswers">
-        ${PFR_ANSWERS.map(a =>
-          `<button class="quiz-ans ${a.cls}" data-key="${a.key}">${a.label}</button>`
-        ).join('')}
-      </div>
-      <div class="quiz-feedback" id="quizFeedback" hidden></div>
-      <button class="quiz-next" id="quizNext" hidden>Next Hand →</button>
-    `;
-    attachAnswerHandlers(PFR_ANSWERS, ans => ans.key === state.correctAction);
-  }
-
-  function render3betQuestion() {
-    const ctx   = state.currentContext;
-    quizBody.innerHTML = `
-      ${scoreHtml()}
-      <div class="quiz-prompt">
-        <div class="quiz-context-badge">🔄 ${ctx.label}</div>
-        <div class="quiz-context-sub">${ctx.summary}</div>
-        ${bigCardHtml(state.currentHand)}
-        <div class="quiz-question">Facing an open in <strong>${ctx.label}</strong> — what\'s your move?</div>
-      </div>
-      <div class="quiz-answers" id="quizAnswers">
-        ${THREEBET_ANSWERS.map(a =>
-          `<button class="quiz-ans ${a.cls}" data-key="${a.key}">${a.label}</button>`
-        ).join('')}
-      </div>
-      <div class="quiz-feedback" id="quizFeedback" hidden></div>
-      <button class="quiz-next" id="quizNext" hidden>Next Hand →</button>
-    `;
-    const isMix = state.correctAction === 'mix';
-    attachAnswerHandlers(THREEBET_ANSWERS, ans => {
-      if (isMix) return false; // any answer gets partial
-      return ans.matches && ans.matches.includes(state.correctAction);
-    }, isMix);
-  }
-
-  function attachAnswerHandlers(answers, isCorrectFn, isMix = false) {
-    const fbEl   = document.getElementById('quizFeedback');
-    const nextEl = document.getElementById('quizNext');
-    document.getElementById('quizAnswers').querySelectorAll('.quiz-ans').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (state.answered) return;
-        state.answered = true;
-        state.total++;
-        const key = btn.dataset.key;
-        const ans = answers.find(a => a.key === key);
-        const correct = !isMix && isCorrectFn(ans);
-
-        if (correct) {
-          state.score++;
-          state.streak++;
-          state.bestStreak = Math.max(state.bestStreak, state.streak);
-        } else {
-          state.streak = 0;
-        }
-
-        // Highlight buttons
-        document.getElementById('quizAnswers').querySelectorAll('.quiz-ans').forEach(b => {
-          const bAns = answers.find(a => a.key === b.dataset.key);
-          if (!isMix && isCorrectFn(bAns)) b.classList.add('qa-correct-reveal');
-          if (b === btn && !correct && !isMix) b.classList.add('qa-wrong-reveal');
-        });
-
-        // Feedback
-        const correctLabel = answers.find(a => !isMix && isCorrectFn(a))?.label || '';
-        let explain = '';
-        if (state.mode === 'pfr') {
-          const actionLabels = { open: 'Open / raise first-in', mix: 'Mixed — sometimes open, sometimes fold', fold: 'Fold — too thin from this position' };
-          explain = actionLabels[state.correctAction] || state.correctAction;
-        } else {
-          const tbLabels = { value: '3-bet for value', bluff: '3-bet as a bluff', call: 'Flat / call', fold: 'Fold', mix: 'Mixed — use a solver and cry' };
-          explain = tbLabels[state.correctAction] || state.correctAction;
-        }
-
-        if (isMix) {
-          fbEl.innerHTML = `<span class="fb-mixed">🎲 Mixed spot — ${explain}. Any answer is defensible here.</span>`;
-        } else if (correct) {
-          fbEl.innerHTML = `<span class="fb-correct">${randOf(CORRECT_MESSAGES)} <em>${state.currentHand}</em> = ${explain}</span>`;
-        } else {
-          fbEl.innerHTML = `<span class="fb-wrong">${randOf(WRONG_MESSAGES)}. <em>${state.currentHand}</em> = ${explain}</span>`;
-        }
-        fbEl.hidden = false;
-        nextEl.hidden = false;
-
-        // Update scorebar inline
-        const scorebarEl = quizBody.querySelector('.quiz-scorebar');
-        if (scorebarEl) {
-          const tmp = document.createElement('div');
-          tmp.innerHTML = scoreHtml();
-          scorebarEl.replaceWith(tmp.firstElementChild);
-        }
-      });
+  document.querySelectorAll('.quiz-level-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.level = btn.dataset.level;
+      state.answered = false;
+      document.querySelectorAll('.quiz-level-btn').forEach(b => b.classList.toggle('active', b === btn));
+      nextQuestion();
     });
-
-    nextEl?.addEventListener('click', nextQuestion);
-  }
+  });
 
   nextQuestion();
 }

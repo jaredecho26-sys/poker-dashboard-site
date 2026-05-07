@@ -1,0 +1,371 @@
+{
+  "meta": {
+    "handClasses": 169,
+    "totalCombos": 1326,
+    "description": "Practice starts at 169 strategically distinct starting-hand classes. Combo-level drilling can later expand that to all 1,326 two-card combinations."
+  },
+  "cbet": [
+    {
+      "id": "cbet-1",
+      "difficulty": "easy",
+      "line": "BTN open vs BB call",
+      "potType": "Single-raised pot",
+      "board": ["As", "7d", "2c"],
+      "correct": "small",
+      "prompt": "You opened the button and got called by the BB. Flop A-7-2 rainbow. What's the best practical default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "Dry ace-high board gives the preflop raiser a clear range and nut advantage. Small c-bet at high frequency is the clean default."
+    },
+    {
+      "id": "cbet-2",
+      "difficulty": "easy",
+      "line": "CO open vs BB call",
+      "potType": "Single-raised pot",
+      "board": ["Kc", "8d", "3s"],
+      "correct": "small",
+      "prompt": "Cutoff opened, BB called. Flop K-8-3 rainbow. Default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "Another dry high-card board where your range leans stronger than the defender's. Small size keeps the whole range printing."
+    },
+    {
+      "id": "cbet-3",
+      "difficulty": "easy",
+      "line": "BTN 3-bet vs CO call",
+      "potType": "3-bet pot",
+      "board": ["Ad", "8c", "4s"],
+      "correct": "small",
+      "prompt": "You 3-bet BTN vs CO and got called. Flop A-8-4 rainbow. Best default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "3-bet pots on dry ace-high textures heavily favor the aggressor. Small sizing pressures misses and realizes equity cleanly."
+    },
+    {
+      "id": "cbet-4",
+      "difficulty": "easy",
+      "line": "SB open vs BB call",
+      "potType": "Single-raised pot",
+      "board": ["Qh", "6c", "2d"],
+      "correct": "small",
+      "prompt": "Blind vs blind, SB opened and BB called. Flop Q-6-2 rainbow. Good default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "Even blind vs blind, this dry queen-high board still lets the opener lean into a cheap range c-bet."
+    },
+    {
+      "id": "cbet-5",
+      "difficulty": "medium",
+      "line": "BTN open vs BB call",
+      "potType": "Single-raised pot",
+      "board": ["Tc", "8c", "6d"],
+      "correct": "check",
+      "prompt": "Button opened, BB defended. Flop T-8-6 with two clubs. Best practical default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "This board smashes the BB's defend range. Too connected and too many pair+draw combos for mindless c-betting."
+    },
+    {
+      "id": "cbet-6",
+      "difficulty": "medium",
+      "line": "UTG open vs BB call",
+      "potType": "Single-raised pot",
+      "board": ["9s", "7s", "5h"],
+      "correct": "check",
+      "prompt": "UTG opened, BB called. Flop 9-7-5 with a flush draw. What's the better default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "Low connected boards pull the defender closer to parity. Checking protects your range and avoids lighting money on fire."
+    },
+    {
+      "id": "cbet-7",
+      "difficulty": "medium",
+      "line": "CO open vs BB call",
+      "potType": "Single-raised pot",
+      "board": ["Kd", "Jh", "4d"],
+      "correct": "small",
+      "prompt": "Cutoff opened, BB called. Flop K-J-4 with a flush draw. Practical default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "Still enough top-card advantage to c-bet often, but use a controlled size instead of blasting into all the draws."
+    },
+    {
+      "id": "cbet-8",
+      "difficulty": "medium",
+      "line": "BTN 3-bet vs HJ call",
+      "potType": "3-bet pot",
+      "board": ["Qs", "Ts", "5d"],
+      "correct": "check",
+      "prompt": "You 3-bet BTN vs HJ and get called. Flop Q-T-5 with a flush draw. Default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "Broadway connectivity plus flush draws gives the caller real coverage here. Checking more is the disciplined play."
+    },
+    {
+      "id": "cbet-9",
+      "difficulty": "hard",
+      "line": "BTN open vs BB call",
+      "potType": "Single-raised pot",
+      "board": ["Ah", "Jc", "9h"],
+      "correct": "small",
+      "prompt": "BTN opened, BB defended. Flop A-J-9 with a heart draw. What's your best default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "This is closer than A-7-2, but you still keep a real ace-high advantage. Small size works better than over-correcting to a check."
+    },
+    {
+      "id": "cbet-10",
+      "difficulty": "hard",
+      "line": "SB open vs BB call",
+      "potType": "Single-raised pot",
+      "board": ["8h", "6h", "4c"],
+      "correct": "check",
+      "prompt": "Blind vs blind on 8-6-4 two-heart. Default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "BB smashes this board with pair+draw, straight draws, and combo draws. This is a classic check-more texture."
+    },
+    {
+      "id": "cbet-11",
+      "difficulty": "hard",
+      "line": "BTN 3-bet vs CO call",
+      "potType": "3-bet pot",
+      "board": ["Kc", "7c", "2h"],
+      "correct": "small",
+      "prompt": "You 3-bet BTN vs CO and get called. Flop K-7-2 with a club draw. Best practical line?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "You still retain a strong range edge in the 3-bet pot. The draw adds texture, but not enough to force a pure check."
+    },
+    {
+      "id": "cbet-12",
+      "difficulty": "hard",
+      "line": "CO open vs BB call",
+      "potType": "Single-raised pot",
+      "board": ["Jd", "9d", "8s"],
+      "correct": "check",
+      "prompt": "Cutoff opened, BB defended. Flop J-9-8 with a flush draw. What's the disciplined default?",
+      "options": [
+        { "key": "small", "label": "💧 Bet small" },
+        { "key": "check", "label": "🛑 Check" },
+        { "key": "big", "label": "💣 Bet big" }
+      ],
+      "explanation": "Very dynamic board, lots of two-pair, pair+draw, and combo-draw coverage for BB. This is not a board to auto-fire."
+    }
+  ],
+  "shoveFold": [
+    {
+      "id": "sf-1",
+      "difficulty": "easy",
+      "position": "BTN",
+      "stackBb": 8,
+      "action": "Folded to you",
+      "heroHand": "A8s",
+      "correct": "jam",
+      "prompt": "8bb on the button, folded to you. What's the play?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Classic profitable button shove. Suited ace with blocker value and strong equity when called."
+    },
+    {
+      "id": "sf-2",
+      "difficulty": "easy",
+      "position": "SB",
+      "stackBb": 7,
+      "action": "Folded to you",
+      "heroHand": "KTs",
+      "correct": "jam",
+      "prompt": "7bb in the small blind, folded to you. Best move?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Blind-vs-blind at 7bb is an aggression tax spot. KTs is comfortably strong enough to rip."
+    },
+    {
+      "id": "sf-3",
+      "difficulty": "easy",
+      "position": "CO",
+      "stackBb": 9,
+      "action": "Folded to you",
+      "heroHand": "66",
+      "correct": "jam",
+      "prompt": "9bb in the cutoff, folded to you. What now?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Mid pairs at 9bb are textbook jams from late position. Too strong to pass, awkward to min-raise/fold."
+    },
+    {
+      "id": "sf-4",
+      "difficulty": "easy",
+      "position": "HJ",
+      "stackBb": 10,
+      "action": "Folded to you",
+      "heroHand": "Q5o",
+      "correct": "fold",
+      "prompt": "10bb in the hijack, folded to you. Jam or fold?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Too loose from HJ. Offsuit queen-rag doesn't have the blocker/equity mix needed at 10bb."
+    },
+    {
+      "id": "sf-5",
+      "difficulty": "medium",
+      "position": "BTN",
+      "stackBb": 11,
+      "action": "Folded to you",
+      "heroHand": "K9s",
+      "correct": "jam",
+      "prompt": "11bb on the button, folded to you. What's better?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Still profitable enough on the button against normal blinds. Strong king blocker plus suitedness carries it."
+    },
+    {
+      "id": "sf-6",
+      "difficulty": "medium",
+      "position": "CO",
+      "stackBb": 12,
+      "action": "Folded to you",
+      "heroHand": "A5o",
+      "correct": "jam",
+      "prompt": "12bb in the cutoff, action folds to you. Jam or fold?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "A5o uses ace blocker power well and still has acceptable called equity. Practical jam at this depth."
+    },
+    {
+      "id": "sf-7",
+      "difficulty": "medium",
+      "position": "SB",
+      "stackBb": 9,
+      "action": "Folded to you",
+      "heroHand": "J7o",
+      "correct": "jam",
+      "prompt": "9bb in the SB, folded to you. What's the move?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Blind-vs-blind widens fast. J7o is ugly, but still jams profitably at 9bb once BTN folds."
+    },
+    {
+      "id": "sf-8",
+      "difficulty": "medium",
+      "position": "HJ",
+      "stackBb": 12,
+      "action": "Folded to you",
+      "heroHand": "K8o",
+      "correct": "fold",
+      "prompt": "12bb in the hijack, folded to you. Rip it or pass?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Too loose that early with 12bb. This hand looks prettier than it plays once called."
+    },
+    {
+      "id": "sf-9",
+      "difficulty": "hard",
+      "position": "CO",
+      "stackBb": 14,
+      "action": "Folded to you",
+      "heroHand": "44",
+      "correct": "jam",
+      "prompt": "14bb in the cutoff, action folds to you. Jam or fold?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "This gets close, but small pairs still make money as open jams often enough at 14bb in late position."
+    },
+    {
+      "id": "sf-10",
+      "difficulty": "hard",
+      "position": "BTN",
+      "stackBb": 13,
+      "action": "Folded to you",
+      "heroHand": "Q8s",
+      "correct": "jam",
+      "prompt": "13bb on the button, folded to you. Ship it?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Borderline-but-good late-position jam. Suited queen with live-card equity gets over the line."
+    },
+    {
+      "id": "sf-11",
+      "difficulty": "hard",
+      "position": "SB",
+      "stackBb": 11,
+      "action": "Folded to you",
+      "heroHand": "T6s",
+      "correct": "jam",
+      "prompt": "11bb in the SB, folded to you. Jam or let it go?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Blind-vs-blind keeps this alive. Suiting plus immediate fold equity makes it a practical jam."
+    },
+    {
+      "id": "sf-12",
+      "difficulty": "hard",
+      "position": "UTG",
+      "stackBb": 10,
+      "action": "Folded to you",
+      "heroHand": "A4o",
+      "correct": "fold",
+      "prompt": "10bb UTG, folded to you. Jam or fold?",
+      "options": [
+        { "key": "jam", "label": "🚀 Jam" },
+        { "key": "fold", "label": "🏳️ Fold" }
+      ],
+      "explanation": "Ace blocker is nice, but position matters. UTG jamming range is tighter and A4o falls just outside the comfort zone."
+    }
+  ]
+}

@@ -271,12 +271,45 @@ canvas { width: 100% !important; height: 340px !important; }
 }
 .quiz-next:hover { background: #8bbeff; transform: translateY(-1px); }
 
+.quiz-head { align-items: flex-start; gap: 14px; }
+.quiz-controls { display: grid; gap: 10px; justify-items: end; }
+.quiz-subnote { margin-top: 8px; max-width: 620px; }
+.quiz-level-tabs, .quiz-stack-badges {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.quiz-level-btn, .quiz-stack-badge {
+  padding: 7px 12px; border: 1px solid var(--border); background: transparent;
+  color: var(--muted); border-radius: 999px; font-size: 12px; font-weight: 700;
+}
+.quiz-level-btn { cursor: pointer; transition: all 0.18s; }
+.quiz-level-btn:hover { border-color: var(--yellow); color: var(--text); }
+.quiz-level-btn.active { background: rgba(246,196,69,.16); border-color: var(--yellow); color: var(--yellow); }
+.quiz-meta-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px;
+}
+.quiz-meta-card {
+  background: var(--panel-2); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px;
+}
+.quiz-meta-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.quiz-meta-value { margin-top: 8px; font-size: 18px; font-weight: 800; color: var(--text); }
+.quiz-meta-sub { margin-top: 6px; font-size: 12px; line-height: 1.45; color: var(--muted); }
+.quiz-board-row {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
+}
+.quiz-board-cards { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.quiz-empty {
+  padding: 24px; text-align: center; color: var(--muted); background: var(--panel-2); border: 1px solid var(--border); border-radius: 14px;
+}
+
 @media (max-width: 1024px) {
-  .metrics, .top-grid, .bottom-grid, .study-grid, .top-hands-grid, .workflow { grid-template-columns: 1fr; }
-  .hero { flex-direction: column; }
+  .metrics, .top-grid, .bottom-grid, .study-grid, .top-hands-grid, .workflow, .quiz-meta-grid { grid-template-columns: 1fr; }
+  .hero, .quiz-head { flex-direction: column; }
+  .quiz-controls { justify-items: start; width: 100%; }
 }
 @media (max-width: 720px) {
   .wrap { padding: 24px 14px 40px; }
   .hand-cell { width: 30px; height: 30px; font-size: 9px; }
-  .range-btn { font-size: 12px; padding: 8px 12px; }
+  .range-btn, .quiz-mode-btn, .quiz-level-btn { font-size: 12px; padding: 8px 12px; }
+  .quiz-card { width: 62px; height: 86px; }
+  .qc-rank { font-size: 26px; }
 }

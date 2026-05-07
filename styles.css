@@ -317,12 +317,309 @@ canvas { width: 100% !important; height: 340px !important; }
   padding: 24px; text-align: center; color: var(--muted); background: var(--panel-2); border: 1px solid var(--border); border-radius: 14px;
 }
 
+/* ── SITE NAV ────────────────────────────────────────────────────────────── */
+.site-nav {
+  background: rgba(11,16,32,.95);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(10px);
+}
+.nav-inner {
+  max-width: 1320px; margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between; height: 56px;
+}
+.nav-logo {
+  font-size: 18px; font-weight: 900; color: var(--blue);
+  text-decoration: none; letter-spacing: .04em;
+}
+.nav-links { display: flex; gap: 4px; }
+.nav-link {
+  padding: 8px 16px; border-radius: 999px; color: var(--muted);
+  text-decoration: none; font-size: 13px; font-weight: 600;
+  transition: all 0.18s;
+}
+.nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
+.nav-link.active { background: rgba(110,168,254,.15); color: var(--blue); }
+
+/* ── GAME BOARD ───────────────────────────────────────────────────────────── */
+.game-board {
+  background: radial-gradient(ellipse at 60% 30%, #0d3d1e 0%, #071a0d 80%, #060f06 100%);
+  border: 2px solid #1a5a30;
+  border-radius: 24px;
+  box-shadow: 0 0 50px rgba(0,140,50,.12), inset 0 1px 0 rgba(255,255,255,.04);
+  padding: 22px 24px 18px;
+  position: relative; overflow: hidden;
+  margin-bottom: 0;
+}
+.game-board::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg,transparent,transparent 12px,rgba(255,255,255,.012) 12px,rgba(255,255,255,.012) 13px);
+  border-radius: 22px; pointer-events: none;
+}
+.game-board-wrap { margin-bottom: 8px; }
+
+/* Board meta row */
+.board-meta-row {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.board-mode-chip {
+  font-size: 10px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 999px;
+  background: rgba(110,168,254,.15); border: 1px solid rgba(110,168,254,.3); color: var(--blue);
+}
+.odds-mode-chip { background: rgba(246,196,69,.12); border-color: rgba(246,196,69,.3); color: var(--yellow); }
+.combo-mode-chip { background: rgba(178,191,216,.1); border-color: rgba(178,191,216,.25); color: var(--gray); }
+.board-pos-info { color: var(--muted); font-size: 12px; }
+.board-context { color: var(--muted); font-size: 11px; padding-left: 8px; }
+
+/* Position badges */
+.pos-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; border-radius: 50%;
+  font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em;
+  box-shadow: 0 4px 14px rgba(0,0,0,.5);
+  flex-shrink: 0;
+}
+.pos-btn  { background: radial-gradient(circle,#2a4a1a,#163010); border: 2px solid #4a9a30; color: #9afa70; }
+.pos-co   { background: radial-gradient(circle,#1e3a60,#102040); border: 2px solid #3a70b0; color: #7ab0f0; }
+.pos-hj   { background: radial-gradient(circle,#3a2a10,#201410); border: 2px solid #906020; color: #e0a040; }
+.pos-utg  { background: radial-gradient(circle,#3a1010,#200808); border: 2px solid #903030; color: #e07070; }
+.pos-sb   { background: radial-gradient(circle,#2a1a3a,#160c22); border: 2px solid #6a4090; color: #b080e0; }
+.pos-bb   { background: radial-gradient(circle,#1a3030,#0c1818); border: 2px solid #306060; color: #60c0c0; }
+.board-pot-chip {
+  margin-left: auto;
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid;
+}
+.difficulty-easy   { background: rgba(46,204,113,.1);  border-color: rgba(46,204,113,.3);  color: var(--green); }
+.difficulty-medium { background: rgba(246,196,69,.1);  border-color: rgba(246,196,69,.3);  color: var(--yellow); }
+.difficulty-hard   { background: rgba(255,107,107,.1); border-color: rgba(255,107,107,.3); color: var(--red); }
+
+/* Community cards zone */
+.board-community-zone, .board-hero-zone {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+  background: rgba(0,0,0,.35); border-radius: 16px; padding: 12px 16px;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.board-hero-zone { background: rgba(110,168,254,.06); border-color: rgba(110,168,254,.2); }
+.board-zone-label {
+  font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); writing-mode: vertical-lr; transform: rotate(180deg);
+  flex-shrink: 0;
+}
+.community-cards, .hero-cards { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* Large playing cards */
+.card-lg {
+  width: 52px; height: 72px; border-radius: 10px;
+  background: #fff; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.9);
+  flex-shrink: 0;
+}
+.card-lg.cs .clg-rank, .card-lg.cs .clg-suit { color: #1a1a2e; }
+.card-lg.ch .clg-rank, .card-lg.ch .clg-suit { color: #c0392b; }
+.card-lg.cd .clg-rank, .card-lg.cd .clg-suit { color: #c04800; }
+.card-lg.cc .clg-rank, .card-lg.cc .clg-suit { color: #1a7a2e; }
+.clg-rank { font-size: 22px; font-weight: 900; line-height: 1; }
+.clg-suit { font-size: 14px; line-height: 1; }
+
+/* Stack visualizer */
+.board-stack-info { display: flex; align-items: baseline; gap: 6px; }
+.stack-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.stack-value { font-size: 22px; font-weight: 900; color: var(--yellow); }
+.stack-viz { display: flex; gap: 3px; align-items: flex-end; }
+.stack-bar { width: 8px; height: 20px; border-radius: 3px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.12); transition: background 0.2s; }
+.stack-bar.filled { background: var(--yellow); border-color: #f0c000; }
+.board-situation { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+
+/* Board prompt text */
+.board-prompt {
+  font-size: 15px; line-height: 1.5; color: var(--text);
+  font-weight: 500; margin-top: 8px;
+}
+.board-summary { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* ── GAME ANSWER BUTTONS ─────────────────────────────────────────────────── */
+.answer-zone {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  justify-content: center; margin: 16px 0;
+}
+.game-ans {
+  min-width: 150px; padding: 14px 22px;
+  border-radius: 16px; font-size: 15px; font-weight: 800;
+  border: 2px solid; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  text-align: center;
+}
+.game-ans:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.45); }
+.game-ans:active:not(:disabled) { transform: translateY(0); }
+
+/* ── HUD SCOREBAR ────────────────────────────────────────────────────────── */
+.hud-scorebar {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 16px;
+  padding: 14px 18px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+}
+.hud-stat { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.hud-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.hud-value { font-size: 18px; font-weight: 800; color: var(--text); }
+.hud-green { color: var(--green); }
+.hud-yellow { color: var(--yellow); }
+.hud-red { color: var(--red); }
+.hud-muted { color: var(--muted); font-size: 14px; }
+.hud-bar-wrap {
+  flex: 1; min-width: 80px; height: 8px;
+  background: rgba(255,255,255,.08); border-radius: 999px; overflow: hidden;
+}
+.hud-bar {
+  height: 100%; background: linear-gradient(90deg, var(--blue), #4ef0a0);
+  border-radius: 999px; transition: width 0.4s ease;
+}
+
+/* ── POT ODDS PANELS ─────────────────────────────────────────────────────── */
+.game-board--odds { border-color: #3a4a10; }
+.game-board--odds::before { display: none; }
+.game-board--combo { border-color: #2a2a4a; }
+.odds-info-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.odds-chip {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 10px 16px; border-radius: 14px;
+  background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.1);
+}
+.oc-label { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); }
+.oc-val { font-size: 20px; font-weight: 900; }
+.odds-pot .oc-val  { color: var(--blue); }
+.odds-bet .oc-val  { color: var(--red); }
+.odds-call .oc-val { color: var(--yellow); }
+.odds-outs .oc-val { color: var(--green); }
+
+.odds-equation {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: rgba(246,196,69,.06); border: 1px solid rgba(246,196,69,.2);
+  border-radius: 16px; padding: 14px 16px; margin-bottom: 12px;
+}
+.odds-eq-part { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.odds-eq-label { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.odds-eq-val { font-size: 22px; font-weight: 900; color: var(--text); }
+.odds-eq-unknown { color: var(--yellow); }
+.odds-eq-needed  { color: var(--red); }
+.odds-eq-equity  { color: var(--blue); }
+.odds-eq-div { font-size: 24px; font-weight: 900; color: var(--muted); }
+.odds-good .odds-eq-val { color: var(--green); }
+.odds-good .odds-eq-label { color: var(--green); }
+.odds-bad  .odds-eq-val { color: var(--red); }
+.odds-bad  .odds-eq-label { color: var(--red); }
+.odds-type-badge {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+  background: rgba(178,191,216,.1); border: 1px solid rgba(178,191,216,.2); color: var(--gray);
+}
+.odds-outs-panel { margin-bottom: 12px; display: grid; gap: 8px; }
+.odds-rule { display: flex; gap: 10px; align-items: center; background: rgba(110,168,254,.07); border: 1px solid rgba(110,168,254,.15); border-radius: 12px; padding: 10px 14px; }
+.rule-label { font-size: 11px; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: .08em; min-width: 70px; }
+.rule-desc { font-size: 13px; color: var(--muted); }
+
+/* Pot Odds Reference Section */
+.odds-ref-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.odds-ref-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 16px; padding: 16px; }
+.odds-ref-card h4 { margin: 0 0 10px; font-size: 14px; color: var(--yellow); }
+.odds-formula { font-size: 12px; font-weight: 700; color: var(--text); background: rgba(255,255,255,.05); border-radius: 8px; padding: 8px 10px; margin-bottom: 10px; line-height: 1.5; }
+.odds-examples { display: grid; gap: 5px; }
+.oe-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,.04); }
+.oe-row:last-child { border-bottom: none; }
+.oe-row strong { color: var(--green); font-size: 13px; }
+
+/* ── BB DEFEND SECTION ───────────────────────────────────────────────────── */
+.bb-defend-shell { background: rgba(18,25,50,.9); border: 1px solid var(--border); border-radius: 18px; padding: 18px; }
+.bb-defend-header { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
+.bb-freq-badge {
+  display: inline-block; padding: 6px 14px; border-radius: 999px;
+  background: rgba(110,168,254,.12); border: 1px solid rgba(110,168,254,.3);
+  font-size: 13px; color: var(--blue); margin-bottom: 8px;
+}
+.bb-freq-badge strong { color: var(--text); }
+.range-summary { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; max-width: 600px; }
+.bb-notes { margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; }
+.bb-notes li { font-size: 12px; color: var(--muted); padding-left: 14px; position: relative; }
+.bb-notes li::before { content: '→'; position: absolute; left: 0; color: var(--blue); font-size: 10px; }
+
+/* ── TRAINER MODE TABS ───────────────────────────────────────────────────── */
+.quiz-mode-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.quiz-mode-btn {
+  padding: 9px 14px; border: 1px solid var(--border); background: transparent;
+  color: var(--muted); border-radius: 999px; cursor: pointer; font-size: 13px;
+  transition: all 0.18s; font-weight: 600;
+}
+.quiz-mode-btn:hover { border-color: var(--blue); color: var(--text); }
+.quiz-mode-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+.quiz-mode-btn[data-mode="potodds"].active { background: var(--yellow); border-color: var(--yellow); color: #10182c; }
+.quiz-mode-btn[data-mode="combo"].active { background: var(--gray); border-color: var(--gray); color: #10182c; }
+
+/* Feedback */
+.quiz-feedback {
+  text-align: center; padding: 14px 18px; border-radius: 14px; font-size: 14px; line-height: 1.5;
+  background: var(--panel-2); border: 1px solid var(--border); margin: 12px 0;
+}
+.quiz-next-wrap { display: flex; justify-content: center; margin-top: 8px; }
+.quiz-next {
+  padding: 12px 36px; background: var(--blue); color: #fff;
+  border: none; border-radius: 999px; font-size: 15px; font-weight: 800;
+  cursor: pointer; transition: all 0.18s;
+}
+.quiz-next:hover { background: #8bbeff; transform: translateY(-2px); }
+
+/* qa classes for game-ans */
+.qa-open { background: rgba(46,204,113,.14); color: var(--green); border-color: rgba(46,204,113,.3); }
+.qa-open:hover:not(:disabled) { background: rgba(46,204,113,.28); border-color: var(--green); }
+.qa-mix  { background: rgba(246,196,69,.12); color: var(--yellow); border-color: rgba(246,196,69,.3); }
+.qa-mix:hover:not(:disabled)  { background: rgba(246,196,69,.25); border-color: var(--yellow); }
+.qa-fold { background: rgba(255,107,107,.12); color: var(--red); border-color: rgba(255,107,107,.3); }
+.qa-fold:hover:not(:disabled) { background: rgba(255,107,107,.24); border-color: var(--red); }
+.qa-call { background: rgba(178,191,216,.12); color: var(--gray); border-color: rgba(178,191,216,.25); }
+.qa-call:hover:not(:disabled) { background: rgba(178,191,216,.22); border-color: var(--gray); }
+
+.qa-correct-reveal { outline: 3px solid var(--green); background: rgba(46,204,113,.3) !important; transform: scale(1.04); }
+.qa-wrong-reveal   { outline: 3px solid var(--red);   background: rgba(255,107,107,.3) !important; }
+.game-ans:disabled, .game-ans[disabled] { cursor: default; }
+.fb-correct { color: var(--green); font-weight: 600; }
+.fb-wrong   { color: var(--red);   font-weight: 600; }
+.quiz-empty { padding: 32px; text-align: center; color: var(--muted); background: var(--panel-2); border: 1px solid var(--border); border-radius: 14px; }
+
+/* diff badge */
+.diff-badge {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 999px; border: 1px solid;
+}
+.diff-easy   { background: rgba(46,204,113,.1);  border-color: rgba(46,204,113,.3);  color: var(--green); }
+.diff-medium { background: rgba(246,196,69,.1);  border-color: rgba(246,196,69,.3);  color: var(--yellow); }
+.diff-hard   { background: rgba(255,107,107,.1); border-color: rgba(255,107,107,.3); color: var(--red); }
+
 @media (max-width: 1024px) {
   .metrics, .top-grid, .bottom-grid, .study-grid, .top-hands-grid, .workflow, .quiz-meta-grid { grid-template-columns: 1fr; }
   .hero, .quiz-head { flex-direction: column; }
   .quiz-controls { justify-items: start; width: 100%; }
+  .odds-ref-grid { grid-template-columns: 1fr; }
+  .bb-defend-header { flex-direction: column; gap: 10px; }
 }
 @media (max-width: 720px) {
+  .nav-link { padding: 7px 10px; font-size: 12px; }
+  .game-board { padding: 14px 14px 12px; }
+  .card-lg { width: 42px; height: 58px; }
+  .clg-rank { font-size: 17px; }
+  .clg-suit { font-size: 11px; }
+  .game-ans { min-width: 120px; padding: 12px 16px; font-size: 14px; }
+  .answer-zone { gap: 8px; }
+  .hud-scorebar { gap: 10px; }
+  .hud-value { font-size: 15px; }
+  .odds-equation { gap: 6px; }
+  .odds-eq-val { font-size: 18px; }
+  .pos-badge { width: 42px; height: 42px; font-size: 10px; }
+  .quiz-mode-tabs { gap: 4px; }
+  .quiz-mode-btn { font-size: 11px; padding: 7px 10px; }
+
   .wrap { padding: 24px 14px 40px; }
   .hand-cell { width: 30px; height: 30px; font-size: 9px; }
   .range-btn, .quiz-mode-btn, .quiz-level-btn { font-size: 12px; padding: 8px 12px; }

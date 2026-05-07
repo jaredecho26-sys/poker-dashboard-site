@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jared Poker Dashboard</title>
+  <title>Poker Lab — Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -12,8 +12,8 @@
     <header class="hero">
       <div>
         <p class="eyebrow">Poker Study Dashboard</p>
-        <h1>Jared Poker Dashboard</h1>
-        <p class="sub">Session results, coolers, leaks, study focus, and interactive preflop charts from uploaded hand histories.</p>
+        <h1>Session Dashboard</h1>
+        <p class="sub">P/L tracking, VPIP/PFR stats, tagged hands, and session notes from imported hand histories.</p>
       </div>
       <div class="hero-actions">
         <div class="pill">Update flow: post HH → import → review → push</div>
@@ -48,12 +48,7 @@
           <table>
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Platform</th>
-                <th>Hands</th>
-                <th>Result</th>
-                <th>VPIP / PFR / 3B</th>
-                <th>Notes</th>
+                <th>Date</th><th>Platform</th><th>Hands</th><th>Result</th><th>VPIP / PFR / 3B</th><th>Notes</th>
               </tr>
             </thead>
             <tbody id="sessionsBody"></tbody>
@@ -68,70 +63,6 @@
         </div>
         <div id="taggedHands" class="hand-list"></div>
       </article>
-    </section>
-
-    <section class="grid study-grid">
-      <article class="card">
-        <div class="card-head">
-          <h2>Simple Preflop Defense Chart</h2>
-        </div>
-        <div id="preflopChart" class="study-stack"></div>
-      </article>
-
-      <article class="card">
-        <div class="card-head">
-          <h2>Hands to Stop Fucking With</h2>
-        </div>
-        <div id="avoidList" class="study-stack"></div>
-      </article>
-    </section>
-
-    <section class="card">
-      <div class="card-head">
-        <h2>Interactive PFR Charts by Position</h2>
-      </div>
-      <p class="chart-note">Simplified practical 6-max cash RFI charts. These are built to be usable fast and tighten your leaks - not to cosplay as solver-perfect outputs.</p>
-      <div id="pfrExplorer" class="range-explorer"></div>
-    </section>
-
-    <section class="card">
-      <div class="card-head">
-        <h2>Interactive 3-Bet Charts by Position</h2>
-      </div>
-      <p class="chart-note">Practical 3-bet charts for common 6-max formations. Value hands are green, bluffs are blue, calls are gray, and mixed hands are yellow.</p>
-      <div id="threeBetExplorer" class="range-explorer"></div>
-    </section>
-
-    <section class="card">
-      <div class="card-head">
-        <h2>Top 10 Most Important Hands</h2>
-      </div>
-      <div id="topHands" class="top-hands-grid"></div>
-    </section>
-
-    <section class="card" id="quizSection">
-      <div class="card-head quiz-head">
-        <div>
-          <h2>🎯 Study Trainer</h2>
-          <p class="chart-note quiz-subnote">Drill range decisions, blind defense, board-texture c-bets, and short-stack jam/fold spots with depth levels.</p>
-        </div>
-        <div class="quiz-controls">
-          <div class="quiz-mode-tabs">
-            <button class="quiz-mode-btn active" data-mode="pfr">PFR</button>
-            <button class="quiz-mode-btn" data-mode="threebet">3-Bet</button>
-            <button class="quiz-mode-btn" data-mode="blinddefense">Blind Defense</button>
-            <button class="quiz-mode-btn" data-mode="cbet">C-Bet</button>
-            <button class="quiz-mode-btn" data-mode="shovefold">Shove / Fold</button>
-          </div>
-          <div class="quiz-level-tabs">
-            <button class="quiz-level-btn active" data-level="all">All</button>
-            <button class="quiz-level-btn" data-level="easy">Easy</button>
-            <button class="quiz-level-btn" data-level="medium">Medium</button>
-            <button class="quiz-level-btn" data-level="hard">Hard</button>
-          </div>
-        </div>
-      </div>
-      <div id="quizBody"></div>
     </section>
 
     <section class="card">
@@ -149,12 +80,13 @@
         </div>
         <div>
           <h3>3. Keep a running study loop</h3>
-          <p>Each session updates your biggest leaks, best hands, and next daily 5pm drill focus.</p>
+          <p>Each session updates your biggest leaks, best hands, and next daily drill focus.</p>
         </div>
       </div>
     </section>
   </div>
 
-  <script src="app.js"></script>
+  <script src="shared.js"></script>
+  <script src="dashboard.js"></script>
 </body>
 </html>

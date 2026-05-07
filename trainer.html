@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poker Lab — Trainer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Interactive Trainer</p>
+        <h1>🎯 Study Trainer</h1>
+        <p class="sub">Drill range decisions, blind defense, board-texture c-bets, shove/fold, pot odds, and combo-level reads with a live game board.</p>
+      </div>
+    </header>
+
+    <section class="card" id="quizSection">
+      <div class="card-head quiz-head">
+        <div>
+          <h2>Game Board</h2>
+        </div>
+        <div class="quiz-controls">
+          <div class="quiz-mode-tabs">
+            <button class="quiz-mode-btn active" data-mode="pfr">PFR</button>
+            <button class="quiz-mode-btn" data-mode="threebet">3-Bet</button>
+            <button class="quiz-mode-btn" data-mode="blinddefense">BB Defend</button>
+            <button class="quiz-mode-btn" data-mode="cbet">C-Bet</button>
+            <button class="quiz-mode-btn" data-mode="shovefold">Shove / Fold</button>
+            <button class="quiz-mode-btn" data-mode="potodds">Pot Odds</button>
+            <button class="quiz-mode-btn" data-mode="combo">Combo Reads</button>
+          </div>
+          <div class="quiz-level-tabs">
+            <button class="quiz-level-btn active" data-level="all">All</button>
+            <button class="quiz-level-btn" data-level="easy">Easy</button>
+            <button class="quiz-level-btn" data-level="medium">Medium</button>
+            <button class="quiz-level-btn" data-level="hard">Hard</button>
+          </div>
+        </div>
+      </div>
+      <div id="quizBody"></div>
+    </section>
+
+    <section class="card" id="oddsRefSection" hidden>
+      <div class="card-head">
+        <h2>📐 Pot Odds Quick Reference</h2>
+        <span class="muted">Memorize these — you'll use them every session</span>
+      </div>
+      <div id="oddsRef"></div>
+    </section>
+  </div>
+
+  <script src="shared.js"></script>
+  <script src="trainer.js"></script>
+</body>
+</html>

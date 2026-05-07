@@ -10,13 +10,26 @@
       "difficulty": "easy",
       "line": "BTN open vs BB call",
       "potType": "Single-raised pot",
-      "board": ["As", "7d", "2c"],
+      "board": [
+        "As",
+        "7d",
+        "2c"
+      ],
       "correct": "small",
       "prompt": "You opened the button and got called by the BB. Flop A-7-2 rainbow. What's the best practical default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "Dry ace-high board gives the preflop raiser a clear range and nut advantage. Small c-bet at high frequency is the clean default."
     },
@@ -25,13 +38,26 @@
       "difficulty": "easy",
       "line": "CO open vs BB call",
       "potType": "Single-raised pot",
-      "board": ["Kc", "8d", "3s"],
+      "board": [
+        "Kc",
+        "8d",
+        "3s"
+      ],
       "correct": "small",
       "prompt": "Cutoff opened, BB called. Flop K-8-3 rainbow. Default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "Another dry high-card board where your range leans stronger than the defender's. Small size keeps the whole range printing."
     },
@@ -40,13 +66,26 @@
       "difficulty": "easy",
       "line": "BTN 3-bet vs CO call",
       "potType": "3-bet pot",
-      "board": ["Ad", "8c", "4s"],
+      "board": [
+        "Ad",
+        "8c",
+        "4s"
+      ],
       "correct": "small",
       "prompt": "You 3-bet BTN vs CO and got called. Flop A-8-4 rainbow. Best default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "3-bet pots on dry ace-high textures heavily favor the aggressor. Small sizing pressures misses and realizes equity cleanly."
     },
@@ -55,13 +94,26 @@
       "difficulty": "easy",
       "line": "SB open vs BB call",
       "potType": "Single-raised pot",
-      "board": ["Qh", "6c", "2d"],
+      "board": [
+        "Qh",
+        "6c",
+        "2d"
+      ],
       "correct": "small",
       "prompt": "Blind vs blind, SB opened and BB called. Flop Q-6-2 rainbow. Good default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "Even blind vs blind, this dry queen-high board still lets the opener lean into a cheap range c-bet."
     },
@@ -70,13 +122,26 @@
       "difficulty": "medium",
       "line": "BTN open vs BB call",
       "potType": "Single-raised pot",
-      "board": ["Tc", "8c", "6d"],
+      "board": [
+        "Tc",
+        "8c",
+        "6d"
+      ],
       "correct": "check",
       "prompt": "Button opened, BB defended. Flop T-8-6 with two clubs. Best practical default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "This board smashes the BB's defend range. Too connected and too many pair+draw combos for mindless c-betting."
     },
@@ -85,13 +150,26 @@
       "difficulty": "medium",
       "line": "UTG open vs BB call",
       "potType": "Single-raised pot",
-      "board": ["9s", "7s", "5h"],
+      "board": [
+        "9s",
+        "7s",
+        "5h"
+      ],
       "correct": "check",
       "prompt": "UTG opened, BB called. Flop 9-7-5 with a flush draw. What's the better default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "Low connected boards pull the defender closer to parity. Checking protects your range and avoids lighting money on fire."
     },
@@ -100,13 +178,26 @@
       "difficulty": "medium",
       "line": "CO open vs BB call",
       "potType": "Single-raised pot",
-      "board": ["Kd", "Jh", "4d"],
+      "board": [
+        "Kd",
+        "Jh",
+        "4d"
+      ],
       "correct": "small",
       "prompt": "Cutoff opened, BB called. Flop K-J-4 with a flush draw. Practical default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "Still enough top-card advantage to c-bet often, but use a controlled size instead of blasting into all the draws."
     },
@@ -115,13 +206,26 @@
       "difficulty": "medium",
       "line": "BTN 3-bet vs HJ call",
       "potType": "3-bet pot",
-      "board": ["Qs", "Ts", "5d"],
+      "board": [
+        "Qs",
+        "Ts",
+        "5d"
+      ],
       "correct": "check",
       "prompt": "You 3-bet BTN vs HJ and get called. Flop Q-T-5 with a flush draw. Default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "Broadway connectivity plus flush draws gives the caller real coverage here. Checking more is the disciplined play."
     },
@@ -130,13 +234,26 @@
       "difficulty": "hard",
       "line": "BTN open vs BB call",
       "potType": "Single-raised pot",
-      "board": ["Ah", "Jc", "9h"],
+      "board": [
+        "Ah",
+        "Jc",
+        "9h"
+      ],
       "correct": "small",
       "prompt": "BTN opened, BB defended. Flop A-J-9 with a heart draw. What's your best default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "This is closer than A-7-2, but you still keep a real ace-high advantage. Small size works better than over-correcting to a check."
     },
@@ -145,13 +262,26 @@
       "difficulty": "hard",
       "line": "SB open vs BB call",
       "potType": "Single-raised pot",
-      "board": ["8h", "6h", "4c"],
+      "board": [
+        "8h",
+        "6h",
+        "4c"
+      ],
       "correct": "check",
       "prompt": "Blind vs blind on 8-6-4 two-heart. Default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "BB smashes this board with pair+draw, straight draws, and combo draws. This is a classic check-more texture."
     },
@@ -160,13 +290,26 @@
       "difficulty": "hard",
       "line": "BTN 3-bet vs CO call",
       "potType": "3-bet pot",
-      "board": ["Kc", "7c", "2h"],
+      "board": [
+        "Kc",
+        "7c",
+        "2h"
+      ],
       "correct": "small",
       "prompt": "You 3-bet BTN vs CO and get called. Flop K-7-2 with a club draw. Best practical line?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "You still retain a strong range edge in the 3-bet pot. The draw adds texture, but not enough to force a pure check."
     },
@@ -175,15 +318,364 @@
       "difficulty": "hard",
       "line": "CO open vs BB call",
       "potType": "Single-raised pot",
-      "board": ["Jd", "9d", "8s"],
+      "board": [
+        "Jd",
+        "9d",
+        "8s"
+      ],
       "correct": "check",
       "prompt": "Cutoff opened, BB defended. Flop J-9-8 with a flush draw. What's the disciplined default?",
       "options": [
-        { "key": "small", "label": "💧 Bet small" },
-        { "key": "check", "label": "🛑 Check" },
-        { "key": "big", "label": "💣 Bet big" }
+        {
+          "key": "small",
+          "label": "\ud83d\udca7 Bet small"
+        },
+        {
+          "key": "check",
+          "label": "\ud83d\uded1 Check"
+        },
+        {
+          "key": "big",
+          "label": "\ud83d\udca3 Bet big"
+        }
       ],
       "explanation": "Very dynamic board, lots of two-pair, pair+draw, and combo-draw coverage for BB. This is not a board to auto-fire."
+    },
+    {
+      "id": "cbet-13",
+      "difficulty": "easy",
+      "line": "BTN open vs BB call",
+      "potType": "SRP",
+      "board": [
+        "Tc",
+        "9d",
+        "3h"
+      ],
+      "correct": "small",
+      "prompt": "BTN opened, BB called. Flop T-9-3 rainbow. Default line?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "You have range advantage but the board connects with BB's range. Small bet keeps equity without overplaying."
+    },
+    {
+      "id": "cbet-14",
+      "difficulty": "easy",
+      "line": "CO open vs BB call",
+      "potType": "SRP",
+      "board": [
+        "Jh",
+        "Jc",
+        "2d"
+      ],
+      "correct": "small",
+      "prompt": "CO opened, BB called. Flop J-J-2. Default?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "Paired board heavily favors the preflop raiser \u2014 you have all full houses and sets. Small bet at high frequency."
+    },
+    {
+      "id": "cbet-15",
+      "difficulty": "medium",
+      "line": "BTN open vs BB call",
+      "potType": "SRP",
+      "board": [
+        "8h",
+        "7h",
+        "6c"
+      ],
+      "correct": "check",
+      "prompt": "BTN opened, BB called. Flop 8-7-6 two-tone. Default?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "Connected wet board smashes BB's calling range (suited connectors). Your range advantage is minimal \u2014 check and realize equity."
+    },
+    {
+      "id": "cbet-16",
+      "difficulty": "medium",
+      "line": "CO open vs BB call",
+      "potType": "SRP",
+      "board": [
+        "Qd",
+        "9h",
+        "4c"
+      ],
+      "correct": "small",
+      "prompt": "CO opened, BB called. Flop Q-9-4 rainbow. Default?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "You have range advantage with QQ+ and Q-x. Small probe keeps the initiative."
+    },
+    {
+      "id": "cbet-17",
+      "difficulty": "medium",
+      "line": "BTN open vs BB call",
+      "potType": "SRP",
+      "board": [
+        "Kh",
+        "Jd",
+        "Ts"
+      ],
+      "correct": "check",
+      "prompt": "BTN opened, BB called. Flop K-J-T rainbow. Best play?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "Very coordinated broadway board \u2014 both ranges smash it. Check back and re-evaluate turn."
+    },
+    {
+      "id": "cbet-18",
+      "difficulty": "medium",
+      "line": "BTN 3-bet vs SB call",
+      "potType": "3BP",
+      "board": [
+        "Ac",
+        "5d",
+        "2s"
+      ],
+      "correct": "small",
+      "prompt": "You 3-bet BTN, SB called OOP. Flop A-5-2 rainbow. Default?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "In a 3-bet pot you dominate this dry ace-high board. Polarized small bet at high frequency."
+    },
+    {
+      "id": "cbet-19",
+      "difficulty": "hard",
+      "line": "BB 3-bet vs BTN call",
+      "potType": "3BP",
+      "board": [
+        "9s",
+        "8c",
+        "7d"
+      ],
+      "correct": "check",
+      "prompt": "You 3-bet from BB, BTN called. Flop 9-8-7 rainbow OOP. Default?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "OOP in a 3-bet pot on a rundown board is dangerous. BTN's calling range has exactly these connectors. Check-call strong, check-fold marginal."
+    },
+    {
+      "id": "cbet-20",
+      "difficulty": "hard",
+      "line": "CO open vs BB call",
+      "potType": "SRP",
+      "board": [
+        "6s",
+        "5s",
+        "4s"
+      ],
+      "correct": "check",
+      "prompt": "CO opened, BB called. Flop 6-5-4 monotone. Default?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "Monotone connected boards are traps for the preflop raiser. BB connects with flush draws and straights. Check back."
+    },
+    {
+      "id": "cbet-21",
+      "difficulty": "easy",
+      "line": "BTN open vs BB call",
+      "potType": "SRP",
+      "board": [
+        "Ah",
+        "Td",
+        "7h"
+      ],
+      "correct": "small",
+      "prompt": "BTN opened, BB called. Flop A-T-7 with a flush draw. Default?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "Ace-high board with nut flush draws in your range. Small bet builds pot with range advantage."
+    },
+    {
+      "id": "cbet-22",
+      "difficulty": "hard",
+      "line": "SB open vs BB call",
+      "potType": "SRP",
+      "board": [
+        "Qh",
+        "Th",
+        "5c"
+      ],
+      "correct": "check",
+      "prompt": "You opened SB, BB called. Flop Q-T-5 with flush draw. You're OOP. Default?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "SB vs BB OOP on a connected board with flush draw \u2014 BB's range hits this well. Check and respond to their action."
+    },
+    {
+      "id": "cbet-23",
+      "difficulty": "medium",
+      "line": "BTN 3-bet vs BB call",
+      "potType": "3BP",
+      "board": [
+        "Kd",
+        "Qc",
+        "Js"
+      ],
+      "correct": "check",
+      "prompt": "You 3-bet BTN vs BB. Flop K-Q-J rainbow. Default in 3-bet pot?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "Both ranges smash this board \u2014 BB's 3-bet calling range has KQ, KJ, QJ, AK, AQ. Check and control pot."
+    },
+    {
+      "id": "cbet-24",
+      "difficulty": "easy",
+      "line": "UTG open vs BB call",
+      "potType": "SRP",
+      "board": [
+        "4s",
+        "4d",
+        "2h"
+      ],
+      "correct": "small",
+      "prompt": "UTG opened, BB called. Flop 4-4-2 rainbow. Default?",
+      "options": [
+        {
+          "key": "small",
+          "label": "Bet small"
+        },
+        {
+          "key": "check",
+          "label": "Check"
+        },
+        {
+          "key": "big",
+          "label": "Bet big"
+        }
+      ],
+      "explanation": "Dry low paired board \u2014 neither player likely has a 4. Strong range advantage for opener. Small bet entire range."
     }
   ],
   "shoveFold": [
@@ -197,8 +689,14 @@
       "correct": "jam",
       "prompt": "8bb on the button, folded to you. What's the play?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Classic profitable button shove. Suited ace with blocker value and strong equity when called."
     },
@@ -212,8 +710,14 @@
       "correct": "jam",
       "prompt": "7bb in the small blind, folded to you. Best move?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Blind-vs-blind at 7bb is an aggression tax spot. KTs is comfortably strong enough to rip."
     },
@@ -227,8 +731,14 @@
       "correct": "jam",
       "prompt": "9bb in the cutoff, folded to you. What now?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Mid pairs at 9bb are textbook jams from late position. Too strong to pass, awkward to min-raise/fold."
     },
@@ -242,8 +752,14 @@
       "correct": "fold",
       "prompt": "10bb in the hijack, folded to you. Jam or fold?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Too loose from HJ. Offsuit queen-rag doesn't have the blocker/equity mix needed at 10bb."
     },
@@ -257,8 +773,14 @@
       "correct": "jam",
       "prompt": "11bb on the button, folded to you. What's better?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Still profitable enough on the button against normal blinds. Strong king blocker plus suitedness carries it."
     },
@@ -272,8 +794,14 @@
       "correct": "jam",
       "prompt": "12bb in the cutoff, action folds to you. Jam or fold?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "A5o uses ace blocker power well and still has acceptable called equity. Practical jam at this depth."
     },
@@ -287,8 +815,14 @@
       "correct": "jam",
       "prompt": "9bb in the SB, folded to you. What's the move?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Blind-vs-blind widens fast. J7o is ugly, but still jams profitably at 9bb once BTN folds."
     },
@@ -302,8 +836,14 @@
       "correct": "fold",
       "prompt": "12bb in the hijack, folded to you. Rip it or pass?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Too loose that early with 12bb. This hand looks prettier than it plays once called."
     },
@@ -317,8 +857,14 @@
       "correct": "jam",
       "prompt": "14bb in the cutoff, action folds to you. Jam or fold?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "This gets close, but small pairs still make money as open jams often enough at 14bb in late position."
     },
@@ -332,8 +878,14 @@
       "correct": "jam",
       "prompt": "13bb on the button, folded to you. Ship it?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Borderline-but-good late-position jam. Suited queen with live-card equity gets over the line."
     },
@@ -347,8 +899,14 @@
       "correct": "jam",
       "prompt": "11bb in the SB, folded to you. Jam or let it go?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Blind-vs-blind keeps this alive. Suiting plus immediate fold equity makes it a practical jam."
     },
@@ -362,10 +920,1523 @@
       "correct": "fold",
       "prompt": "10bb UTG, folded to you. Jam or fold?",
       "options": [
-        { "key": "jam", "label": "🚀 Jam" },
-        { "key": "fold", "label": "🏳️ Fold" }
+        {
+          "key": "jam",
+          "label": "\ud83d\ude80 Jam"
+        },
+        {
+          "key": "fold",
+          "label": "\ud83c\udff3\ufe0f Fold"
+        }
       ],
       "explanation": "Ace blocker is nice, but position matters. UTG jamming range is tighter and A4o falls just outside the comfort zone."
+    },
+    {
+      "id": "sf-13",
+      "difficulty": "easy",
+      "position": "BTN",
+      "stackBb": 7,
+      "action": "Folded to you",
+      "heroHand": "T9s",
+      "correct": "jam",
+      "prompt": "7bb on the button, folded to you. T9s \u2014 jam or fold?",
+      "options": [
+        {
+          "key": "jam",
+          "label": "Jam"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "T9s plays extremely well at this depth. Strong equity vs calling ranges. Slam it in."
+    },
+    {
+      "id": "sf-14",
+      "difficulty": "easy",
+      "position": "BB",
+      "stackBb": 6,
+      "action": "SB jams",
+      "heroHand": "K4o",
+      "correct": "call",
+      "prompt": "6bb, SB jams. You're in the BB with K4o. Call or fold?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "At 6bb SB jams very wide. K4o has enough equity against that range \u2014 call."
+    },
+    {
+      "id": "sf-15",
+      "difficulty": "medium",
+      "position": "CO",
+      "stackBb": 11,
+      "action": "Folded to you",
+      "heroHand": "55",
+      "correct": "jam",
+      "prompt": "11bb in the CO, action folds to you. 55 \u2014 jam or fold?",
+      "options": [
+        {
+          "key": "jam",
+          "label": "Jam"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "Mid pair at 11bb from CO is a clear jam. Often win blinds outright, solid equity when called."
+    },
+    {
+      "id": "sf-16",
+      "difficulty": "medium",
+      "position": "UTG",
+      "stackBb": 13,
+      "action": "Folded to you",
+      "heroHand": "A3o",
+      "correct": "fold",
+      "prompt": "13bb UTG, first to act. A3o \u2014 jam or fold?",
+      "options": [
+        {
+          "key": "jam",
+          "label": "Jam"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "Offsuit weak ace from UTG at 13bb is a fold. Jamming into 5 players with A3o is not profitable."
+    },
+    {
+      "id": "sf-17",
+      "difficulty": "medium",
+      "position": "BTN",
+      "stackBb": 14,
+      "action": "CO min-raises",
+      "heroHand": "QTs",
+      "correct": "jam",
+      "prompt": "14bb on BTN, CO min-raises. You have QTs. Best play?",
+      "options": [
+        {
+          "key": "jam",
+          "label": "Jam"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        },
+        {
+          "key": "call",
+          "label": "Call"
+        }
+      ],
+      "explanation": "QTs is too strong to call off ~28% of stack awkwardly. Jam for value and fold equity."
+    },
+    {
+      "id": "sf-18",
+      "difficulty": "hard",
+      "position": "HJ",
+      "stackBb": 15,
+      "action": "Folded to you",
+      "heroHand": "A2s",
+      "correct": "jam",
+      "prompt": "15bb in the HJ, folded to you. A2s \u2014 jam or fold?",
+      "options": [
+        {
+          "key": "jam",
+          "label": "Jam"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "Suited ace with nut blocker. Good equity when called. Solid 15bb jam from HJ."
+    },
+    {
+      "id": "sf-19",
+      "difficulty": "hard",
+      "position": "BB",
+      "stackBb": 10,
+      "action": "BTN jams",
+      "heroHand": "J9s",
+      "correct": "call",
+      "prompt": "10bb, BTN jams. You're BB with J9s. Call or fold?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "BTN shoves wide at 10bb (~50% of hands). J9s has ~46% equity vs that range. With ~2.5:1 pot odds, call."
+    },
+    {
+      "id": "sf-20",
+      "difficulty": "hard",
+      "position": "SB",
+      "stackBb": 12,
+      "action": "Folded to you",
+      "heroHand": "K7o",
+      "correct": "jam",
+      "prompt": "12bb in the SB, folded to you. K7o \u2014 jam or fold?",
+      "options": [
+        {
+          "key": "jam",
+          "label": "Jam"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "HU vs BB at 12bb, K7o is a jam. Fold equity, strong blocker, reasonable equity when called."
+    },
+    {
+      "id": "sf-21",
+      "difficulty": "hard",
+      "position": "UTG",
+      "stackBb": 15,
+      "action": "Folded to you",
+      "heroHand": "88",
+      "correct": "jam",
+      "prompt": "15bb UTG, folded to you. 88 \u2014 jam or fold?",
+      "options": [
+        {
+          "key": "jam",
+          "label": "Jam"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "88 at 15bb \u2014 min-raising and folding to a 3-bet is awkward. Just jam and take the money or coin-flip with solid equity."
+    },
+    {
+      "id": "sf-22",
+      "difficulty": "medium",
+      "position": "BTN",
+      "stackBb": 10,
+      "action": "Folded to you",
+      "heroHand": "J4s",
+      "correct": "jam",
+      "prompt": "10bb BTN, folded to you. J4s \u2014 jam or fold?",
+      "options": [
+        {
+          "key": "jam",
+          "label": "Jam"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "At 10bb from BTN jam ~45% of hands. J4s is borderline in \u2014 jack blocker + suitedness gets it there."
+    },
+    {
+      "id": "sf-23",
+      "difficulty": "easy",
+      "position": "CO",
+      "stackBb": 8,
+      "action": "Folded to you",
+      "heroHand": "K2o",
+      "correct": "fold",
+      "prompt": "8bb CO, folded to you. K2o \u2014 jam or fold?",
+      "options": [
+        {
+          "key": "jam",
+          "label": "Jam"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "K2o from CO at 8bb lacks enough equity when called. Offsuit weak kings need better support from middle position."
+    },
+    {
+      "id": "sf-24",
+      "difficulty": "hard",
+      "position": "BB",
+      "stackBb": 8,
+      "action": "UTG jams",
+      "heroHand": "ATo",
+      "correct": "call",
+      "prompt": "8bb, UTG jams. You're BB with ATo. Call or fold?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "explanation": "ATo has ~56% equity vs UTG 8bb jam range. With pot odds and 1bb invested, easy call."
+    }
+  ],
+  "potOdds": [
+    {
+      "id": "po-1",
+      "mode": "potodds",
+      "type": "calculate",
+      "difficulty": "easy",
+      "potSize": 100,
+      "betSize": 50,
+      "prompt": "Villain bets $50 into a $100 pot. What equity % do you need to call?",
+      "options": [
+        {
+          "key": "25",
+          "label": "25%"
+        },
+        {
+          "key": "33",
+          "label": "33%"
+        },
+        {
+          "key": "50",
+          "label": "50%"
+        },
+        {
+          "key": "67",
+          "label": "67%"
+        }
+      ],
+      "correct": "33",
+      "explanation": "Call $50 into $150 total. 50/150 = 33%. You need at least 33% equity to break even."
+    },
+    {
+      "id": "po-2",
+      "mode": "potodds",
+      "type": "calculate",
+      "difficulty": "easy",
+      "potSize": 100,
+      "betSize": 100,
+      "prompt": "Villain bets $100 into a $100 pot (pot-sized). Required equity?",
+      "options": [
+        {
+          "key": "25",
+          "label": "25%"
+        },
+        {
+          "key": "33",
+          "label": "33%"
+        },
+        {
+          "key": "40",
+          "label": "40%"
+        },
+        {
+          "key": "50",
+          "label": "50%"
+        }
+      ],
+      "correct": "33",
+      "explanation": "100/300 = 33%. A pot-sized bet always requires 33% equity \u2014 memorize this anchor."
+    },
+    {
+      "id": "po-3",
+      "mode": "potodds",
+      "type": "calculate",
+      "difficulty": "easy",
+      "potSize": 200,
+      "betSize": 50,
+      "prompt": "Villain bets $50 into a $200 pot (quarter pot). Required equity?",
+      "options": [
+        {
+          "key": "20",
+          "label": "20%"
+        },
+        {
+          "key": "25",
+          "label": "25%"
+        },
+        {
+          "key": "33",
+          "label": "33%"
+        },
+        {
+          "key": "50",
+          "label": "50%"
+        }
+      ],
+      "correct": "20",
+      "explanation": "50/250 = 20%. Small bets give you great odds \u2014 only need 20% equity."
+    },
+    {
+      "id": "po-4",
+      "mode": "potodds",
+      "type": "calculate",
+      "difficulty": "medium",
+      "potSize": 120,
+      "betSize": 80,
+      "prompt": "Pot is $120, villain bets $80 (~67% pot). Required equity?",
+      "options": [
+        {
+          "key": "25",
+          "label": "25%"
+        },
+        {
+          "key": "33",
+          "label": "33%"
+        },
+        {
+          "key": "40",
+          "label": "40%"
+        },
+        {
+          "key": "50",
+          "label": "50%"
+        }
+      ],
+      "correct": "40",
+      "explanation": "80/200 = 40%. Bigger bets demand more equity. Two-thirds pot = need 40%."
+    },
+    {
+      "id": "po-5",
+      "mode": "potodds",
+      "type": "calculate",
+      "difficulty": "medium",
+      "potSize": 100,
+      "betSize": 75,
+      "prompt": "Villain bets $75 into $100 (~3/4 pot). Required equity?",
+      "options": [
+        {
+          "key": "25",
+          "label": "25%"
+        },
+        {
+          "key": "33",
+          "label": "33%"
+        },
+        {
+          "key": "43",
+          "label": "43%"
+        },
+        {
+          "key": "50",
+          "label": "50%"
+        }
+      ],
+      "correct": "43",
+      "explanation": "75/175 = 43%. Three-quarter pot bets price out most draws \u2014 8-out draws only have ~32%."
+    },
+    {
+      "id": "po-6",
+      "mode": "potodds",
+      "type": "calculate",
+      "difficulty": "hard",
+      "potSize": 200,
+      "betSize": 300,
+      "prompt": "Villain overbets $300 into a $200 pot. Required equity?",
+      "options": [
+        {
+          "key": "33",
+          "label": "33%"
+        },
+        {
+          "key": "40",
+          "label": "40%"
+        },
+        {
+          "key": "50",
+          "label": "50%"
+        },
+        {
+          "key": "60",
+          "label": "60%"
+        }
+      ],
+      "correct": "60",
+      "explanation": "300/500 = 60%. Overbets require serious equity \u2014 why big overbets usually represent the near-nuts."
+    },
+    {
+      "id": "po-7",
+      "mode": "potodds",
+      "type": "outs",
+      "difficulty": "easy",
+      "heroHand": "9h8h",
+      "board": [
+        "7c",
+        "6d",
+        "As"
+      ],
+      "outs": 8,
+      "prompt": "You have 9h8h on 7c6dAs. Open-ended straight draw. How many outs?",
+      "options": [
+        {
+          "key": "4",
+          "label": "4 outs"
+        },
+        {
+          "key": "6",
+          "label": "6 outs"
+        },
+        {
+          "key": "8",
+          "label": "8 outs"
+        },
+        {
+          "key": "12",
+          "label": "12 outs"
+        }
+      ],
+      "correct": "8",
+      "explanation": "OESD = 8 outs (four 5s + four Ts). Rule of 2: ~16% per street. Rule of 4: ~32% for two streets."
+    },
+    {
+      "id": "po-8",
+      "mode": "potodds",
+      "type": "outs",
+      "difficulty": "easy",
+      "heroHand": "Ah2h",
+      "board": [
+        "Kh",
+        "9h",
+        "3c"
+      ],
+      "outs": 9,
+      "prompt": "You have Ah2h on Kh9h3c. Flush draw. How many outs?",
+      "options": [
+        {
+          "key": "4",
+          "label": "4 outs"
+        },
+        {
+          "key": "7",
+          "label": "7 outs"
+        },
+        {
+          "key": "9",
+          "label": "9 outs"
+        },
+        {
+          "key": "13",
+          "label": "13 outs"
+        }
+      ],
+      "correct": "9",
+      "explanation": "Flush draw = 9 outs (13 in suit - 4 seen). Rule of 4: ~36% over two streets."
+    },
+    {
+      "id": "po-9",
+      "mode": "potodds",
+      "type": "outs",
+      "difficulty": "medium",
+      "heroHand": "JhTh",
+      "board": [
+        "Kh",
+        "9h",
+        "2c"
+      ],
+      "outs": 12,
+      "prompt": "You have JhTh on Kh9h2c. Flush draw + gutshot to Q. Combined clean outs?",
+      "options": [
+        {
+          "key": "9",
+          "label": "9 outs"
+        },
+        {
+          "key": "12",
+          "label": "12 outs"
+        },
+        {
+          "key": "13",
+          "label": "13 outs"
+        },
+        {
+          "key": "15",
+          "label": "15 outs"
+        }
+      ],
+      "correct": "12",
+      "explanation": "9 flush outs + 4 queens (gutshot) = 13 minus QH already counted in flush = 12 clean outs. Rule of 4: ~48%. Monster draw."
+    },
+    {
+      "id": "po-10",
+      "mode": "potodds",
+      "type": "outs",
+      "difficulty": "medium",
+      "heroHand": "5c6c",
+      "board": [
+        "7d",
+        "8h",
+        "Kc"
+      ],
+      "outs": 8,
+      "prompt": "You have 5c6c on 7d8hKc. OESD. Straight draw outs?",
+      "options": [
+        {
+          "key": "4",
+          "label": "4 outs"
+        },
+        {
+          "key": "6",
+          "label": "6 outs"
+        },
+        {
+          "key": "8",
+          "label": "8 outs"
+        },
+        {
+          "key": "10",
+          "label": "10 outs"
+        }
+      ],
+      "correct": "8",
+      "explanation": "OESD: four 4s + four 9s = 8 clean outs. The backdoor flush is bonus ~4% \u2014 don't count as main equity."
+    },
+    {
+      "id": "po-11",
+      "mode": "potodds",
+      "type": "outs",
+      "difficulty": "hard",
+      "heroHand": "AsKd",
+      "board": [
+        "Kh",
+        "Tc",
+        "8c"
+      ],
+      "outs": 7,
+      "prompt": "You have AsKd on KhTc8c. TPTK vs suspected flush draw. Outs to boat/trips?",
+      "options": [
+        {
+          "key": "3",
+          "label": "3 outs"
+        },
+        {
+          "key": "5",
+          "label": "5 outs"
+        },
+        {
+          "key": "7",
+          "label": "7 outs"
+        },
+        {
+          "key": "10",
+          "label": "10 outs"
+        }
+      ],
+      "correct": "7",
+      "explanation": "3 remaining Ks (trips/boat) + 3 remaining As (two pair ahead of draws) = ~7 meaningful outs to improve."
+    },
+    {
+      "id": "po-12",
+      "mode": "potodds",
+      "type": "decision",
+      "difficulty": "easy",
+      "potSize": 100,
+      "betSize": 50,
+      "heroHand": "Jh9h",
+      "board": [
+        "Kh",
+        "Th",
+        "2c"
+      ],
+      "outs": 9,
+      "prompt": "Jh9h on KhTh2c (flush draw, 9 outs). Villain bets $50 into $100. Call?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        },
+        {
+          "key": "raise",
+          "label": "Raise"
+        }
+      ],
+      "correct": "call",
+      "explanation": "Pot odds: 50/150 = 33%. Flush draw: 9x4 = ~36% equity. More equity than needed \u2014 easy call. Raising for protection also valid."
+    },
+    {
+      "id": "po-13",
+      "mode": "potodds",
+      "type": "decision",
+      "difficulty": "easy",
+      "potSize": 80,
+      "betSize": 20,
+      "heroHand": "8c7c",
+      "board": [
+        "9d",
+        "5h",
+        "Ac"
+      ],
+      "outs": 8,
+      "prompt": "8c7c on 9d5hAc (OESD, 8 outs). Villain bets $20 into $80. Call?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "correct": "call",
+      "explanation": "Pot odds: 20/100 = 20%. OESD: 8x4 = ~32% equity. Outstanding odds \u2014 calling is mandatory."
+    },
+    {
+      "id": "po-14",
+      "mode": "potodds",
+      "type": "decision",
+      "difficulty": "medium",
+      "potSize": 120,
+      "betSize": 90,
+      "heroHand": "Qc9c",
+      "board": [
+        "Kd",
+        "8c",
+        "3c"
+      ],
+      "outs": 9,
+      "prompt": "Qc9c on Kd8c3c (flush draw, 9 outs). Villain bets $90 into $120. Call?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        },
+        {
+          "key": "raise",
+          "label": "Raise (semi-bluff)"
+        }
+      ],
+      "correct": "call",
+      "explanation": "Pot odds: 90/210 = 43%. Flush draw: ~36% equity. Close but you have backdoor equity + future bluff equity. Call or semi-bluff raise are both valid."
+    },
+    {
+      "id": "po-15",
+      "mode": "potodds",
+      "type": "decision",
+      "difficulty": "medium",
+      "potSize": 150,
+      "betSize": 150,
+      "heroHand": "Td9d",
+      "board": [
+        "Jd",
+        "7c",
+        "2d"
+      ],
+      "outs": 12,
+      "prompt": "Td9d on Jd7c2d (flush draw + OESD, ~12 outs). Villain pots $150. Call?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        },
+        {
+          "key": "raise",
+          "label": "Raise"
+        }
+      ],
+      "correct": "raise",
+      "explanation": "Pot odds: 33%. 12 outs x 4 = ~48% equity. You're a FAVORITE \u2014 raise. You have near-even equity and can force a mistake with a re-raise."
+    },
+    {
+      "id": "po-16",
+      "mode": "potodds",
+      "type": "decision",
+      "difficulty": "hard",
+      "potSize": 200,
+      "betSize": 200,
+      "heroHand": "6h5h",
+      "board": [
+        "Ah",
+        "8d",
+        "3c"
+      ],
+      "outs": 8,
+      "prompt": "6h5h on Ah8d3c (OESD, 8 outs, backdoor hearts). Villain pots $200. Call?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "correct": "fold",
+      "explanation": "Pot odds: 33%. OESD: 32% equity. Essentially break-even, but villain potting on A-high usually means strength. Marginally fold."
+    },
+    {
+      "id": "po-17",
+      "mode": "potodds",
+      "type": "decision",
+      "difficulty": "hard",
+      "potSize": 300,
+      "betSize": 100,
+      "heroHand": "Ac4c",
+      "board": [
+        "Kc",
+        "8c",
+        "2d"
+      ],
+      "outs": 9,
+      "prompt": "Ac4c on Kc8c2d (nut flush draw, 9 outs). Villain bets $100 into $300. Call?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        },
+        {
+          "key": "raise",
+          "label": "Raise (semi-bluff)"
+        }
+      ],
+      "correct": "raise",
+      "explanation": "Pot odds: 25%. Nut flush draw: ~36% equity + ace blocker + fold equity. Way profitable. Raise as a semi-bluff."
+    },
+    {
+      "id": "po-18",
+      "mode": "potodds",
+      "type": "calculate",
+      "difficulty": "easy",
+      "potSize": 100,
+      "betSize": 33,
+      "prompt": "Villain bets $33 into $100 (~1/3 pot). Required equity?",
+      "options": [
+        {
+          "key": "15",
+          "label": "~15%"
+        },
+        {
+          "key": "25",
+          "label": "~25%"
+        },
+        {
+          "key": "33",
+          "label": "~33%"
+        },
+        {
+          "key": "40",
+          "label": "~40%"
+        }
+      ],
+      "correct": "25",
+      "explanation": "33/133 = 25%. A third-pot bet gives 3:1 odds. Most 8+ out draws are profitable."
+    },
+    {
+      "id": "po-19",
+      "mode": "potodds",
+      "type": "calculate",
+      "difficulty": "medium",
+      "potSize": 500,
+      "betSize": 1000,
+      "prompt": "Villain overbets 2x pot ($1000 into $500). Required equity?",
+      "options": [
+        {
+          "key": "40",
+          "label": "40%"
+        },
+        {
+          "key": "50",
+          "label": "50%"
+        },
+        {
+          "key": "60",
+          "label": "60%"
+        },
+        {
+          "key": "67",
+          "label": "67%"
+        }
+      ],
+      "correct": "67",
+      "explanation": "1000/1500 = 67%. Overbets price out almost everything. Unless near top of range, fold."
+    },
+    {
+      "id": "po-20",
+      "mode": "potodds",
+      "type": "decision",
+      "difficulty": "medium",
+      "potSize": 100,
+      "betSize": 40,
+      "heroHand": "AsJs",
+      "board": [
+        "Ks",
+        "9s",
+        "4c"
+      ],
+      "outs": 9,
+      "prompt": "AsJs on Ks9s4c (nut flush draw, 9 outs). Villain bets $40 into $100. Call or raise?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "raise",
+          "label": "Raise (semi-bluff)"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        }
+      ],
+      "correct": "raise",
+      "explanation": "Pot odds: 29%. Nut flush: ~36% equity. Profitable to call, but raising is better \u2014 nut draw + fold equity + can win immediately."
+    },
+    {
+      "id": "po-21",
+      "mode": "potodds",
+      "type": "calculate",
+      "difficulty": "easy",
+      "potSize": 100,
+      "betSize": 25,
+      "prompt": "Quick: villain bets $25 into $100. Required equity?",
+      "options": [
+        {
+          "key": "15",
+          "label": "~15%"
+        },
+        {
+          "key": "20",
+          "label": "~20%"
+        },
+        {
+          "key": "25",
+          "label": "~25%"
+        },
+        {
+          "key": "33",
+          "label": "~33%"
+        }
+      ],
+      "correct": "20",
+      "explanation": "25/125 = 20%. Quarter-pot bet gives 4:1 odds. Almost any 8+ out draw is profitable."
+    },
+    {
+      "id": "po-22",
+      "mode": "potodds",
+      "type": "decision",
+      "difficulty": "hard",
+      "potSize": 200,
+      "betSize": 140,
+      "heroHand": "8h7h",
+      "board": [
+        "9h",
+        "6d",
+        "2h"
+      ],
+      "outs": 15,
+      "prompt": "8h7h on 9h6d2h. OESD + flush draw (~15 outs). Villain bets $140 into $200. Call?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        },
+        {
+          "key": "raise",
+          "label": "Raise"
+        }
+      ],
+      "correct": "raise",
+      "explanation": "Pot odds: 41%. 15 outs x 4 = ~60% equity. You're a clear FAVORITE \u2014 raise for value and protection."
+    },
+    {
+      "id": "po-23",
+      "mode": "potodds",
+      "type": "outs",
+      "difficulty": "easy",
+      "heroHand": "KcQc",
+      "board": [
+        "Ac",
+        "5c",
+        "2h"
+      ],
+      "outs": 9,
+      "prompt": "KcQc on Ac5c2h. Flush draw (non-nut). How many outs?",
+      "options": [
+        {
+          "key": "7",
+          "label": "7 outs"
+        },
+        {
+          "key": "8",
+          "label": "8 outs"
+        },
+        {
+          "key": "9",
+          "label": "9 outs"
+        },
+        {
+          "key": "11",
+          "label": "11 outs"
+        }
+      ],
+      "correct": "9",
+      "explanation": "Still 9 flush outs. K-high flush loses to A-high \u2014 be careful calling big bets with a non-nut flush draw."
+    },
+    {
+      "id": "po-24",
+      "mode": "potodds",
+      "type": "decision",
+      "difficulty": "hard",
+      "potSize": 400,
+      "betSize": 600,
+      "heroHand": "Jh9h",
+      "board": [
+        "Th",
+        "8h",
+        "2s"
+      ],
+      "outs": 15,
+      "prompt": "Jh9h on Th8h2s. OESD + flush draw (~15 outs). Villain overbets $600 into $400. Call?",
+      "options": [
+        {
+          "key": "call",
+          "label": "Call"
+        },
+        {
+          "key": "fold",
+          "label": "Fold"
+        },
+        {
+          "key": "raise",
+          "label": "Raise (all-in)"
+        }
+      ],
+      "correct": "raise",
+      "explanation": "Pot odds: 60%. 15 outs x 4 = ~60% equity. Near exact break-even but you have straight flush outs as bonus. Raise all-in \u2014 you have the best of it."
+    }
+  ],
+  "comboDrills": [
+    {
+      "id": "cd-1",
+      "mode": "combo",
+      "type": "suitedness",
+      "difficulty": "easy",
+      "heroHand": "AhKh",
+      "context": "3-bet pot BTN vs CO",
+      "board": [
+        "Jh",
+        "8h",
+        "2c"
+      ],
+      "prompt": "AhKh in a 3-bet pot on Jh8h2c. Primary equity source?",
+      "options": [
+        {
+          "key": "toppair",
+          "label": "Top pair + kicker"
+        },
+        {
+          "key": "nutflush",
+          "label": "Nut flush draw"
+        },
+        {
+          "key": "both",
+          "label": "Overcards + nut flush draw"
+        },
+        {
+          "key": "nothing",
+          "label": "Overcards only"
+        }
+      ],
+      "correct": "both",
+      "explanation": "AKhh = 2 overcards + nut flush draw. ~39% equity. Raising hand, not a check-back."
+    },
+    {
+      "id": "cd-2",
+      "mode": "combo",
+      "type": "suitedness",
+      "difficulty": "easy",
+      "heroHand": "AsKd",
+      "context": "3-bet pot BTN vs CO",
+      "board": [
+        "Jh",
+        "8h",
+        "2c"
+      ],
+      "prompt": "Same spot but AsKd (no hearts) on Jh8h2c. How does equity change vs AhKh?",
+      "options": [
+        {
+          "key": "same",
+          "label": "Same equity"
+        },
+        {
+          "key": "less",
+          "label": "Less \u2014 no flush draw"
+        },
+        {
+          "key": "more",
+          "label": "More \u2014 suits don't matter"
+        },
+        {
+          "key": "alot",
+          "label": "Way less \u2014 nearly drawing dead"
+        }
+      ],
+      "correct": "less",
+      "explanation": "AKo without hearts = just 2 overcards, ~26% equity. Lost ~13% vs suited version. Suits matter enormously on draw-heavy boards."
+    },
+    {
+      "id": "cd-3",
+      "mode": "combo",
+      "type": "blocker",
+      "difficulty": "medium",
+      "heroHand": "AcQc",
+      "context": "BTN vs BB SRP",
+      "board": [
+        "Kc",
+        "Tc",
+        "5d"
+      ],
+      "prompt": "AcQc on KcTc5d. What makes this hand especially strong?",
+      "options": [
+        {
+          "key": "toppair",
+          "label": "Top pair only"
+        },
+        {
+          "key": "nutflush",
+          "label": "Nut flush draw only"
+        },
+        {
+          "key": "gutshot",
+          "label": "Gutshot only"
+        },
+        {
+          "key": "all",
+          "label": "Nut flush + gutshot + ace overcard"
+        }
+      ],
+      "correct": "all",
+      "explanation": "AcQc = nut flush draw (9 outs) + gutshot to J (4 outs) + ace overcard. ~50%+ equity. Semi-bluff raise, not passive call."
+    },
+    {
+      "id": "cd-4",
+      "mode": "combo",
+      "type": "blocker",
+      "difficulty": "medium",
+      "heroHand": "Ah5s",
+      "context": "UTG open, you're BB",
+      "board": [
+        "Kd",
+        "7c",
+        "2h"
+      ],
+      "prompt": "Ah5s on Kd7c2h OOP (you're BB). Main strategic use of the ace?",
+      "options": [
+        {
+          "key": "pair",
+          "label": "Pair when ace hits"
+        },
+        {
+          "key": "blocker",
+          "label": "Ace blocks villain's AK/AA"
+        },
+        {
+          "key": "flush",
+          "label": "Backdoor flush draw"
+        },
+        {
+          "key": "straight",
+          "label": "Straight potential"
+        }
+      ],
+      "correct": "blocker",
+      "explanation": "Ah5s on K72 = nothing made. But the ACE blocks villain's AK, AA \u2014 hands most likely to c-bet. This enables a check-raise bluff."
+    },
+    {
+      "id": "cd-5",
+      "mode": "combo",
+      "type": "position",
+      "difficulty": "easy",
+      "heroHand": "JcTc",
+      "context": "3-bet decision",
+      "board": null,
+      "prompt": "3-betting JcTc \u2014 where is this hand most profitable?",
+      "options": [
+        {
+          "key": "utg",
+          "label": "UTG (early position)"
+        },
+        {
+          "key": "btn",
+          "label": "BTN vs late position"
+        },
+        {
+          "key": "sb",
+          "label": "SB vs BB"
+        },
+        {
+          "key": "same",
+          "label": "Same everywhere"
+        }
+      ],
+      "correct": "btn",
+      "explanation": "JTs thrives in position. 3-betting BTN vs CO is excellent. From UTG it's too loose \u2014 you'd be OOP against all callers."
+    },
+    {
+      "id": "cd-6",
+      "mode": "combo",
+      "type": "suitedness",
+      "difficulty": "hard",
+      "heroHand": "KcQc",
+      "context": "BB vs BTN 3-bet pot",
+      "board": [
+        "Jc",
+        "Tc",
+        "3s"
+      ],
+      "prompt": "KcQc in 3-bet pot on JcTc3s. How do you play this?",
+      "options": [
+        {
+          "key": "checkfold",
+          "label": "Check-fold"
+        },
+        {
+          "key": "checkcall",
+          "label": "Check-call"
+        },
+        {
+          "key": "checkraise",
+          "label": "Check-raise (semi-bluff)"
+        },
+        {
+          "key": "bet",
+          "label": "Donk-lead big"
+        }
+      ],
+      "correct": "checkraise",
+      "explanation": "KcQc = straight draw + nut flush draw + overcards. ~50%+ equity. Check-raise semi-bluff \u2014 max equity + fold equity. Don't passive-call."
+    },
+    {
+      "id": "cd-7",
+      "mode": "combo",
+      "type": "suitedness",
+      "difficulty": "medium",
+      "heroHand": "7h7c",
+      "context": "BTN vs BB SRP",
+      "board": [
+        "7s",
+        "6h",
+        "5h"
+      ],
+      "prompt": "7h7c on 7s6h5h (top set). Key danger?",
+      "options": [
+        {
+          "key": "flush",
+          "label": "Heart flush draw only"
+        },
+        {
+          "key": "straight",
+          "label": "Straights only (4-3, 8-4, 9-8)"
+        },
+        {
+          "key": "both",
+          "label": "Both flush draws and straights"
+        },
+        {
+          "key": "none",
+          "label": "Nothing \u2014 top set is safe"
+        }
+      ],
+      "correct": "both",
+      "explanation": "Top set but nightmare board \u2014 rundown AND two-tone. Multiple draws have major equity. Bet big and protect."
+    },
+    {
+      "id": "cd-8",
+      "mode": "combo",
+      "type": "blocker",
+      "difficulty": "hard",
+      "heroHand": "AdJd",
+      "context": "CO vs BTN 3-bet pot OOP",
+      "board": [
+        "Ks",
+        "Qd",
+        "2d"
+      ],
+      "prompt": "AdJd on KsQd2d. Called a 3-bet OOP. What makes this hand tricky?",
+      "options": [
+        {
+          "key": "noequity",
+          "label": "No equity \u2014 fold flop"
+        },
+        {
+          "key": "dominated",
+          "label": "Could be dominated by AK/AQ/KQ"
+        },
+        {
+          "key": "both",
+          "label": "Strong draw but dominated by made hands"
+        },
+        {
+          "key": "straightdraw",
+          "label": "Open-ended straight draw"
+        }
+      ],
+      "correct": "both",
+      "explanation": "AdJd = nut flush draw (~40% equity) BUT AK, KQ, AQ dominate your gutshot completers in a 3-bet pot."
+    },
+    {
+      "id": "cd-9",
+      "mode": "combo",
+      "type": "position",
+      "difficulty": "easy",
+      "heroHand": "22",
+      "context": "Deep-stack 6-max",
+      "board": null,
+      "prompt": "22 \u2014 when is calling a 3-bet correct?",
+      "options": [
+        {
+          "key": "never",
+          "label": "Never \u2014 too weak"
+        },
+        {
+          "key": "deep",
+          "label": "Deep stacks (100bb+), in position"
+        },
+        {
+          "key": "always",
+          "label": "Always, pot odds are fine"
+        },
+        {
+          "key": "shallow",
+          "label": "Short stacks only"
+        }
+      ],
+      "correct": "deep",
+      "explanation": "Small pairs need 10:1 implied odds to set-mine. At 100bb deep and in position, 22 can call a 3-bet. Shallow stacks or OOP = fold."
+    },
+    {
+      "id": "cd-10",
+      "mode": "combo",
+      "type": "suitedness",
+      "difficulty": "medium",
+      "heroHand": "KhQh",
+      "context": "BTN vs BB SRP",
+      "board": [
+        "Kd",
+        "9s",
+        "4h"
+      ],
+      "prompt": "KhQh on Kd9s4h (top pair + backdoor hearts). Default?",
+      "options": [
+        {
+          "key": "bigbet",
+          "label": "Bet big for protection"
+        },
+        {
+          "key": "smallbet",
+          "label": "Bet small to build pot"
+        },
+        {
+          "key": "check",
+          "label": "Check and trap"
+        },
+        {
+          "key": "checkraise",
+          "label": "Check-raise if villain bets"
+        }
+      ],
+      "correct": "smallbet",
+      "explanation": "TPTK on a dry board = small bet to build pot. No draws to charge. Small bet lets worse hands call."
+    },
+    {
+      "id": "cd-11",
+      "mode": "combo",
+      "type": "blocker",
+      "difficulty": "hard",
+      "heroHand": "As2s",
+      "context": "BB 3-bet pot vs BTN",
+      "board": [
+        "Ks",
+        "Jd",
+        "8s"
+      ],
+      "prompt": "As2s on KsJd8s. What does this hand do best?",
+      "options": [
+        {
+          "key": "giveup",
+          "label": "Give up \u2014 no pair"
+        },
+        {
+          "key": "nutflushdraw",
+          "label": "Nut flush draw is main equity"
+        },
+        {
+          "key": "bluff",
+          "label": "Ace blocker bluff only"
+        },
+        {
+          "key": "both",
+          "label": "Nut flush draw + ace blocker combo"
+        }
+      ],
+      "correct": "both",
+      "explanation": "As2s = nut flush draw (9 outs) + ace blocker to villain's top pair/AK range. Premium semi-bluff \u2014 check-raise aggressively."
+    },
+    {
+      "id": "cd-12",
+      "mode": "combo",
+      "type": "suitedness",
+      "difficulty": "easy",
+      "heroHand": "QsJs",
+      "context": "BTN vs BB SRP",
+      "board": [
+        "Qd",
+        "7h",
+        "2c"
+      ],
+      "prompt": "QsJs on Qd7h2c. What does suitedness add beyond top pair?",
+      "options": [
+        {
+          "key": "twopair",
+          "label": "Two pair on a brick turn"
+        },
+        {
+          "key": "backdoor",
+          "label": "Backdoor spade flush draw only"
+        },
+        {
+          "key": "gutshot",
+          "label": "Backdoor straight (T-9-8) only"
+        },
+        {
+          "key": "allthree",
+          "label": "Top pair + backdoor flush + backdoor straight"
+        }
+      ],
+      "correct": "allthree",
+      "explanation": "QJss on Q72r = TPTK + backdoor flush + backdoor straight. All add small equity. Value bet all streets."
+    },
+    {
+      "id": "cd-13",
+      "mode": "combo",
+      "type": "position",
+      "difficulty": "medium",
+      "heroHand": "AcKs",
+      "context": "BTN vs BB SRP",
+      "board": [
+        "Ac",
+        "5d",
+        "2h"
+      ],
+      "prompt": "AcKs on Ac5d2h. Villain check-raises your small c-bet. Read?",
+      "options": [
+        {
+          "key": "fold",
+          "label": "Fold \u2014 must be a set"
+        },
+        {
+          "key": "call",
+          "label": "Call \u2014 TPTK usually ahead"
+        },
+        {
+          "key": "raise",
+          "label": "4-bet \u2014 always protect top pair"
+        },
+        {
+          "key": "depends",
+          "label": "Depends on player type and stack depth"
+        }
+      ],
+      "correct": "depends",
+      "explanation": "AK on A52r is strong but villain's check-raise range varies by player. Against fish = often weaker, against tight reg at 100bb it's sets + draws. Stack depth drives the decision."
+    },
+    {
+      "id": "cd-14",
+      "mode": "combo",
+      "type": "suitedness",
+      "difficulty": "hard",
+      "heroHand": "5s4s",
+      "context": "BTN vs BB SRP",
+      "board": [
+        "As",
+        "3s",
+        "2c"
+      ],
+      "prompt": "5s4s on As3s2c. Flopped wheel straight + nut flush draw. Best move?",
+      "options": [
+        {
+          "key": "slowplay",
+          "label": "Slowplay \u2014 too much equity"
+        },
+        {
+          "key": "smallbet",
+          "label": "Small bet to induce"
+        },
+        {
+          "key": "bigbet",
+          "label": "Bet big and charge draws"
+        },
+        {
+          "key": "raise",
+          "label": "Raise or lead big always"
+        }
+      ],
+      "correct": "bigbet",
+      "explanation": "Nut straight + nut flush redraw = top of range. Don't slow-play. Bet big (75-100% pot) and stack off if raised."
+    },
+    {
+      "id": "cd-15",
+      "mode": "combo",
+      "type": "blocker",
+      "difficulty": "hard",
+      "heroHand": "AhQd",
+      "context": "HJ vs BTN 3-bet pot OOP",
+      "board": [
+        "Kh",
+        "Jd",
+        "5c"
+      ],
+      "prompt": "AhQd on KhJd5c. Gutshot to T, OOP in 3-bet pot. Best line?",
+      "options": [
+        {
+          "key": "checkfold",
+          "label": "Check-fold \u2014 not enough equity"
+        },
+        {
+          "key": "checkcall",
+          "label": "Check-call \u2014 gutshot + overcards"
+        },
+        {
+          "key": "donk",
+          "label": "Lead as bluff (ace blocker)"
+        },
+        {
+          "key": "checkraise",
+          "label": "Check-raise semi-bluff"
+        }
+      ],
+      "correct": "checkcall",
+      "explanation": "AQo OOP with gutshot in 3-bet pot = ~26% equity. Enough to call one bet, not enough to raise. Check-call flop, re-evaluate turn."
     }
   ]
 }

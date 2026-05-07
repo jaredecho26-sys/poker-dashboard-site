@@ -864,7 +864,7 @@
 
 // ── Card rendering ──────────────────────────────────────────────────────────
 const SUIT_SYMS = { h:'♥', d:'♦', c:'♣', s:'♠' };
-const SUIT_COLORS = { h:'red', d:'red', c:'black', s:'black' };
+const PCARD_SUIT_COLORS = { h:'red', d:'red', c:'black', s:'black' };
 
 function renderCard(cardStr, size) {
   // cardStr: "Ah", "Kd", "Tc", "2s"
@@ -872,7 +872,7 @@ function renderCard(cardStr, size) {
   const rank = cardStr[0] === 'T' ? '10' : cardStr[0];
   const suit = cardStr[1];
   const sym = SUIT_SYMS[suit] || suit;
-  const col = SUIT_COLORS[suit] || 'black';
+  const col = PCARD_SUIT_COLORS[suit] || 'black';
   const sz = size || '';
   return `<div class="pcard ${sz}">
     <div class="pcard-tl ${col}">${rank}<br>${sym}</div>

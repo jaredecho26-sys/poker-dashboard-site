@@ -190,6 +190,65 @@
     .pos-hj   { background: #404040; }
     .pos-utg  { background: #404040; }
 
+    /* ── Dealer button & blind chips ── */
+    .dealer-btn-chip {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffe87a, #c8980a);
+      border: 2px solid #a07808;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7), inset 0 1px 3px rgba(255,255,255,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: #1a1008;
+      font-family: Georgia, serif;
+      transform: translate(-50%, -50%);
+      z-index: 12;
+      pointer-events: none;
+    }
+    .sb-chip {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #f0f0ee, #b8b8b0);
+      border: 2px solid #888880;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 800;
+      color: #222;
+      font-family: Arial, sans-serif;
+      transform: translate(-50%, -50%);
+      z-index: 12;
+      pointer-events: none;
+    }
+    .bb-chip {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #e05050, #8b1010);
+      border: 2px solid #6a0c0c;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,100,100,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 800;
+      color: #ffe0e0;
+      font-family: Arial, sans-serif;
+      transform: translate(-50%, -50%);
+      z-index: 12;
+      pointer-events: none;
+    }
+
     /* ── Center Table Info ── */
     .table-center-info {
       position: absolute;
@@ -773,9 +832,7 @@
       <text x="430" y="215" text-anchor="middle" fill="rgba(255,255,255,0.06)" font-size="22" font-family="Georgia, serif" font-weight="bold" letter-spacing="4">POKER</text>
       <text x="430" y="238" text-anchor="middle" fill="rgba(255,255,255,0.04)" font-size="11" font-family="Georgia, serif" letter-spacing="8">L A B</text>
 
-      <!-- Dealer button marker -->
-      <circle cx="430" cy="310" r="10" fill="#e8d080" stroke="#c0a840" stroke-width="1.5" opacity="0.9" id="dealerBtn"/>
-      <text x="430" y="314" text-anchor="middle" fill="#1a1008" font-size="9" font-weight="bold">D</text>
+      <!-- Dealer button marker (now rendered dynamically via JS overlay) -->
     </svg>
 
     <!-- Community cards overlay (absolute over SVG) -->
@@ -804,6 +861,9 @@
 
     <!-- Seat overlays (positioned by JS) -->
     <div id="seatsOverlay" style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;"></div>
+
+    <!-- Dealer/Blind chips overlay (positioned by JS) -->
+    <div id="chipsOverlay" style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;"></div>
 
     <!-- Hero cards overlay at bottom of table -->
     <div id="heroZone" style="
@@ -954,6 +1014,46 @@ function renderSeats(heroPosition) {
       ${stack ? `<div class="seat-stack">${stack}</div>` : ''}
       <div class="seat-pos-badge ${posCls}">${seat.pos}</div>
     </div>`;
+  });
+  overlay.innerHTML = html;
+}
+
+// ── Dealer button & blind chips ────────────────────────────────────────────
+// Offsets (as fraction of seat position) to place chips near but not on top of seat
+const CHIP_OFFSET = {
+  BTN: { dx: -0.06, dy: -0.12 },
+  SB:  { dx:  0.06, dy: -0.12 },
+  BB:  { dx:  0.06, dy: -0.12 },
+};
+
+function renderPositionChips(heroPosition) {
+  const overlay = document.getElementById('chipsOverlay');
+  if (!overlay) return;
+  const W = overlay.offsetWidth, H = overlay.offsetHeight;
+
+  const heroPosKey = (heroPosition || 'BB').trim().toUpperCase().replace(/^BB VS .+/, 'BB');
+
+  let html = '';
+  SEAT_POSITIONS_6.forEach(seat => {
+    const seatX = seat.x * W;
+    const seatY = seat.y * H;
+
+    if (seat.pos === 'BTN') {
+      const off = CHIP_OFFSET.BTN;
+      const cx = seatX + off.dx * W;
+      const cy = seatY + off.dy * H;
+      html += `<div class="dealer-btn-chip" style="left:${cx}px;top:${cy}px;">D</div>`;
+    } else if (seat.pos === 'SB') {
+      const off = CHIP_OFFSET.SB;
+      const cx = seatX + off.dx * W;
+      const cy = seatY + off.dy * H;
+      html += `<div class="sb-chip" style="left:${cx}px;top:${cy}px;">SB</div>`;
+    } else if (seat.pos === 'BB') {
+      const off = CHIP_OFFSET.BB;
+      const cx = seatX + off.dx * W;
+      const cy = seatY + off.dy * H;
+      html += `<div class="bb-chip" style="left:${cx}px;top:${cy}px;">BB</div>`;
+    }
   });
   overlay.innerHTML = html;
 }
@@ -1195,6 +1295,7 @@ function renderQuestion(q, state, poolLen) {
 
   // Seats
   renderSeats(heroPos);
+  renderPositionChips(heroPos);
 
   // Hero cards
   let heroCards;

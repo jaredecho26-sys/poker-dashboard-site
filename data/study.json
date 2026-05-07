@@ -1,0 +1,138 @@
+{
+  "preflopChart": [
+    {
+      "spot": "BB vs BTN open (2x-2.5x)",
+      "default": "Defend enough, but do it with hands that realize equity. Do not drift into garbage offsuit bluff-catchers.",
+      "continueHands": "22+, A2s+, A8o+, K7s+, KTo+, Q8s+, QTo+, J8s+, JTo, T8s+, 98s-54s",
+      "threeBetHands": "QQ+, AK for value. Mix in A5s-A4s, KQs at some frequency when opener overfolds.",
+      "foldHands": "K6o-, Q9o-, J9o-, T8o-, 97o-, weak offsuit trash like 94o/84o/74o"
+    },
+    {
+      "spot": "BB vs SB open (2.5x-3x)",
+      "default": "Continue wider than versus other positions, but still avoid ego-defense with hands that make dominated one pair.",
+      "continueHands": "22+, A2s+, A7o+, K5s+, K9o+, Q7s+, Q9o+, J7s+, J9o+, T7s+, 97s+, 86s+, 75s+",
+      "threeBetHands": "TT+, AQ+, A5s-A2s, KJs+, QJs when villain opens too wide / folds too much.",
+      "foldHands": "Most offsuit junk below Q9o, weak king-rag offsuit, hands like Q3o/J4o/T5o/95o"
+    },
+    {
+      "spot": "BB vs CO open",
+      "default": "Tighten up. Fewer optimistic peels, more discipline.",
+      "continueHands": "22+, A2s+, ATo+, K9s+, KJo+, Q9s+, QJo, J9s+, T8s+, 98s-65s",
+      "threeBetHands": "JJ+, AQ+, A5s-A4s, KQs",
+      "foldHands": "QTo borderline, most offsuit connectors/gappers, most weak suited trash that plays poorly OOP"
+    },
+    {
+      "spot": "SB vs BTN open",
+      "default": "Prefer 3-bet or fold over flatting a bunch of medium-strength hands out of position.",
+      "continueHands": "If flatting, keep it strong and suited: 22-99, A2s-AJs, KTs+, QTs+, JTs, T9s-76s",
+      "threeBetHands": "TT+, AQ+, A5s-A2s, KQs, KJs",
+      "foldHands": "KJo-/QJo-/QTo/JTo type hands that feel playable but create ugly postflop spots"
+    },
+    {
+      "spot": "General anti-leak rule",
+      "default": "When unsure in the blinds, fold the offsuit junk and keep the suited connected hands that can make nuttier outcomes.",
+      "continueHands": "Suited aces, suited broadways, pocket pairs, good suited connectors",
+      "threeBetHands": "Premiums plus a few wheel-ace bluffs",
+      "foldHands": "Marginal offsuit broadways, weak king-x offsuit, random one-gappers with poor realization"
+    }
+  ],
+  "avoidList": [
+    {
+      "group": "Hands to stop fucking with from the blinds versus opens",
+      "hands": "94o, 84o, 74o, Q3o-Q8o, J4o-J8o, T5o-T8o, 95o-98o, K2o-K8o",
+      "why": "These hands realize terribly, make dominated one pair, and create the exact medium-pot bleed we want gone."
+    },
+    {
+      "group": "Borderline flats out of position that should mostly become folds or 3-bets",
+      "hands": "KJo, KTo, QTo, JTo, KJs in some formations, QJo from SB/BB versus tighter opens",
+      "why": "These hands look pretty but often turn into weak bluff-catchers or hopeful floats."
+    },
+    {
+      "group": "Weak offsuit aces versus raises",
+      "hands": "A2o-A9o blind defense versus most positions, especially CO/MP opens",
+      "why": "Blockers are not enough. They get dominated and tempt you into sticky top-pair mistakes."
+    },
+    {
+      "group": "Suit-only temptation hands",
+      "hands": "J8s, T8s, 97s, 86s, 75s when OOP versus solid opens unless price and opponent make it clear",
+      "why": "These are fine sometimes, but you currently over-realize the upside and underweight how often they just bleed."
+    },
+    {
+      "group": "Mental note",
+      "hands": "Any hand where your only reason to continue is 'it feels defendable'", 
+      "why": "That sentence is usually the warning light, not the green light."
+    }
+  ],
+  "topHands": [
+    {
+      "handId": "2731986462",
+      "heroCards": "Kc Ks",
+      "tag": "cooler",
+      "title": "KK into AA preflop all-in",
+      "takeaway": "Pure cooler. Important because it drove the session result, but this is not the hand to study for leak reduction."
+    },
+    {
+      "handId": "2731956194",
+      "heroCards": "Ac Ts",
+      "tag": "good",
+      "title": "ATo in a 3-bet pot",
+      "takeaway": "Calm line. Called a reasonable c-bet, stayed under control, and value-bet river once checked to. Good template for medium-strength showdown hands."
+    },
+    {
+      "handId": "2731962642",
+      "heroCards": "8c 8h",
+      "tag": "good",
+      "title": "88 river bet/fold",
+      "takeaway": "Good discipline. One-pair hand got value and did not pay off a strong river raise."
+    },
+    {
+      "handId": "2731961334",
+      "heroCards": "Ts Qd",
+      "tag": "bad",
+      "title": "QTo blind defend and hopeful turn stab",
+      "takeaway": "This is a target leak. Marginal preflop continue followed by a stab just because villain checked once."
+    },
+    {
+      "handId": "2731966636",
+      "heroCards": "Js Ks",
+      "tag": "bad",
+      "title": "KJs flat and flop peel drift",
+      "takeaway": "Classic medium-pot bleed. Pretty hand, weak realization, ends up losing at showdown with king high."
+    },
+    {
+      "handId": "2731970387",
+      "heroCards": "4h 9c",
+      "tag": "bad",
+      "title": "94o defend versus button open",
+      "takeaway": "Hand class to eliminate. This is exactly the kind of defend that slowly buries winrate."
+    },
+    {
+      "handId": "2731980293",
+      "heroCards": "Jh As",
+      "tag": "good",
+      "title": "AJo disciplined fold on third diamond",
+      "takeaway": "You avoided letting one top-pair hand snowball into a bigger mistake. Good example of shutting it down once the line gets uglier."
+    },
+    {
+      "handId": "2731982710",
+      "heroCards": "Kh Ac",
+      "tag": "study",
+      "title": "AKcc bluff-catch threshold spot",
+      "takeaway": "Worth studying closely. Likely near the line between mandatory continue and over-defending based on pool tendencies."
+    },
+    {
+      "handId": "2731984509",
+      "heroCards": "Tc Qh",
+      "tag": "bad",
+      "title": "QTo on an ace-high paired texture",
+      "takeaway": "Another example of staying involved too long with a hand class that creates optimistic postflop decisions."
+    },
+    {
+      "handId": "2731989258",
+      "heroCards": "Jc Js",
+      "tag": "study",
+      "title": "JJ on A-5-5-K-A",
+      "takeaway": "Useful river discipline hand. Good fold, but worth reviewing sizing and whether flop c-bet is best versus that pool/player."
+    }
+  ]
+}

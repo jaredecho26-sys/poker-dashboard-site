@@ -1,0 +1,25 @@
+[
+  {
+    "id": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
+    "platform": "WSOP NV",
+    "sourceFile": "wsop_2026-05-06_session1.txt",
+    "hero": "PopeMyCherry",
+    "startedAt": "2026-05-07T05:13:06Z",
+    "endedAt": "2026-05-07T06:42:54Z",
+    "hands": 116,
+    "result": -245.26,
+    "vpipPct": 28.4,
+    "pfrPct": 18.1,
+    "threeBetPct": 0.9,
+    "sawFlopPct": 44.0,
+    "showdowns": 14,
+    "biggestWin": 65.86,
+    "biggestLoss": -200.0,
+    "notes": "Lost one full buy-in overall; biggest swing was KK into AA all-in preflop. Main strategic leak pattern was medium-pot bleed from loose blind defense and overly optimistic postflop stabs.",
+    "studyFocus": "Tighten blind defense, eliminate low-plan flop floats, and reduce hopeful turn stabs.",
+    "manualResult": -199.13,
+    "buyIns": 400.0,
+    "cashOut": 200.87,
+    "resultSource": "manual"
+  }
+]

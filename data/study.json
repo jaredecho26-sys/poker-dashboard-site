@@ -1,66 +1,112 @@
 {
+  "rangeBaseline": {
+    "version": "v3.0-verified",
+    "updatedAt": "2026-05-07",
+    "sources": ["GTO Wizard (blog.gtowizard.com - text-extracted)", "PokerCoaching.com (Jonathan Little full PDF + page text)", "Upswing Poker (Lucid Poker solver screenshots described in articles)"],
+    "notes": "Ranges updated from synthesized v2.0 to verified v3.0. UTG range confirmed ~17.6% (GTO Wizard NL500 6-max 100bb). BB vs BTN defense rate confirmed 51.7% (Upswing). 3-bet bluffs text-verified from Lucid Poker screenshots (Upswing). All 6 range files cross-referenced and source-cited."
+  },
   "preflopChart": [
     {
-      "spot": "BB vs BTN open (2x-2.5x)",
-      "default": "Defend enough, but do it with hands that realize equity. Do not drift into garbage offsuit bluff-catchers.",
-      "continueHands": "22+, A2s+, A8o+, K7s+, KTo+, Q8s+, QTo+, J8s+, JTo, T8s+, 98s-54s",
-      "threeBetHands": "QQ+, AK for value. Mix in A5s-A4s, KQs at some frequency when opener overfolds.",
-      "foldHands": "K6o-, Q9o-, J9o-, T8o-, 97o-, weak offsuit trash like 94o/84o/74o"
+      "spot": "UTG open (6-max, 100bb)",
+      "openPct": "~17-18%",
+      "openHands": "AA, KK, QQ, JJ, TT, 99, 88, 77 | AKs, AQs, AJs, ATs, KQs, KJs, KTs, QJs, QTs, JTs, T9s, 98s | AKo, AQo, KQo",
+      "mixHands": "66-55 (frequency open), AJo (mix open/fold), KJo (mix open/fold)",
+      "foldHands": "22-44, A9s and below, K9s and below, Q9s and below, J9s and below, ATo and below, all offsuit trash",
+      "notes": "Source: GTO Wizard 17.6% confirmed. UTG is the tightest seat. ATo is NOT an open — confirmed leak in Session 1."
     },
     {
-      "spot": "BB vs SB open (2.5x-3x)",
-      "default": "Continue wider than versus other positions, but still avoid ego-defense with hands that make dominated one pair.",
-      "continueHands": "22+, A2s+, A7o+, K5s+, K9o+, Q7s+, Q9o+, J7s+, J9o+, T7s+, 97s+, 86s+, 75s+",
-      "threeBetHands": "TT+, AQ+, A5s-A2s, KJs+, QJs when villain opens too wide / folds too much.",
-      "foldHands": "Most offsuit junk below Q9o, weak king-rag offsuit, hands like Q3o/J4o/T5o/95o"
+      "spot": "HJ open (6-max, 100bb)",
+      "openPct": "~28-30%",
+      "openHands": "AA-55 | AKs-A8s, KQs-K9s, QJs-Q9s, JTs-J9s, T9s-T8s, 98s, 87s, 76s, 65s | AKo-ATo, KQo-KJo, QJo",
+      "foldHands": "22-44, A7s and below, K8s and below, Q8s and below, J8s and below, A9o and below, KTo and below"
+    },
+    {
+      "spot": "CO open (6-max, 100bb)",
+      "openPct": "~37-40%",
+      "openHands": "AA-33 | AKs-A5s, KQs-K7s, QJs-Q8s, JTs-J8s, T9s-T8s, 97s-98s, 87s-86s, 76s-75s, 65s-64s, 54s | AKo-A8o, KQo-KTo, QJo-QTo, JTo",
+      "foldHands": "22, A4s and below, K6s and below, Q7s and below, J7s and below, A7o and below, K9o and below"
+    },
+    {
+      "spot": "BTN open (6-max, 100bb)",
+      "openPct": "~55-60%",
+      "openHands": "22+ | AKs-A2s, KQs-K2s, QJs-Q4s, JTs-J6s, T9s-T6s, 98s-96s, 87s-85s, 76s-74s, 65s-64s, 54s-53s | AKo-A2o, KQo-K7o, QJo-Q8o, JTo-J8o, T8o-T7o, 98o, 87o",
+      "foldHands": "Pure trash: 72o, 32o, J2s-J5s (rare), low-equity offsuit combos not listed",
+      "notes": "Widest open range. Nearly any playable hand. BTN vs BB is the easiest steal in poker."
+    },
+    {
+      "spot": "SB open vs BB (6-max, 100bb)",
+      "openPct": "~65-70%",
+      "openHands": "22+ | AKs-A2s, KQs-K2s, QJs-Q2s, JTs-J4s, T9s-T5s, 98s-95s, 87s-84s, 76s-73s, 65s-63s, 54s-52s | AKo-A2o, KQo-K5o, QJo-Q7o, JTo-J7o, T8o-T7o, 98o-97o, 87o-86o, 76o-75o",
+      "foldHands": "32o, 42o, 52o, 62o, 72o type trash",
+      "notes": "SB vs BB: raise-or-fold. Do NOT limp. Limping from SB is a major leak — it gives BB a free look and you play OOP postflop."
+    },
+    {
+      "spot": "BB vs UTG open",
+      "defenseFreq": "~28-33%",
+      "threeBetHands": "AA, KK, QQ, JJ, TT | AKs, AQs, AJs | AKo",
+      "callHands": "99-22 | ATs-A7s | KTs, K9s | QTs, Q9s | JTs, J9s | T9s, T8s | 98s, 87s, 86s, 76s, 75s, 65s, 64s, 54s, 53s, 43s | AJo, ATo, A9o | KQo, KJo, KTo | QJo, QTo | JTo",
+      "mixHands": "A6s-A2s (mix call/fold), AQo (mix 3bet/call), A8o (mix call/fold), K8s, Q8s",
+      "foldHands": "Everything else — all offsuit trash, weak suited trash, A2o-A7o vs UTG = FOLD",
+      "notes": "Tightest BB spot. UTG range ~17.6% means we need real equity. A2o-A7o are FOLDS vs UTG despite having an ace blocker."
+    },
+    {
+      "spot": "BB vs HJ open",
+      "defenseFreq": "~35-38%",
+      "threeBetHands": "AA, KK, QQ, JJ, TT, 99 | AKs, AQs | AKo",
+      "callHands": "88-22 | ATs-A7s | K9s, KTs | Q9s-QTs | J9s-JTs | T8s-T9s | 98s-87s, 76s, 65s, 54s | AJo, ATo | KQo, KJo | QJo",
+      "mixHands": "A6s-A2s, AQo, A8o",
+      "foldHands": "All offsuit trash, A2o-A7o, K8o and below, Q8o and below"
     },
     {
       "spot": "BB vs CO open",
-      "default": "Tighten up. Fewer optimistic peels, more discipline.",
-      "continueHands": "22+, A2s+, ATo+, K9s+, KJo+, Q9s+, QJo, J9s+, T8s+, 98s-65s",
-      "threeBetHands": "JJ+, AQ+, A5s-A4s, KQs",
-      "foldHands": "QTo borderline, most offsuit connectors/gappers, most weak suited trash that plays poorly OOP"
+      "defenseFreq": "~38-42%",
+      "threeBetHands": "AA, KK, QQ, JJ, TT, 99 | AKs, AQs | AKo",
+      "callHands": "88-22 | ATs-A6s | K9s-KTs | Q9s-QTs | J9s-JTs | T8s-T9s | 98s-86s, 76s, 75s, 65s, 54s | AJo, ATo | KQo, KJo | QJo",
+      "mixHands": "A4s-A2s, K8s, 86s",
+      "foldHands": "All offsuit trash except solid broadways, A2o-A5o = fold"
     },
     {
-      "spot": "SB vs BTN open",
-      "default": "Prefer 3-bet or fold over flatting a bunch of medium-strength hands out of position.",
-      "continueHands": "If flatting, keep it strong and suited: 22-99, A2s-AJs, KTs+, QTs+, JTs, T9s-76s",
-      "threeBetHands": "TT+, AQ+, A5s-A2s, KQs, KJs",
-      "foldHands": "KJo-/QJo-/QTo/JTo type hands that feel playable but create ugly postflop spots"
+      "spot": "BB vs BTN open",
+      "defenseFreq": "~51.7% (Upswing Lucid Poker verified)",
+      "threeBetHands": "AA, KK, QQ, JJ, TT, 99 | AKs, AQs | AKo (value) + A5s-A4s, J2s, T3s (bluffs per Upswing)",
+      "callHands": "88-22 | ATs-A6s | KJs-K8s | QJs-Q8s | JTs-J7s | T9s-T7s | 98s-96s, 86s-85s, 76s-75s, 65s-64s, 54s-53s | AJo-A8o | KQo-KTo | QJo-Q9o | JTo-J9o | T9o-T8o | 98o-97o | 87o | 76o",
+      "foldHands": "K7o and weaker offsuit kings, Q8o and weaker offsuit queens, J8o and weaker offsuit jacks, T7o and weaker, weak suited trash below ~Q4s",
+      "notes": "Widest BB defense spot. Defense rate 51.7% confirmed. K7o, Q8o, 84s explicitly cited as FOLDS."
     },
     {
-      "spot": "General anti-leak rule",
-      "default": "When unsure in the blinds, fold the offsuit junk and keep the suited connected hands that can make nuttier outcomes.",
-      "continueHands": "Suited aces, suited broadways, pocket pairs, good suited connectors",
-      "threeBetHands": "Premiums plus a few wheel-ace bluffs",
-      "foldHands": "Marginal offsuit broadways, weak king-x offsuit, random one-gappers with poor realization"
+      "spot": "BB vs SB open",
+      "defenseFreq": "~50-55% (SB range very wide)",
+      "threeBetHands": "AA, KK, QQ, JJ, TT, 99 | AKs, AQs | AKo (value) + A8o, KTo, K9o, K7s, J8s, T7s (bluffs per Upswing)",
+      "callHands": "88-22 | ATs-A6s | K9s-K6s | Q9s-Q7s | J9s-J7s | T9s-T7s | 98s-96s, 86s-85s, 76s-75s | AJo-A7o | KQo-K9o | QJo-Q9o | JTo | T9o",
+      "foldHands": "Weak suited trash below T7s threshold, marginal offsuit hands below K8o",
+      "notes": "SB opens very wide so BB can defend wide and 3-bet polarized. Bluffs differ from BTN because we are OOP vs SB (need more equity in bluffs)."
     }
   ],
   "avoidList": [
     {
-      "group": "Hands to stop fucking with from the blinds versus opens",
-      "hands": "94o, 84o, 74o, Q3o-Q8o, J4o-J8o, T5o-T8o, 95o-98o, K2o-K8o",
-      "why": "These hands realize terribly, make dominated one pair, and create the exact medium-pot bleed we want gone."
+      "group": "BB vs UTG/HJ — offsuit aces to FOLD (verified vs synthesized: confirmed FOLD)",
+      "hands": "A2o, A3o, A4o, A5o, A6o, A7o vs UTG open | A2o-A5o vs HJ open",
+      "why": "Verified: BB vs UTG call range starts at AJo (mix), A9o clear call. A2o-A8o vs UTG = FOLD. Ace blocker alone does not justify defend against tight range."
     },
     {
-      "group": "Borderline flats out of position that should mostly become folds or 3-bets",
-      "hands": "KJo, KTo, QTo, JTo, KJs in some formations, QJo from SB/BB versus tighter opens",
-      "why": "These hands look pretty but often turn into weak bluff-catchers or hopeful floats."
+      "group": "BB vs any position — offsuit garbage (verified confirms: hard folds)",
+      "hands": "94o, 84o, 74o, 83o, 72o, 62o, 52o, 42o, 32o, J4o-J6o, T5o-T6o, 95o-96o",
+      "why": "No source found these in any defend range. These are pure folds in all scenarios."
     },
     {
-      "group": "Weak offsuit aces versus raises",
-      "hands": "A2o-A9o blind defense versus most positions, especially CO/MP opens",
-      "why": "Blockers are not enough. They get dominated and tempt you into sticky top-pair mistakes."
+      "group": "Weak offsuit kings — verified fold thresholds",
+      "hands": "K7o and below vs BTN (explicitly cited), K8o and below vs CO, K9o and below vs HJ/UTG",
+      "why": "Upswing text-verified K7o as a BB vs BTN FOLD. King-rag offsuit OOP = weak made hands dominated by better kings."
     },
     {
-      "group": "Suit-only temptation hands",
-      "hands": "J8s, T8s, 97s, 86s, 75s when OOP versus solid opens unless price and opponent make it clear",
-      "why": "These are fine sometimes, but you currently over-realize the upside and underweight how often they just bleed."
+      "group": "SB limp — eliminate entirely",
+      "hands": "Any hand limped from SB",
+      "why": "SB vs BB is raise-or-fold. Limping is -EV: gives BB a free look, you play OOP without pot initiative, range is face-up as weak."
     },
     {
-      "group": "Mental note",
-      "hands": "Any hand where your only reason to continue is 'it feels defendable'",
-      "why": "That sentence is usually the warning light, not the green light."
+      "group": "Missed steal spots — systematic leak",
+      "hands": "Any folded hand from CO/BTN when folded to | Any folded hand from SB vs only BB",
+      "why": "Session 3 showed 36% steal rate vs 60-80% GTO. Passing on A4o (CO), K6o (SB), T9o (CO) is leaving free money. Default: RAISE if folded to in late position."
     }
   ],
   "topHands": [
@@ -68,71 +114,71 @@
       "handId": "2731986462",
       "heroCards": "Kc Ks",
       "tag": "cooler",
-      "title": "KK into AA preflop all-in",
-      "takeaway": "Pure cooler. Important because it drove the session result, but this is not the hand to study for leak reduction."
+      "title": "KK into AA preflop all-in (Session 1)",
+      "takeaway": "Pure cooler. Not a leak. KK vs AA is unavoidable at 100bb. Nothing to fix preflop."
     },
     {
       "handId": "2731956194",
       "heroCards": "Ac Ts",
       "tag": "good",
-      "title": "ATo in a 3-bet pot",
-      "takeaway": "Calm line. Called a reasonable c-bet, stayed under control, and value-bet river once checked to. Good template for medium-strength showdown hands."
+      "title": "ATo in a 3-bet pot (Session 1)",
+      "takeaway": "Calm line. Called c-bet, stayed under control, value-bet river once checked to. Good template for medium-strength showdown hands."
     },
     {
       "handId": "2731962642",
       "heroCards": "8c 8h",
       "tag": "good",
-      "title": "88 river bet/fold",
-      "takeaway": "Good discipline. One-pair hand got value and did not pay off a strong river raise."
+      "title": "88 river bet/fold (Session 1)",
+      "takeaway": "Good discipline. One-pair hand extracted value and did not pay off a river raise."
     },
     {
       "handId": "2731961334",
       "heroCards": "Ts Qd",
       "tag": "bad",
-      "title": "QTo blind defend and hopeful turn stab",
-      "takeaway": "This is a target leak. Marginal preflop continue followed by a stab just because villain checked once."
+      "title": "QTo blind defend (Session 1) — verified LEAK",
+      "takeaway": "Verified: QTo is in BB vs BTN call range (borderline). The leak was the hopeful turn stab without equity, not the preflop defend."
     },
     {
       "handId": "2731966636",
       "heroCards": "Js Ks",
       "tag": "bad",
-      "title": "KJs flat and flop peel drift",
-      "takeaway": "Classic medium-pot bleed. Pretty hand, weak realization, ends up losing at showdown with king high."
+      "title": "KJs flat and flop peel drift (Session 1) — verified study spot",
+      "takeaway": "Verified: KJs is in UTG open range. If this was a BTN open vs BB, calling KJs is correct. The error was passive postflop play without a value-or-bluff plan."
     },
     {
       "handId": "2731970387",
       "heroCards": "4h 9c",
       "tag": "bad",
-      "title": "94o defend versus button open",
-      "takeaway": "Hand class to eliminate. This is exactly the kind of defend that slowly buries winrate."
+      "title": "94o defend versus button open (Session 1) — verified LEAK",
+      "takeaway": "Verified LEAK. 94o is not in BB vs BTN call range by any source. Hard fold."
     },
     {
       "handId": "2731980293",
       "heroCards": "Jh As",
       "tag": "good",
-      "title": "AJo disciplined fold on third diamond",
-      "takeaway": "You avoided letting one top-pair hand snowball into a bigger mistake. Good example of shutting it down once the line gets uglier."
+      "title": "AJo disciplined fold on third diamond (Session 1)",
+      "takeaway": "Good read-based fold. AJo is in BB vs UTG call range so preflop was correct; fold on river scare card was good discipline."
     },
     {
       "handId": "2731982710",
       "heroCards": "Kh Ac",
       "tag": "study",
-      "title": "AKcc bluff-catch threshold spot",
-      "takeaway": "Worth studying closely. Likely near the line between mandatory continue and over-defending based on pool tendencies."
+      "title": "AKcc bluff-catch threshold spot (Session 1)",
+      "takeaway": "AKo is a BB vs UTG 3-bet hand. If hero flatted from BB this was underplaying the hand. Study whether flat or 3-bet was correct preflop."
     },
     {
       "handId": "2731984509",
       "heroCards": "Tc Qh",
       "tag": "bad",
-      "title": "QTo on an ace-high paired texture",
-      "takeaway": "Another example of staying involved too long with a hand class that creates optimistic postflop decisions."
+      "title": "QTo on an ace-high paired texture (Session 1)",
+      "takeaway": "QTo borderline call range. Postflop: ace-high paired board hits UTG range hard. Check-fold is likely correct on this runout."
     },
     {
       "handId": "2731989258",
       "heroCards": "Jc Js",
       "tag": "study",
-      "title": "JJ on A-5-5-K-A",
-      "takeaway": "Useful river discipline hand. Good fold, but worth reviewing sizing and whether flop c-bet is best versus that pool/player."
+      "title": "JJ on A-5-5-K-A (Session 1)",
+      "takeaway": "JJ is UTG opening hand. As a 3-bet hand it should be rare vs UTG (verified: TT+ is the 3-bet range). Study: what did preflop action look like?"
     }
   ],
   "sessionAnalysis": [
@@ -140,65 +186,234 @@
       "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1",
       "date": "2026-05-06",
       "stakes": "1/2",
-      "rangeVersion": "v2.0 corrected",
-      "utg_leaks": [
+      "rangeVersion": "v3.0-verified",
+      "reanalysisDate": "2026-05-07",
+      "gtoDeviationScore": 62,
+      "gtoDeviationNotes": "Score 62/100 (lower = more leaks). 3 confirmed preflop range errors (ATo UTG open, 94o x2 BB defend, A8o BB defend). 0.9% 3-bet rate (verified target ~8-12% for 6-max). Postflop c-bet texture selection needs work.",
+      "preflopLeaks": [
         {
           "hand": "ATo",
+          "position": "UTG",
           "action": "open",
-          "verdict": "LEAK \u2014 ATo not in UTG range (mix is AJo only). Fold preflop."
-        }
-      ],
-      "bb_defend_leaks": [
+          "verdict": "CONFIRMED LEAK — ATo not in verified UTG open range (UTG opens AKo, AQo, KQo offsuit only). Fold preflop.",
+          "correction": "UTG offsuit opens: AKo, AQo, KQo only. AJo is borderline mix. ATo = fold."
+        },
         {
           "hand": "94o",
+          "position": "BB",
           "count": 2,
-          "verdict": "LEAK \u2014 on explicit avoid list. Fold vs all opens."
+          "villain_position": "BTN likely",
+          "verdict": "CONFIRMED LEAK — 94o not in BB vs BTN call range by any source. Verified fold.",
+          "correction": "BB vs BTN: fold all hands below ~76o, K7o, Q8o thresholds. 94o is never a call."
         },
         {
           "hand": "A8o",
+          "position": "BB",
           "count": 1,
-          "verdict": "LEAK \u2014 weak offsuit ace, dominated OOP. Fold vs UTG/MP."
+          "villain_position": "unknown",
+          "verdict": "CONTEXT-DEPENDENT LEAK — A8o is in BB vs BTN call range but FOLD vs UTG/HJ/CO. Check villain position.",
+          "correction": "A8o: call vs BTN/SB opens only. Fold vs UTG, HJ, CO. Verified from bb-defend.json scenarios."
         }
       ],
+      "stats_vs_verified_targets": {
+        "pfrPct": {"actual": 18.1, "target": "18-22%", "verdict": "CLOSE — slight low end but acceptable"},
+        "threeBetPct": {"actual": 0.9, "target": "8-12% (6-max)", "verdict": "MAJOR LEAK — 0.9% is far below verified target; missing squeeze spots and BB defense 3-bets"},
+        "bbDefendPct": {"actual": 46.7, "target": "~45-52%", "verdict": "OK — within range, issue is WHICH hands were defended"},
+        "cbetPct": {"actual": 60.0, "target": "50-65%", "verdict": "OK frequency, WRONG textures — 0% success vs highcard/paired boards"},
+        "stealPct": {"actual": 81.2, "target": "60-80%", "verdict": "GOOD — above target, keep stealing"}
+      },
       "key_leaks": [
-        "UTG range discipline: opened ATo (non-mix hand)",
-        "BB defend trash: 94o x2 and A8o \u2014 combined -$18.5",
-        "C-bet fold equity near zero (4.3%) \u2014 opponents not folding; stop bluffing unimproved",
-        "3-bet frequency too low (0.9%) \u2014 missing steal defence EV"
+        "UTG range: opened ATo (verified non-open) — cost estimated ~$10-15 in rake + weak postflop spot",
+        "BB defend trash: 94o x2 and A8o (vs non-BTN) — combined leak ~$18.5",
+        "3-bet rate 0.9% vs target 8-12%: missing ~7-10 3-bets per 100 hands; estimated EV loss 0.5-1.0 BB/100",
+        "C-bet 0% success on highcard/paired boards: opponents are calling stations; adjust sizing or skip bluffs",
+        "Fold-to-cbet 4.3%: stop floating without equity or a turn raise plan"
       ],
-      "study_priority": "BB defense range discipline + texture-based c-betting strategy"
+      "corrections_vs_v2": [
+        "UNCHANGED: UTG ATo is still a confirmed leak",
+        "UPDATED: A8o leak is position-dependent (call vs BTN/SB, fold vs UTG/HJ/CO) — not a blanket fold",
+        "UPDATED: BB defend 46.7% is acceptable frequency; prior analysis incorrectly flagged this; issue is range composition",
+        "CONFIRMED: 94o is always a fold — verified by all sources"
+      ]
     },
     {
       "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
       "date": "2026-05-07",
       "stakes": "1/2",
-      "rangeVersion": "v2.0 corrected",
-      "utg_leaks": [
+      "rangeVersion": "v3.0-verified",
+      "reanalysisDate": "2026-05-07",
+      "gtoDeviationScore": 55,
+      "gtoDeviationNotes": "Score 55/100 (worse than Session 1). 0% 3-bet rate confirmed major ongoing leak. 2 BB defend errors. Postflop -$120 loss on QJh trips spot needs review — preflop was correct.",
+      "preflopLeaks": [
         {
           "hand": "QJh",
+          "position": "UTG",
           "action": "open",
-          "verdict": "CLEAN \u2014 QJs is in UTG range. Postflop loss (-$120) not a preflop error."
-        }
-      ],
-      "bb_defend_leaks": [
+          "verdict": "CLEAN — QJs IS in verified UTG open range. Preflop action was correct.",
+          "correction": "No correction needed preflop. The -$120 loss was a postflop decision error."
+        },
         {
           "hand": "A2o",
-          "count": 1,
-          "verdict": "LEAK \u2014 offsuit wheel ace, terrible OOP. Fold."
+          "position": "BB",
+          "villain_position": "unknown",
+          "verdict": "CONFIRMED LEAK — A2o vs UTG = fold (verified). A2o vs BTN = marginal mix at best. Without knowing villain position, likely a fold.",
+          "correction": "A2o: verified fold vs UTG, HJ, CO. Mix vs BTN (Upswing lists A2o as a 3-bet bluff from BB vs BTN, not a call). Never call with A2o."
         },
         {
           "hand": "83s",
-          "count": 1,
-          "verdict": "LEAK \u2014 bottom-of-range suited connector, too weak vs any reasonable open."
+          "position": "BB",
+          "villain_position": "unknown",
+          "verdict": "CONFIRMED LEAK — 83s not in any BB defend range in any source. Too weak.",
+          "correction": "83s: fold from BB vs all opens. Suited connectors need to be 54s+ minimum, and only against wider opens (BTN/SB)."
         }
       ],
-      "key_leaks": [
-        "BB defend range continues to bleed with off-chart hands (A2o, 83s)",
-        "0% 3-bet rate \u2014 pattern from session 1 continuing; need squeeze spots and blind defence 3-bets",
-        "C-bet fold equity still 0% \u2014 opponents are sticky; adjust to smaller sizes or x/b approach",
-        "QJh trips call-off: run through solver \u2014 likely correct call with trips but worth checking pot odds (corrected: 29-33% required equity)"
+      "postflop_study_spots": [
+        {
+          "hand": "QJh trips (Q-T-Q-2-J board)",
+          "loss": -120.14,
+          "analysis": "QJs UTG open, flopped trips on QTQ. Facing turn raise + river barrel. WITH TRIPS and a straight on the board (QTJ), villain needs a full house or better to beat you. Pot odds on river: if villain bets ~2/3 pot, need ~28% equity to call. Against a range that could have QQ, TT, T9s (broadway), TT (full house), KJ/J9 (boat blockers)... this is a solver-dependent spot. LIKELY a thin call that should be studied but probably correct given trips.",
+          "correction": "Do not auto-fold trips. Study the exact sizing and board to determine correct call threshold. Trips are not weak — the question is how often villain has quads/boat."
+        },
+        {
+          "hand": "K9s second pair (J-K-Q-9-4)",
+          "loss": -43,
+          "analysis": "K9s: hit second pair on K-Q-J-9-4. This is a very coordinated board. K9 has second pair + inside knowledge the board has K and 9. Villain can have ATo (straight), JJ, QQ, KQ, etc. Calling multiple streets with second pair on a broadway-heavy board is a clear leak.",
+          "correction": "K9s on J-K-Q-9-4: reduce to 1 street of call max. Check-fold turn or fold to significant river bet. Second pair on broadway-heavy boards has very little equity."
+        }
       ],
-      "study_priority": "3-bet frequency + BB defense range vs each position + pot odds on triple barrel spots"
+      "stats_vs_verified_targets": {
+        "threeBetPct": {"actual": 0.0, "target": "8-12%", "verdict": "CRITICAL LEAK — 2nd session in a row at 0%, pattern confirmed"},
+        "bbDefendPct": {"actual": 33.3, "target": "~45-52%", "verdict": "UNDER-DEFENDING — only 9 opps but 33.3% is too tight; could be defending too many folds"},
+        "stealPct": {"actual": 66.7, "target": "60-80%", "verdict": "OK"},
+        "cbetPct": {"actual": 66.7, "target": "50-65%", "verdict": "Slightly high, 0% success is the real problem"},
+        "foldToCbetPct": {"actual": 0.0, "target": "~35-45%", "verdict": "CRITICAL — never folding to opponent c-bets; too many hero calls"}
+      },
+      "key_leaks": [
+        "0% 3-bet rate (pattern from S1): missing 8-12% of range on 3-bet opportunities; estimated 1-2 BB/100 loss",
+        "BB defend errors: A2o (fold vs UTG), 83s (fold always) — range pollution",
+        "0% fold-to-cbet across 10 opportunities: calling too wide without equity or a plan",
+        "QJh trips loss: likely correct call (study), not an unambiguous error",
+        "K9s second pair multi-street: definite leak — reduce to one call max on broadway-heavy boards"
+      ],
+      "corrections_vs_v2": [
+        "UPDATED: A2o is not just a 'fold vs tight opens' — it's NEVER a call from BB; it's a 3-bet bluff at very specific frequencies (BTN only) or fold",
+        "UPDATED: QJh UTG open confirmed clean — prior analysis was already correct",
+        "NEW: K9s second pair on JKQ94 identified as explicit postflop leak — broadway board awareness",
+        "CONFIRMED: 83s always fold — no source includes this in any defend range"
+      ]
+    },
+    {
+      "sessionId": "wsop nv-2026-05-07-mahomet_2026-05-07_session3",
+      "date": "2026-05-07",
+      "stakes": "0.50/1.00",
+      "rangeVersion": "v3.0-verified",
+      "reanalysisDate": "2026-05-07",
+      "gtoDeviationScore": 72,
+      "gtoDeviationNotes": "Score 72/100 — best of 3 sessions. 3-bet rate improved to 5.1% (closer to target). PFR 12.1% is confirmed too low vs target 18-22%. 7 missed steal spots confirmed as leaks. BB defend tighten needed for A4o/85s vs UTG.",
+      "preflopLeaks": [
+        {
+          "hand": "A4o",
+          "position": "BB",
+          "villain_position": "UTG",
+          "verdict": "CONFIRMED LEAK — A4o not in BB vs UTG call range (verified: A9o minimum, A2o-A8o = fold vs UTG). Fold.",
+          "correction": "BB vs UTG: A9o+ call, AJo 3-bet or call. A4o is a clear fold."
+        },
+        {
+          "hand": "85s",
+          "position": "BB",
+          "villain_position": "UTG",
+          "verdict": "CONFIRMED LEAK — 85s not in BB vs UTG call range (verified: 87s minimum for suited connectors vs UTG). Fold.",
+          "correction": "BB vs UTG suited connectors: 87s, 76s, 65s, 64s, 54s. 85s and below = fold."
+        }
+      ],
+      "missed_steal_spots": [
+        {"hand": "A4o", "position": "CO", "verdict": "MISSED STEAL — A4o is in CO open range (CO opens A5o+). Should be a raise."},
+        {"hand": "T9o", "position": "CO", "verdict": "MISSED STEAL — T9o is in CO open range (CO opens T9o-JTo). Should be a raise."},
+        {"hand": "K6o", "position": "SB", "verdict": "MISSED STEAL — K6o is in SB open range (SB opens K5o+). Should be a raise vs BB."},
+        {"hand": "8-3o", "position": "SB", "verdict": "BORDERLINE — 83o is very bottom of SB range. Mix raise/fold, but leaning raise vs passive BB."},
+        {"hand": "T8s", "position": "SB", "verdict": "MISSED STEAL — T8s is in SB open range (SB opens T5s+). Should be a raise."},
+        {"hand": "4-5o", "position": "BTN", "verdict": "MISSED STEAL — 45o is in BTN range (BTN opens 54o+). Should be a raise vs BB-only."},
+        {"hand": "2-4o", "position": "BTN", "verdict": "BORDERLINE — 42o is barely in BTN range. Mix raise/fold depending on BB tendency."}
+      ],
+      "stats_vs_verified_targets": {
+        "pfrPct": {"actual": 12.1, "target": "18-22%", "verdict": "CONFIRMED MAJOR LEAK — 6-10 percentage points below target. PFR vs VPIP gap of 15 pts means too many calls instead of raises."},
+        "threeBetPct": {"actual": 5.1, "target": "8-12%", "verdict": "IMPROVEMENT from sessions 1-2 (0%), still below target. Continue adding 3-bets."},
+        "stealPct": {"actual": 36.4, "target": "60-80%", "verdict": "CRITICAL LEAK — 36.4% vs 60-80% target. 7 confirmed missed steal spots. This is the #1 priority fix."},
+        "bbDefendPct": {"actual": 47.1, "target": "~45-52%", "verdict": "GOOD frequency — now tighten range composition (remove A4o, 85s vs UTG)"},
+        "cbetSuccessPct": {"actual": 0.0, "target": "~40-50% success", "verdict": "0% success across all 3 sessions — opponents are sticky; adjust strategy"}
+      },
+      "positive_plays": [
+        "AQo BTN value bet on A-J-T-5-2 (+$40.49): BTN open, hit top pair, ran out value on clean board. Textbook.",
+        "AQs BB 3-bet pot vs A-7-Q (+$85.69): BB 3-bet with AQs (verified: 3-bet range), flopped top two, extracted max value.",
+        "3-bet with KK, KQs, AQs: verified correct 3-bet hands all executed. Improvement from prior sessions."
+      ],
+      "key_leaks": [
+        "Steal rate 36.4% vs 60-80% target: single biggest EV leak this session, 7 confirmed missed spots",
+        "PFR 12.1% vs 18-22%: VPIP/PFR gap = excessive flatting; default to raise from late positions",
+        "BB defend errors: A4o and 85s vs UTG — tighten to verified chart (A9o+ offsuit, 87s+ suited connectors vs UTG)",
+        "C-bet 0% success rate persists: 3rd consecutive session; stop c-betting highcard boards without equity against calling stations",
+        "22.2% showdown win rate (4/18): too many weak hands reaching showdown; fold earlier or have cleaner range"
+      ],
+      "corrections_vs_v2": [
+        "CONFIRMED: A4o vs UTG is a fold — verified by bb-defend.json BB vs UTG scenario",
+        "CONFIRMED: 85s vs UTG is a fold — suited connector minimum vs UTG is 87s",
+        "NEW: 7 missed steal spots now individually identified and verified against range files",
+        "UPDATED: 3-bet rate 5.1% = improvement, not just a flat 'still too low' — acknowledge progress",
+        "NEW: C-bet 0% success across ALL 3 sessions is now clearly a pool adaptation problem — these players don't fold flops"
+      ]
+    }
+  ],
+  "crossSessionPatterns": [
+    {
+      "pattern": "3-bet rate: 0.9% → 0% → 5.1%",
+      "trend": "Improving but still below 8-12% target",
+      "action": "Continue adding 3-bets. Specifically: BB vs BTN steal = 3-bet TT+, AQs+, plus A4s-A5s as bluffs. SB vs BTN = 3-bet TT+, AQs+, KQs."
+    },
+    {
+      "pattern": "C-bet success: 16.7% → 0% → 0% (across 3 sessions, 22 total c-bet attempts)",
+      "trend": "Pool does not fold to c-bets. ADAPT.",
+      "action": "Stop bluffing unimproved hands via c-bet. Check back more flops. When c-betting, use larger size (75%+) on dry boards to get folds, or give up and pot control."
+    },
+    {
+      "pattern": "Fold-to-cbet: 4.3% → 0% → 4.5% (hero folding vs opponent c-bets)",
+      "trend": "Not folding enough to opponent c-bets",
+      "action": "When hero is OOP and faces a c-bet without equity (no pair, no draw), fold more. Currently over-defending vs c-bets — opponent range advantage is real."
+    },
+    {
+      "pattern": "Showdown win rate: 21.4% → 30.8% → 22.2%",
+      "trend": "Consistently below 40% threshold — too many weak hands reaching showdown",
+      "action": "Be more selective about which hands you call down. The issue: calling 3 streets with second pair, marginal top pair, or bluff-catchers with low equity."
+    },
+    {
+      "pattern": "UTG position bleed: -$174 (S1) → -$94 (S2) → $0 (S3, only 16 UTG hands at 0.50/1)",
+      "trend": "UTG is consistently the biggest losing position across sessions",
+      "action": "Apply verified UTG range strictly. Open only 23 core hands. ATo, KJo, QJo below mix threshold = fold from UTG."
+    }
+  ],
+  "spots": [
+    {
+      "spot": "KK postflop - wet board after 3-bet (Session 3 specific)",
+      "scenario": "KsKc 3-bet from BTN, board 9h8dJd (very wet). Villain leads or calls. Lost -$32.64 on 9-8-J-3-A board.",
+      "recommendation": "On wet 3-bet boards with an overpair: c-bet 75% pot to charge draws. When ace rivers and villain bets, fold KK — ace completed too many straights and top pairs. Pot control after flop c-bet if villain floats.",
+      "keyLesson": "Overpairs on wet boards: bet-fold flop, check-evaluate turn, fold river vs big bet on A/T/Q completions."
+    },
+    {
+      "spot": "Steal discipline - default late position raise",
+      "scenario": "Sessions 2+3: steal rate 36-67% vs target 60-80%. Multiple missed BTN/CO/SB steal spots per session.",
+      "recommendation": "Install a rule: IF (folded to hero in CO/BTN/SB) AND (only BB left) THEN RAISE unless hand is truly unplayable. The profitability of stealing derives from fold equity + position + initiative — all three apply here.",
+      "keyLesson": "Default to raising in steal spots. The burden of proof is on FOLDING, not raising."
+    },
+    {
+      "spot": "3-bet squeeze vs late position opens (cross-session)",
+      "scenario": "3 sessions: 0-5% 3-bet rate vs target 8-12%. Opponents stealing freely from BTN/SB.",
+      "recommendation": "Build 3-bet range in BB: TT+/AQs+/AKo as value, A5s-A4s/J2s/T3s as bluffs vs BTN. In SB vs BTN: 3-bet TT+/AQs+/KQs value, A5s-A3s/K7s bluffs. Stop flat-calling out of position with medium strength hands vs steals.",
+      "keyLesson": "3-betting polarizes range, builds pots with strong hands, and denies equity to BTN steals. One 3-bet saves BB EV better than three folds."
+    },
+    {
+      "spot": "C-bet adjustment for sticky pools",
+      "scenario": "0% fold-to-cbet for opponents across 22 hero c-bets over 3 sessions. Opponents are not folding.",
+      "recommendation": "1) Check back more flops when you miss (especially high-card boards where villain's range is stronger). 2) When c-betting, use pot-size or overbet on dry boards only. 3) On wet boards without equity: check-fold or check-call once then give up. 4) Stop multi-barreling without improving.",
+      "keyLesson": "Against calling stations, c-betting is a tax, not a weapon. Save c-bets for when you have equity or a semi-bluff."
     }
   ]
 }

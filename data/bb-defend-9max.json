@@ -1,0 +1,127 @@
+{
+  "description": "Practical BB defend ranges for 9-max cash. Two extra positions: UTG (tightest) and UTG+1/MP.",
+  "scenarios": [
+    {
+      "id": "vs-utg",
+      "label": "BB vs UTG",
+      "defenseFrequency": "~26%",
+      "summary": "Tightest defense spot at a 9-handed table. UTG is even more condensed than 6-max UTG. Defend a narrow suited range and pure broadways. 3-bet only premiums + A5s/A4s blockers.",
+      "notes": [
+        "Fold most offsuit below JTo",
+        "Small pairs okay as set-miners but tight",
+        "3-bet only AA/KK/QQ/JJ + suited wheel aces",
+        "KQo is a fold vs tight 9-max UTG regs"
+      ],
+      "actions": {
+        "call": ["22","33","44","55","66","77","A7s","A8s","A9s","ATs","KTs","QTs","JTs","T9s","98s","87s","76s","AJo","ATo","KQo"],
+        "threebet": ["AA","KK","QQ","JJ","TT","AKs","AQs","AKo","A5s","A4s"],
+        "fold": ["A6s","A5s","A4s","A3s","A2s","65s","54s","43s","32s","K9s","Q9s","J9s","T8s","KJo","QJo","JTo","K9o","Q9o","J9o","T9o"],
+        "mix": ["KJs","QJs","AQo","A9s"]
+      }
+    },
+    {
+      "id": "vs-utg1",
+      "label": "BB vs UTG+1",
+      "defenseFrequency": "~29%",
+      "summary": "UTG+1 opens slightly wider than UTG. Add a couple suited connectors and AQo to calling range.",
+      "notes": [
+        "Slightly wider than vs UTG",
+        "Add suited connectors down to 65s",
+        "3-bet range stays similar — maybe add AJs",
+        "KQo becomes a clear call"
+      ],
+      "actions": {
+        "call": ["22","33","44","55","66","77","A6s","A7s","A8s","A9s","ATs","KTs","QTs","JTs","T9s","98s","87s","76s","65s","AJo","ATo","KQo","KJo"],
+        "threebet": ["AA","KK","QQ","JJ","TT","AKs","AQs","AJs","AKo","A5s","A4s"],
+        "fold": ["A5s","A4s","A3s","A2s","54s","43s","K9s","Q9s","J9s","T8s","QJo","JTo","K9o","Q9o","J9o"],
+        "mix": ["KJs","QJs","AQo","A9s","K9s"]
+      }
+    },
+    {
+      "id": "vs-mp",
+      "label": "BB vs MP",
+      "defenseFrequency": "~31%",
+      "summary": "MP (LJ) opens ~15-17% of hands. Defend suited connectors more liberally, add QJo/JTo to calling range.",
+      "notes": [
+        "MP opens broader — more trashy suited hands in their range",
+        "Defend suited connectors to 54s",
+        "3-bet lighter — add KJs as bluff",
+        "QJo and JTo are clear calls"
+      ],
+      "actions": {
+        "call": ["22","33","44","55","66","77","A5s","A6s","A7s","A8s","A9s","ATs","K9s","KTs","Q9s","QTs","JTs","T9s","98s","87s","76s","65s","54s","AJo","ATo","KQo","KJo","QJo","JTo"],
+        "threebet": ["AA","KK","QQ","JJ","TT","AKs","AQs","AJs","AKo","AQo","A5s","A4s","A3s","KJs"],
+        "fold": ["A4s","A3s","A2s","43s","32s","J9s","T8s","86s","75s","K8s","Q8s","K9o","Q9o","J9o","T9o"],
+        "mix": ["A2s","QJs","A9s","KQo"]
+      }
+    },
+    {
+      "id": "vs-hj",
+      "label": "BB vs HJ",
+      "defenseFrequency": "~33%",
+      "summary": "Slightly wider than vs MP. HJ opens around 20% of hands. Add lower suited connectors and some mixed suited aces.",
+      "notes": [
+        "Fold offsuit junk below JTo",
+        "Suited wheel aces become calls or mix",
+        "3-bet bluffs add A3s/A2s"
+      ],
+      "actions": {
+        "call": ["22","33","44","55","66","77","88","A4s","A5s","A6s","A7s","A8s","A9s","ATs","K9s","KTs","Q9s","QTs","JTs","T9s","T8s","98s","87s","76s","65s","54s","AJo","ATo","KQo","KJo","QJo","JTo"],
+        "threebet": ["AA","KK","QQ","JJ","TT","AKs","AQs","AJs","AKo","AQo","A5s","A4s","A3s","A2s","KJs","KQs"],
+        "fold": ["A3s","A2s","43s","32s","J9s","86s","75s","K8s","Q8s","K9o","Q9o","J9o","T9o"],
+        "mix": ["QJs","A9s","KQo","99"]
+      }
+    },
+    {
+      "id": "vs-co",
+      "label": "BB vs CO",
+      "defenseFrequency": "~37%",
+      "summary": "CO opens ~25% of hands. Defend aggressively. Lower suited connectors and weaker offsuit hands become defends.",
+      "notes": [
+        "CO range includes plenty of weak suited hands",
+        "3-bet bluffs extend to suited one-gappers",
+        "Protect your BB — don't overfold"
+      ],
+      "actions": {
+        "call": ["22","33","44","55","66","77","88","99","A2s","A3s","A4s","A5s","A6s","A7s","A8s","A9s","ATs","K8s","K9s","KTs","Q8s","Q9s","QTs","J8s","J9s","JTs","T8s","T9s","98s","87s","76s","65s","54s","AJo","ATo","A9o","KQo","KJo","KTo","QJo","QTo","JTo"],
+        "threebet": ["AA","KK","QQ","JJ","TT","AKs","AQs","AJs","AKo","AQo","AJo","A5s","A4s","A3s","KJs","KQs","QJs"],
+        "fold": ["43s","32s","75s","64s","K7s","Q7s","K8o","Q8o","J8o","T8o","98o"],
+        "mix": ["A8s","KTs","JTs","ATo"]
+      }
+    },
+    {
+      "id": "vs-btn",
+      "label": "BB vs BTN",
+      "defenseFrequency": "~43%",
+      "summary": "BTN opens ~45% of hands. Defend very wide — this is the most profitable BB defense spot.",
+      "notes": [
+        "BTN has tons of weak hands — punish them",
+        "3-bet polarized: premiums + suited wheel aces + connectors",
+        "Even weak offsuit hands have decent equity HU"
+      ],
+      "actions": {
+        "call": ["22","33","44","55","66","77","88","99","A2s","A3s","A4s","A5s","A6s","A7s","A8s","A9s","ATs","K7s","K8s","K9s","KTs","Q7s","Q8s","Q9s","QTs","J7s","J8s","J9s","JTs","T7s","T8s","T9s","97s","98s","86s","87s","75s","76s","64s","65s","54s","AJo","ATo","A9o","A8o","KQo","KJo","KTo","K9o","QJo","QTo","Q9o","JTo","J9o","T9o","98o","87o"],
+        "threebet": ["AA","KK","QQ","JJ","TT","AKs","AQs","AJs","AKo","AQo","AJo","A5s","A4s","A3s","A2s","KJs","KQs","QJs","JTs","T9s"],
+        "fold": ["43s","32s","K6s","Q6s","J6s","T6s","K8o","Q8o","J8o","T8o","97o"],
+        "mix": ["A7o","K8o","88","T8o"]
+      }
+    },
+    {
+      "id": "vs-sb",
+      "label": "BB vs SB",
+      "defenseFrequency": "~45%",
+      "summary": "Heads-up vs the SB who must act OOP post-flop. Defend the widest range here — the SB has range disadvantage.",
+      "notes": [
+        "SB opens very wide and has no positional advantage",
+        "3-bet any two reasonable cards in polarized spots",
+        "Even K-hi hands have value HU OOP for villain"
+      ],
+      "actions": {
+        "call": ["22","33","44","55","66","77","88","99","A2s","A3s","A4s","A5s","A6s","A7s","A8s","A9s","ATs","K5s","K6s","K7s","K8s","K9s","KTs","Q6s","Q7s","Q8s","Q9s","QTs","J6s","J7s","J8s","J9s","JTs","T6s","T7s","T8s","T9s","96s","97s","98s","85s","86s","87s","75s","76s","64s","65s","54s","AJo","ATo","A9o","A8o","A7o","KQo","KJo","KTo","K9o","K8o","QJo","QTo","Q9o","JTo","J9o","T9o","98o","87o","76o"],
+        "threebet": ["AA","KK","QQ","JJ","TT","AKs","AQs","AJs","AKo","AQo","AJo","A5s","A4s","A3s","A2s","KJs","KQs","QJs","JTs","T9s","98s"],
+        "fold": ["43s","32s","K4s","Q5s","J5s","T5s","95s","84s","74s","63s","53s","K7o","Q8o","J8o","T8o"],
+        "mix": ["A6o","K7o","QTs","K9o"]
+      }
+    }
+  ]
+}

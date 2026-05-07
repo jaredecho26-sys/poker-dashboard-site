@@ -49,13 +49,26 @@ function buildRangeStats(actions) {
   return { combos, total };
 }
 
+// ── Format Toggle Helper ────────────────────────────────────────────────────
+function formatToggleHTML(currentFormat) {
+  return `<div class="format-toggle">
+    <button class="fmt-btn${currentFormat === '6max' ? ' active' : ''}" data-fmt="6max">6-Max</button>
+    <button class="fmt-btn${currentFormat === '9max' ? ' active' : ''}" data-fmt="9max">9-Max</button>
+  </div>`;
+}
+
 // ── PFR Range Explorer ──────────────────────────────────────────────────────
-function renderPfrExplorer(pfrRanges) {
+function renderPfrExplorer(pfrRanges6, pfrRanges9) {
   const wrap = document.getElementById('pfrExplorer');
-  const positions = pfrRanges.positions;
-  let active = positions[0].id;
+  let format = '6max';
+  let active = pfrRanges6.positions[0].id;
+
+  function currentData() { return format === '6max' ? pfrRanges6 : pfrRanges9; }
 
   function render() {
+    const positions = currentData().positions;
+    // reset active if position doesn't exist in new format
+    if (!positions.find(p => p.id === active)) active = positions[0].id;
     const pos = positions.find(p => p.id === active);
     const { combos, total } = buildRangeStats(pos.actions);
     const actionDefs = [
@@ -63,6 +76,7 @@ function renderPfrExplorer(pfrRanges) {
       { key: 'mix',  label: 'Mixed',    cls: 'mix'  },
     ];
     wrap.innerHTML = `
+      ${formatToggleHTML(format)}
       <div class="range-tabs">${positions.map(p =>
         `<button class="range-btn${p.id === active ? ' active' : ''}" data-pos="${p.id}">${p.label}</button>`
       ).join('')}</div>
@@ -85,6 +99,9 @@ function renderPfrExplorer(pfrRanges) {
           </div>
         </div>
       </div>`;
+    wrap.querySelectorAll('.fmt-btn').forEach(btn => {
+      btn.addEventListener('click', () => { format = btn.dataset.fmt; render(); });
+    });
     wrap.querySelectorAll('.range-btn').forEach(btn => {
       btn.addEventListener('click', () => { active = btn.dataset.pos; render(); });
     });
@@ -93,12 +110,16 @@ function renderPfrExplorer(pfrRanges) {
 }
 
 // ── 3-Bet Range Explorer ────────────────────────────────────────────────────
-function renderThreeBetExplorer(threeBetRanges) {
+function renderThreeBetExplorer(threeBetRanges6, threeBetRanges9) {
   const wrap = document.getElementById('threeBetExplorer');
-  const scenarios = threeBetRanges.scenarios;
-  let active = scenarios[0].id;
+  let format = '6max';
+  let active = threeBetRanges6.scenarios[0].id;
+
+  function currentData() { return format === '6max' ? threeBetRanges6 : threeBetRanges9; }
 
   function render() {
+    const scenarios = currentData().scenarios;
+    if (!scenarios.find(s => s.id === active)) active = scenarios[0].id;
     const scen = scenarios.find(s => s.id === active);
     const { combos, total } = buildRangeStats(scen.actions);
     const actionDefs = [
@@ -108,6 +129,7 @@ function renderThreeBetExplorer(threeBetRanges) {
       { key: 'mix',   label: 'Mixed',        cls: 'mix'   },
     ];
     wrap.innerHTML = `
+      ${formatToggleHTML(format)}
       <div class="range-tabs">${scenarios.map(s =>
         `<button class="range-btn${s.id === active ? ' active' : ''}" data-scen="${s.id}">${s.label}</button>`
       ).join('')}</div>
@@ -125,6 +147,9 @@ function renderThreeBetExplorer(threeBetRanges) {
           </div>`).join('')}
         </div>
       </div>`;
+    wrap.querySelectorAll('.fmt-btn').forEach(btn => {
+      btn.addEventListener('click', () => { format = btn.dataset.fmt; render(); });
+    });
     wrap.querySelectorAll('.range-btn').forEach(btn => {
       btn.addEventListener('click', () => { active = btn.dataset.scen; render(); });
     });
@@ -133,12 +158,16 @@ function renderThreeBetExplorer(threeBetRanges) {
 }
 
 // ── BB Defend Explorer ──────────────────────────────────────────────────────
-function renderBbDefend(bbDefend) {
+function renderBbDefend(bbDefend6, bbDefend9) {
   const wrap = document.getElementById('bbDefendExplorer');
-  const scenarios = bbDefend.scenarios;
-  let active = scenarios[0].id;
+  let format = '6max';
+  let active = bbDefend6.scenarios[0].id;
+
+  function currentData() { return format === '6max' ? bbDefend6 : bbDefend9; }
 
   function render() {
+    const scenarios = currentData().scenarios;
+    if (!scenarios.find(s => s.id === active)) active = scenarios[0].id;
     const scen = scenarios.find(s => s.id === active);
     const actionDefs = [
       { key: 'call',     label: 'Call (defend)',      cls: 'call'  },
@@ -151,6 +180,7 @@ function renderBbDefend(bbDefend) {
     const defendedCombos = (combos.call || 0) + (combos.threebet || 0) + (combos.mix || 0);
     const defendedClasses = (scen.actions.call || []).length + (scen.actions.threebet || []).length + (scen.actions.mix || []).length;
     wrap.innerHTML = `
+      ${formatToggleHTML(format)}
       <div class="range-tabs">${scenarios.map(s =>
         `<button class="range-btn${s.id === active ? ' active' : ''}" data-scen="${s.id}">${s.label}</button>`
       ).join('')}</div>
@@ -189,6 +219,9 @@ function renderBbDefend(bbDefend) {
           </div>
         </div>
       </div>`;
+    wrap.querySelectorAll('.fmt-btn').forEach(btn => {
+      btn.addEventListener('click', () => { format = btn.dataset.fmt; render(); });
+    });
     wrap.querySelectorAll('.range-btn').forEach(btn => {
       btn.addEventListener('click', () => { active = btn.dataset.scen; render(); });
     });
@@ -240,19 +273,22 @@ function renderTopHands(hands) {
 
 async function initStudy() {
   injectNav();
-  const [studyData, pfrRanges, threeBetRanges, bbDefend] = await Promise.all([
+  const [studyData, pfrRanges6, pfrRanges9, threeBetRanges6, threeBetRanges9, bbDefend6, bbDefend9] = await Promise.all([
     loadJson('data/study.json'),
     loadJson('data/pfr-ranges.json'),
+    loadJson('data/pfr-ranges-9max.json'),
     loadJson('data/3bet-ranges.json'),
+    loadJson('data/3bet-ranges-9max.json'),
     loadJson('data/bb-defend.json'),
+    loadJson('data/bb-defend-9max.json'),
   ]);
 
   renderTopHands(studyData.topHands || []);
   renderPreflopChart(studyData.preflopChart || []);
   renderAvoidList(studyData.avoidList || []);
-  renderPfrExplorer(pfrRanges);
-  renderThreeBetExplorer(threeBetRanges);
-  renderBbDefend(bbDefend);
+  renderPfrExplorer(pfrRanges6, pfrRanges9);
+  renderThreeBetExplorer(threeBetRanges6, threeBetRanges9);
+  renderBbDefend(bbDefend6, bbDefend9);
 }
 
 initStudy();

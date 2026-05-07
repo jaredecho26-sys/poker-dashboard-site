@@ -52,7 +52,7 @@
     "biggestLoss": -200.0,
     "notes": "Lost one full buy-in overall; biggest swing was KK into AA all-in preflop. Main strategic leak pattern was medium-pot bleed from loose blind defense and overly optimistic postflop stabs.",
     "studyFocus": "Tighten blind defense, eliminate low-plan flop floats, and reduce hopeful turn stabs.",
-    "manualResult": 0.0,
+    "manualResult": -224.9,
     "buyIns": 200.0,
     "cashOut": 200.0,
     "resultSource": "manual",
@@ -180,7 +180,7 @@
         "successPct": 0.0
       }
     },
-    "manualResult": -30.04,
+    "manualResult": -156.33,
     "buyIns": 200.0,
     "cashOut": 169.96,
     "resultSource": "manual"

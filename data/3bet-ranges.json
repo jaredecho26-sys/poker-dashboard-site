@@ -509,6 +509,169 @@
           "QTs"
         ]
       }
+    },
+    {
+      "id": "bb-vs-hj",
+      "label": "BB vs HJ open",
+      "summary": "HJ opens tighter than CO/BTN. Trim bluffs, keep value strong, flat more pairs.",
+      "actions": {
+        "value": [
+          "AA", "KK", "QQ", "JJ", "AKo"
+        ],
+        "bluff": [
+          "A5s", "A4s", "A3s", "A2s", "KTs", "KJs", "QTs", "QJs", "JTs", "T9s", "98s"
+        ],
+        "call": [
+          "TT", "99", "88", "77", "66", "55", "44", "33", "22",
+          "AQo", "AJo", "ATo", "A9o", "A8o",
+          "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s",
+          "KQo", "KJo", "KTo", "K9s", "K8s", "K7s",
+          "QJo", "QTo", "Q9s", "Q8s",
+          "JTo", "J9o", "87s", "76s", "65s"
+        ],
+        "mix": [
+          "AKs", "KQs", "K6s", "J8s", "54s"
+        ]
+      }
+    },
+    {
+      "id": "bb-vs-utg",
+      "label": "BB vs UTG open",
+      "summary": "UTG is the tightest opener. 3-bet only premiums, flat a wide range, fold the rest.",
+      "actions": {
+        "value": [
+          "AA", "KK", "QQ", "JJ", "AKo"
+        ],
+        "bluff": [
+          "A5s", "A4s", "KJs"
+        ],
+        "call": [
+          "TT", "99", "88", "77", "66", "55", "44", "33", "22",
+          "AQo", "AJo", "ATo", "A9o",
+          "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s",
+          "KQo", "KJo", "KTo", "KQs", "KTs", "K9s",
+          "QJo", "QTo", "QJs", "QTs", "Q9s",
+          "JTo", "JTs", "J9o", "T9s", "98s", "87s", "76s"
+        ],
+        "mix": [
+          "AKs", "AQs", "A3s", "A2s", "K8s"
+        ]
+      }
+    },
+    {
+      "id": "sb-vs-co",
+      "label": "SB vs CO open",
+      "summary": "Out of position vs CO. Polarize: 3-bet strong value and suited wheel bluffs, fold marginal hands.",
+      "actions": {
+        "value": [
+          "AA", "KK", "QQ", "JJ", "TT", "AKo", "AQo", "AKs", "AQs", "AJs", "KQs"
+        ],
+        "bluff": [
+          "A5s", "A4s", "A3s", "A2s", "K9s", "KTs", "KJs", "Q9s", "QTs", "J9s", "T9s", "98s", "87s"
+        ],
+        "call": [
+          "99", "88", "77", "66", "55",
+          "ATo", "A9o", "A8o",
+          "A9s", "A8s", "A7s", "A6s",
+          "KQo", "KJo", "KTo",
+          "QJo", "QTo", "JTo", "JTs", "T8s", "76s"
+        ],
+        "mix": [
+          "AJo", "K8s", "QJs", "65s"
+        ]
+      }
+    },
+    {
+      "id": "sb-vs-hj",
+      "label": "SB vs HJ open",
+      "summary": "HJ range is tighter so trim bluffs. Still polarize OOP with a solid value range.",
+      "actions": {
+        "value": [
+          "AA", "KK", "QQ", "JJ", "TT", "AKo", "AQo", "AKs", "AQs", "AJs"
+        ],
+        "bluff": [
+          "A5s", "A4s", "A3s", "A2s", "KTs", "KJs", "KQs", "QTs", "JTs", "T9s", "98s"
+        ],
+        "call": [
+          "99", "88", "77", "66", "55",
+          "ATo", "A9o",
+          "A9s", "A8s", "A7s", "A6s",
+          "KQo", "KJo", "KTo",
+          "QJo", "QTo", "QJs", "J9s", "T8s", "76s"
+        ],
+        "mix": [
+          "AJo", "K9s", "Q9s", "87s"
+        ]
+      }
+    },
+    {
+      "id": "sb-vs-utg",
+      "label": "SB vs UTG open",
+      "summary": "UTG is ultra-tight. OOP 3-bets only pure premiums; everything else is call or fold.",
+      "actions": {
+        "value": [
+          "AA", "KK", "QQ", "JJ", "AKo", "AKs", "AQs"
+        ],
+        "bluff": [
+          "A5s", "A4s", "KQs"
+        ],
+        "call": [
+          "TT", "99", "88", "77", "66", "55",
+          "AQo", "AJo", "ATo",
+          "AJs", "ATs", "A9s", "A8s", "A7s", "A6s",
+          "KQo", "KJo", "KJs", "KTs",
+          "QJo", "QJs", "JTs", "T9s", "98s"
+        ],
+        "mix": [
+          "A3s", "KTo", "QTs"
+        ]
+      }
+    },
+    {
+      "id": "btn-vs-utg",
+      "label": "BTN vs UTG open",
+      "summary": "UTG is strongest possible opener. Keep value tight and bluffs minimal despite position.",
+      "actions": {
+        "value": [
+          "AA", "KK", "QQ", "JJ", "AKo", "AKs", "AQs"
+        ],
+        "bluff": [
+          "A5s", "A4s", "A3s", "KJs", "QJs"
+        ],
+        "call": [
+          "TT", "99", "88", "77", "66", "55",
+          "AQo", "AJo", "ATo",
+          "AJs", "ATs", "A9s", "A8s", "A7s", "A6s",
+          "KQo", "KQs", "KJo", "KTs", "K9s",
+          "QJo", "QTs", "JTs", "T9s", "98s", "87s"
+        ],
+        "mix": [
+          "A2s", "KTo", "J9s"
+        ]
+      }
+    },
+    {
+      "id": "co-vs-utg",
+      "label": "CO vs UTG open",
+      "summary": "UTG demands max respect. Nearly linear range — only nutted hands 3-bet, very few bluffs.",
+      "actions": {
+        "value": [
+          "AA", "KK", "QQ", "AKo", "AKs"
+        ],
+        "bluff": [
+          "A5s", "A4s"
+        ],
+        "call": [
+          "JJ", "TT", "99", "88", "77",
+          "AQo", "AJo",
+          "AQs", "AJs", "ATs", "A9s",
+          "KQo", "KQs", "KJs", "KTs",
+          "QJs", "QTs", "JTs", "T9s", "98s"
+        ],
+        "mix": [
+          "A3s", "KJo", "QJo"
+        ]
+      }
     }
   ]
 }

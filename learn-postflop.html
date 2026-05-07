@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poker Lab — Postflop</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .learn-hero { margin-bottom: 28px; }
+    .section-label { color: var(--blue); font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .12em; margin: 0 0 8px; }
+    .learn-grid { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; margin-bottom: 18px; }
+    .learn-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .concept-card { background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; }
+    .concept-card h3 { margin: 0 0 10px; font-size: 16px; color: var(--text); }
+    .concept-card p  { margin: 0 0 8px; color: var(--muted); line-height: 1.55; font-size: 14px; }
+    .concept-card ul { margin: 6px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .highlight { color: var(--text); font-weight: 600; }
+    .tag-badge { display: inline-block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em; padding: 3px 10px;
+      border-radius: 999px; margin: 0 4px 4px 0; border: 1px solid; }
+    .tag-blue  { background: rgba(110,168,254,.12); border-color: rgba(110,168,254,.3); color: var(--blue); }
+    .tag-green { background: rgba(46,204,113,.1);   border-color: rgba(46,204,113,.3);  color: var(--green); }
+    .tag-red   { background: rgba(255,107,107,.1);  border-color: rgba(255,107,107,.3); color: var(--red); }
+    .tag-yellow{ background: rgba(246,196,69,.1);   border-color: rgba(246,196,69,.3);  color: var(--yellow); }
+    .texture-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .texture-card { background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px; }
+    .texture-card .board-label { font-size: 20px; font-weight: 800; letter-spacing: .04em;
+      margin-bottom: 6px; }
+    .texture-card h4 { margin: 0 0 6px; font-size: 13px; color: var(--blue); text-transform: uppercase; letter-spacing: .08em; }
+    .texture-card p  { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .odds-row { display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.05); font-size: 14px; }
+    .odds-row:last-child { border-bottom: none; }
+    .odds-left  { color: var(--text); font-weight: 600; }
+    .odds-right { color: var(--muted); }
+    .odds-pct   { color: var(--blue); font-weight: 700; }
+    .heuristic-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05); }
+    .heuristic-row:last-child { border-bottom: none; }
+    .heuristic-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .heuristic-row h4 { margin: 0 0 4px; font-size: 14px; color: var(--text); }
+    .heuristic-row p  { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .checklist { list-style: none; padding: 0; margin: 0; }
+    .checklist li { padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: '☐'; color: var(--blue); font-size: 16px; flex-shrink: 0; }
+    .drill-card { background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px; }
+    .drill-card h4 { margin: 0 0 6px; font-size: 14px; color: var(--text); }
+    .drill-card p  { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .equity-bar-wrap { background: var(--panel-2); border-radius: 999px; height: 12px;
+      overflow: hidden; margin: 8px 0; }
+    .equity-bar { height: 100%; border-radius: 999px; background: var(--blue); transition: width .3s; }
+    @media (max-width: 1024px) {
+      .learn-grid, .learn-grid-3, .texture-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .texture-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero learn-hero">
+      <div>
+        <p class="eyebrow">Learning — Postflop</p>
+        <h1>Postflop Foundations</h1>
+        <p class="sub">C-bet concepts, board texture analysis, pot odds, draws, and equity references to build confident flop decisions.</p>
+      </div>
+    </header>
+
+    <!-- c-bet concepts -->
+    <section class="card" style="margin-bottom:18px">
+      <div class="card-head"><h2>C-Bet Concepts</h2></div>
+      <p style="color:var(--muted);font-size:14px;margin:0 0 16px;line-height:1.6">A continuation bet (c-bet) maintains the initiative from preflop. Profitability depends on your <span class="highlight">range advantage</span>, <span class="highlight">nut advantage</span>, and the <span class="highlight">board texture</span> relative to both ranges. Betting always without checking is exploitable.</p>
+      <div class="learn-grid learn-grid-3" style="margin:0">
+        <div class="concept-card">
+          <h3>High c-bet frequency</h3>
+          <p>IP vs single caller on dry boards (A72r, K83r). You hit these boards harder as the preflop raiser.</p>
+          <ul>
+            <li>Size: 25–33 % pot (dry, static)</li>
+            <li>Full range or near-full range bet viable</li>
+            <li>Villain can't construct strong defence range vs tiny bet</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>Selective c-bet</h3>
+          <p>Dynamic, coordinated boards (T98dd, 876ss). Your range advantage shrinks and villain has many draws and strong holdings.</p>
+          <ul>
+            <li>Size: 50–75 % pot (dynamic/wet)</li>
+            <li>Bet your strong hands + best draws; check back medium equity</li>
+            <li>Build pot with value; protect equity with semi-bluffs</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>OOP c-bet caution</h3>
+          <p>Firing c-bets out of position is punishing. Prefer a checking strategy that includes strong hands to prevent exploitation.</p>
+          <ul>
+            <li>Check-raise strong hands to deny free cards</li>
+            <li>Check-call medium strength / draws</li>
+            <li>Check-fold weak air / dominated pairs</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- board textures -->
+    <section class="card" style="margin-bottom:18px">
+      <div class="card-head"><h2>Board Textures</h2></div>
+      <p style="color:var(--muted);font-size:14px;margin:0 0 16px;line-height:1.6">Read the board before deciding on a bet/check. Key dimensions: <span class="highlight">dry vs wet</span> (draws available?), <span class="highlight">high vs low</span> (who connects?), <span class="highlight">paired vs unpaired</span>.</p>
+      <div class="texture-grid">
+        <div class="texture-card">
+          <div class="board-label" style="color:var(--text)">A♠ 7♥ 2♦</div>
+          <h4>Dry / Static</h4>
+          <p>Minimal draws. PFR range crushes — bet small, frequently. Villain struggles to find calls with unpaired hands.</p>
+        </div>
+        <div class="texture-card">
+          <div class="board-label" style="color:var(--blue)">J♠ T♦ 9♣</div>
+          <h4>Wet / Dynamic</h4>
+          <p>Flush and straight draws everywhere. Bet larger or check back with medium equity. Protect strong hands.</p>
+        </div>
+        <div class="texture-card">
+          <div class="board-label" style="color:var(--green)">K♣ 6♦ 2♠</div>
+          <h4>High card / Paired low</h4>
+          <p>King hits PFR range hard. Low side almost irrelevant. Excellent spot for high-frequency small c-bets IP.</p>
+        </div>
+        <div class="texture-card">
+          <div class="board-label" style="color:var(--yellow)">8♦ 7♦ 6♠</div>
+          <h4>Low / Connected</h4>
+          <p>BB and lower position defenders connect here. PFR loses range advantage significantly. Often better to check and re-evaluate.</p>
+        </div>
+        <div class="texture-card">
+          <div class="board-label" style="color:var(--red)">Q♥ Q♦ 4♣</div>
+          <h4>Paired board</h4>
+          <p>Trips are rare for both — focus on who holds the Q more often. PFR range contains more QQ/KQ/AQ. Prefer small size.</p>
+        </div>
+        <div class="texture-card">
+          <div class="board-label" style="color:var(--muted)">A♠ K♦ Q♣</div>
+          <h4>Broadway / Monotone</h4>
+          <p>Both ranges can contain straights. Monotone boards: villain's flush draw concern limits your thin value betting. Tread carefully.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- pot odds + equity -->
+    <div class="learn-grid" style="margin-bottom:18px">
+      <section class="card">
+        <div class="card-head"><h2>Pot Odds Quick Reference</h2></div>
+        <p style="color:var(--muted);font-size:14px;margin:0 0 14px">Pot odds tell you the minimum equity you need to profitably call. Formula: <span class="highlight">Call / (Pot + Call)</span>.</p>
+        <div class="odds-row"><span class="odds-left">⅓ pot bet</span><span class="odds-right">Need <span class="odds-pct">25 %</span> equity to call</span></div>
+        <div class="odds-row"><span class="odds-left">½ pot bet</span><span class="odds-right">Need <span class="odds-pct">25 %</span> equity to call</span></div>
+        <div class="odds-row"><span class="odds-left">¾ pot bet</span><span class="odds-right">Need <span class="odds-pct">30 %</span> equity to call</span></div>
+        <div class="odds-row"><span class="odds-left">Pot-sized bet</span><span class="odds-right">Need <span class="odds-pct">33 %</span> equity to call</span></div>
+        <div class="odds-row"><span class="odds-left">2× pot overbet</span><span class="odds-right">Need <span class="odds-pct">40 %</span> equity to call</span></div>
+        <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">
+          <span class="tag-badge tag-yellow">Note</span> Implied odds can justify calling with less equity when stacks are deep and villain can pay off on future streets.
+        </p>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Draw Equity Reference</h2></div>
+        <p style="color:var(--muted);font-size:14px;margin:0 0 14px">The rule of 2 &amp; 4: multiply outs × 4 on the flop (2 streets) or × 2 on the turn (1 street) for approximate equity %.</p>
+        <div class="odds-row">
+          <span class="odds-left">Flush draw (9 outs)</span>
+          <div>
+            <div class="equity-bar-wrap" style="width:140px"><div class="equity-bar" style="width:38%"></div></div>
+            <span class="odds-right"><span class="odds-pct">~36 %</span> flop · ~18 % turn</span>
+          </div>
+        </div>
+        <div class="odds-row">
+          <span class="odds-left">Open-ended straight (8 outs)</span>
+          <div>
+            <div class="equity-bar-wrap" style="width:140px"><div class="equity-bar" style="width:32%"></div></div>
+            <span class="odds-right"><span class="odds-pct">~32 %</span> flop · ~16 % turn</span>
+          </div>
+        </div>
+        <div class="odds-row">
+          <span class="odds-left">Gutshot (4 outs)</span>
+          <div>
+            <div class="equity-bar-wrap" style="width:140px"><div class="equity-bar" style="width:16%"></div></div>
+            <span class="odds-right"><span class="odds-pct">~16 %</span> flop · ~8 % turn</span>
+          </div>
+        </div>
+        <div class="odds-row">
+          <span class="odds-left">Two overcards (6 outs)</span>
+          <div>
+            <div class="equity-bar-wrap" style="width:140px"><div class="equity-bar" style="width:24%"></div></div>
+            <span class="odds-right"><span class="odds-pct">~24 %</span> flop · ~12 % turn</span>
+          </div>
+        </div>
+        <div class="odds-row">
+          <span class="odds-left">FD + OESD (15 outs)</span>
+          <div>
+            <div class="equity-bar-wrap" style="width:140px"><div class="equity-bar" style="width:54%"></div></div>
+            <span class="odds-right"><span class="odds-pct">~54 %</span> flop · ~30 % turn</span>
+          </div>
+        </div>
+        <p style="margin:10px 0 0;font-size:12px;color:var(--muted)">Approximate — exact values depend on villain's cards. Rule of 2&4 is close enough for in-game use.</p>
+      </section>
+    </div>
+
+    <!-- postflop heuristics + checklist -->
+    <div class="learn-grid" style="margin-bottom:18px">
+      <section class="card">
+        <div class="card-head"><h2>Postflop Heuristics</h2></div>
+        <div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">🎯</div>
+            <div>
+              <h4>Ask: "Who does this board favour?"</h4>
+              <p>Before betting, identify whether your range or villain's range connects harder. That determines bet frequency and size.</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">📐</div>
+            <div>
+              <h4>Small bet = polarise or give up cheaply</h4>
+              <p>A 25 % bet often serves as a "equity denial" bet with a strong merged range. A large bet says "I'm polarised."</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">🔄</div>
+            <div>
+              <h4>Check to protect your checking range</h4>
+              <p>If you always c-bet everything, your checks become transparent air. Checking strong hands balances your range.</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">💧</div>
+            <div>
+              <h4>Draws semi-bluff, don't just call</h4>
+              <p>Semi-betting draws puts villain to a decision, adds fold equity, and builds pot for value when you hit.</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">🃏</div>
+            <div>
+              <h4>Top pair, top kicker ≠ always value</h4>
+              <p>TPTK is a bluff-catcher on wet boards. Don't stack off vs a large bet on J-T-9 with AJ when villain bets pot.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Postflop Study Checklist</h2></div>
+        <ul class="checklist">
+          <li>For each flop in a session, classify texture before acting</li>
+          <li>Track c-bet success rate — are you betting too wide on bad textures?</li>
+          <li>Review every instance you called a large bet: did you have the equity?</li>
+          <li>Practice the rule of 2&4 in real-time for 10 sessions</li>
+          <li>Tag HH spots where you missed a semi-bluff opportunity</li>
+          <li>Identify one board per session where you should have checked back</li>
+          <li>Study a "merged range" vs "polarised range" example in solver output</li>
+        </ul>
+        <div style="margin-top:16px">
+          <div class="drill-card">
+            <h4>🎯 Use the Trainer</h4>
+            <p>The <a href="trainer.html" style="color:var(--blue)">Trainer page</a> contains real hand spots. Filter for postflop FLOP tags to drill c-bet and draw decisions.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <script src="shared.js"></script>
+  <script>injectNav();</script>
+</body>
+</html>

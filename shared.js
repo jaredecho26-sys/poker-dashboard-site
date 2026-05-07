@@ -49,18 +49,27 @@ function cardsLargeHtml(arr) {
 // ── Nav injection ───────────────────────────────────────────────────────────
 function injectNav() {
   const page = location.pathname.split('/').pop() || 'index.html';
-  const links = [
+  const mainLinks = [
     { href: 'index.html',   label: '📊 Dashboard' },
     { href: 'trainer.html', label: '🎯 Trainer'   },
     { href: 'study.html',   label: '📚 Study'     },
   ];
+  const learnLinks = [
+    { href: 'learn-preflop.html',    label: '🃏 Preflop'    },
+    { href: 'learn-postflop.html',   label: '🌊 Postflop'   },
+    { href: 'learn-turn-river.html', label: '🔥 Turn/River' },
+  ];
+  const allLinks = [...mainLinks, null, ...learnLinks]; // null = separator
   const nav = document.createElement('nav');
   nav.className = 'site-nav';
   nav.innerHTML = `
     <div class="nav-inner">
       <a class="nav-logo" href="index.html">♠ Poker Lab</a>
       <div class="nav-links">
-        ${links.map(l => `<a href="${l.href}" class="nav-link${page === l.href ? ' active' : ''}">${l.label}</a>`).join('')}
+        ${allLinks.map(l => l === null
+          ? '<span class="nav-sep"></span>'
+          : `<a href="${l.href}" class="nav-link${page === l.href ? ' active' : ''}">${l.label}</a>`
+        ).join('')}
       </div>
     </div>`;
   document.body.prepend(nav);

@@ -333,7 +333,8 @@ canvas { width: 100% !important; height: 340px !important; }
   font-size: 18px; font-weight: 900; color: var(--blue);
   text-decoration: none; letter-spacing: .04em;
 }
-.nav-links { display: flex; gap: 4px; }
+.nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav-sep { width: 1px; height: 20px; background: var(--border); margin: auto 4px; flex-shrink: 0; }
 .nav-link {
   padding: 8px 16px; border-radius: 999px; color: var(--muted);
   text-decoration: none; font-size: 13px; font-weight: 600;

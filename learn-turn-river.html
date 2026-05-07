@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poker Lab — Turn &amp; River</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .learn-hero { margin-bottom: 28px; }
+    .learn-grid { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; margin-bottom: 18px; }
+    .learn-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .concept-card { background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; }
+    .concept-card h3 { margin: 0 0 10px; font-size: 16px; color: var(--text); }
+    .concept-card p  { margin: 0 0 8px; color: var(--muted); line-height: 1.55; font-size: 14px; }
+    .concept-card ul { margin: 6px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .highlight { color: var(--text); font-weight: 600; }
+    .tag-badge { display: inline-block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em; padding: 3px 10px;
+      border-radius: 999px; margin: 0 4px 4px 0; border: 1px solid; }
+    .tag-blue  { background: rgba(110,168,254,.12); border-color: rgba(110,168,254,.3); color: var(--blue); }
+    .tag-green { background: rgba(46,204,113,.1);   border-color: rgba(46,204,113,.3);  color: var(--green); }
+    .tag-red   { background: rgba(255,107,107,.1);  border-color: rgba(255,107,107,.3); color: var(--red); }
+    .tag-yellow{ background: rgba(246,196,69,.1);   border-color: rgba(246,196,69,.3);  color: var(--yellow); }
+    .heuristic-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05); }
+    .heuristic-row:last-child { border-bottom: none; }
+    .heuristic-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .heuristic-row h4 { margin: 0 0 4px; font-size: 14px; color: var(--text); }
+    .heuristic-row p  { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .checklist { list-style: none; padding: 0; margin: 0; }
+    .checklist li { padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: '☐'; color: var(--blue); font-size: 16px; flex-shrink: 0; }
+    .framework-step { display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+    .framework-step:last-child { border-bottom: none; }
+    .step-num { width: 32px; height: 32px; border-radius: 50%; background: rgba(110,168,254,.15);
+      border: 1px solid rgba(110,168,254,.3); color: var(--blue); font-weight: 800;
+      font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-body h4 { margin: 0 0 4px; font-size: 14px; color: var(--text); }
+    .step-body p  { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .blocker-card { background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px; }
+    .blocker-card h4 { margin: 0 0 6px; font-size: 14px; color: var(--text); }
+    .blocker-card p  { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .roadmap-item { padding: 12px; background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; margin-bottom: 10px; }
+    .roadmap-item:last-child { margin-bottom: 0; }
+    .roadmap-item h4 { margin: 0 0 4px; font-size: 14px; color: var(--text);
+      display: flex; align-items: center; gap: 8px; }
+    .roadmap-item p  { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .roadmap-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+      padding: 2px 8px; border-radius: 999px; border: 1px solid; }
+    .rb-now   { background: rgba(46,204,113,.1); border-color: rgba(46,204,113,.3); color: var(--green); }
+    .rb-soon  { background: rgba(246,196,69,.1); border-color: rgba(246,196,69,.3); color: var(--yellow); }
+    .rb-later { background: rgba(110,168,254,.12); border-color: rgba(110,168,254,.3); color: var(--blue); }
+    @media (max-width: 1024px) {
+      .learn-grid, .learn-grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero learn-hero">
+      <div>
+        <p class="eyebrow">Learning — Turn &amp; River</p>
+        <h1>Turn &amp; River Theory</h1>
+        <p class="sub">Barreling logic, river polarisation, blocker concepts, a decision framework, and a forward-looking study roadmap for later streets.</p>
+      </div>
+    </header>
+
+    <!-- turn barreling -->
+    <section class="card" style="margin-bottom:18px">
+      <div class="card-head"><h2>Turn Barreling Logic</h2></div>
+      <p style="color:var(--muted);font-size:14px;margin:0 0 16px;line-height:1.6">
+        A second barrel (turn bet after c-betting flop) should <span class="highlight">tell a consistent story</span>. The turn card changes the board significantly — a good barrel has a clear reason: improving your range, blanketing villain's draws, or denying equity on a draw-completing card.
+      </p>
+      <div class="learn-grid learn-grid-3" style="margin:0">
+        <div class="concept-card">
+          <h3>Good barrel cards</h3>
+          <p>Cards that improve your perceived range or charge draws heavily.</p>
+          <ul>
+            <li>Overcards to board (K on 742)</li>
+            <li>Cards that complete your story (A turn if you rep AK)</li>
+            <li>Blank turns on flush-draw-heavy flops (charge draws)</li>
+            <li>Pairing the board (you rep trips/boat)</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>Poor barrel cards</h3>
+          <p>Cards that complete draws or hurt your perceived range.</p>
+          <ul>
+            <li>Flush-completing cards when you have no flush</li>
+            <li>Straight-completing cards</li>
+            <li>Cards that improve low boards (villain's calling range)</li>
+            <li>Pairing the board when villain is likely full</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>Sizing on the turn</h3>
+          <p>Turn bets are generally larger than flop bets.</p>
+          <ul>
+            <li>Value: 60–80 % pot to deny equity + build pot for river</li>
+            <li>Bluff: 60–75 % pot — fold equity required to be profitable</li>
+            <li>After small flop bet: can use larger turn (range narrows)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- river value/bluff + blockers -->
+    <div class="learn-grid" style="margin-bottom:18px">
+      <section class="card">
+        <div class="card-head"><h2>River: Value vs Bluff</h2></div>
+        <p style="color:var(--muted);font-size:14px;margin:0 0 14px;line-height:1.6">
+          The river is a binary decision street — draws are resolved. Your range collapses to made hands + bluffs. The key is <span class="highlight">polarisation</span>: bet big with the nuts and air, check/call or check/fold with medium strength.
+        </p>
+        <div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">💰</div>
+            <div>
+              <h4>River value bet checklist</h4>
+              <p>Am I ahead of villain's calling range? Is the sizing maximising value while staying called? Am I blocking villain's strong continuing hands?</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">🃏</div>
+            <div>
+              <h4>River bluff checklist</h4>
+              <p>Do I block villain's calling hands? Do I unblock villain's folding hands? Is my bet size consistent with a value bet? Can villain find a fold?</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">⚖️</div>
+            <div>
+              <h4>Bluff-to-value ratio</h4>
+              <p>At pot-sized bet: ~50% of bets should be value. At ½ pot: ~67% value, ~33% bluffs for villain to be indifferent (minimum defence frequency math).</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">🔇</div>
+            <div>
+              <h4>Medium hands: check/call or check/fold</h4>
+              <p>Third pair, second pair, weak top pair — these are bluff-catchers. Don't bet them for "thin value" OOP; check and evaluate.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Blocker Concepts</h2></div>
+        <p style="color:var(--muted);font-size:14px;margin:0 0 14px;line-height:1.6">
+          Blockers reduce the number of combos in villain's range. A good river bluff <span class="highlight">blocks villain's calling hands</span> and <span class="highlight">unblocks villain's folding hands</span>.
+        </p>
+        <div style="display:grid;gap:10px">
+          <div class="blocker-card">
+            <h4>Ace blocker on a flush board</h4>
+            <p>Holding A♠ on A♠7♠2♠ turn bluffs blocks villain's nut flush (A♠X♠). You have fewer combos of nut flush to worry about on villain's side.</p>
+          </div>
+          <div class="blocker-card">
+            <h4>Nut blocker for bluffs</h4>
+            <p>If the river completes a nut straight (e.g., T on A-K-Q-J-T), holding the T blocks villain's nut straight — a useful bluff candidate.</p>
+          </div>
+          <div class="blocker-card">
+            <h4>Unblocking folds</h4>
+            <p>If you bluff a river that puts 4 to a flush, avoid holding a spade — you want villain to hold missed spade draws that will fold to your bluff.</p>
+          </div>
+          <div class="blocker-card">
+            <h4>Pair blockers for calls</h4>
+            <p>Holding top pair when bluff-catching means you block villain's value range (if they bet top pair for value). Adjust calling ranges accordingly.</p>
+          </div>
+        </div>
+        <p style="margin:12px 0 0;font-size:13px;color:var(--muted)">
+          <span class="tag-badge tag-yellow">Advanced</span> Blocker work becomes critical at mid-stakes. For now, focus on the simplest case: ace blockers on flush-completing boards.
+        </p>
+      </section>
+    </div>
+
+    <!-- decision framework -->
+    <section class="card" style="margin-bottom:18px">
+      <div class="card-head"><h2>Turn / River Decision Framework</h2></div>
+      <p style="color:var(--muted);font-size:14px;margin:0 0 14px;line-height:1.6">Run through these steps on every turn/river decision to slow down and avoid autopilot mistakes.</p>
+      <div>
+        <div class="framework-step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>What is my hand strength relative to this runout?</h4>
+            <p>Classify: nut, strong, medium, weak/bluff-catcher, air. Be honest — "top pair" on a four-flush is medium at best.</p>
+          </div>
+        </div>
+        <div class="framework-step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>What range did I represent on prior streets?</h4>
+            <p>Your actions told a story. Does continuing to bet (or checking) remain consistent with that story? Incongruent lines are transparent.</p>
+          </div>
+        </div>
+        <div class="framework-step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>How does the card change villain's range?</h4>
+            <p>Did the turn/river complete draws? Does it improve villain's calling range more than yours? Update your range reading accordingly.</p>
+          </div>
+        </div>
+        <div class="framework-step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Am I betting for value or as a bluff? Be explicit.</h4>
+            <p>Betting for "protection" or "to find out where I am" are red flags. Every bet should have a clear value or bluff purpose.</p>
+          </div>
+        </div>
+        <div class="framework-step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>Does the sizing match my range and objective?</h4>
+            <p>Value bets want to be called → size down on thin value. Bluffs need folds → size up to give poor pot odds. Match size to goal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- study roadmap + checklist -->
+    <div class="learn-grid" style="margin-bottom:18px">
+      <section class="card">
+        <div class="card-head"><h2>Study Roadmap</h2></div>
+        <p style="color:var(--muted);font-size:14px;margin:0 0 14px">Turn/river mastery takes time. Here's a phased roadmap to build depth systematically.</p>
+        <div>
+          <div class="roadmap-item">
+            <h4><span class="roadmap-badge rb-now">Now</span> Basics</h4>
+            <p>Decision framework + pot odds + simple blocker concept. Apply to every tagged hand in session review.</p>
+          </div>
+          <div class="roadmap-item">
+            <h4><span class="roadmap-badge rb-now">Now</span> HH tagging</h4>
+            <p>Tag all river spots as: value-bet, bluff, call, fold, or mistake. Build a dataset of decisions over 20+ sessions.</p>
+          </div>
+          <div class="roadmap-item">
+            <h4><span class="roadmap-badge rb-soon">Soon</span> Solver intro</h4>
+            <p>Pick one common spot (e.g. BTN c-bet IP, check-back turn, river overbet) and look at a solver tree. Understand polarisation visually.</p>
+          </div>
+          <div class="roadmap-item">
+            <h4><span class="roadmap-badge rb-soon">Soon</span> Barreling frequency</h4>
+            <p>Track your turn barrel rate in HH imports. Compare to solver baseline (~40–50% on most textures). Adjust if significantly off.</p>
+          </div>
+          <div class="roadmap-item">
+            <h4><span class="roadmap-badge rb-later">Later</span> Range vs range analysis</h4>
+            <p>Import full range vs range boards into a solver or equity calculator. Build intuition for who has the advantage on common runouts.</p>
+          </div>
+          <div class="roadmap-item">
+            <h4><span class="roadmap-badge rb-later">Later</span> Blocker-led river strategy</h4>
+            <p>Build a systematic approach to river bluff selection based on blockers/unblockers. This requires solid fundamentals first.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Turn / River Study Checklist</h2></div>
+        <ul class="checklist">
+          <li>Run decision framework on every turn spot in session review</li>
+          <li>Classify each river action: value / bluff / call / fold / unclear</li>
+          <li>Identify one river bluff that had bad blockers and one that had good blockers</li>
+          <li>Track how often you barrel the turn after c-betting flop</li>
+          <li>Review every time you bet medium strength hands on the river — were they bluff-catchers?</li>
+          <li>Find one spot where checking back had more EV than betting (protect checking range)</li>
+          <li>Study one solver line for a common board texture — understand polarisation shape</li>
+        </ul>
+        <div style="margin-top:16px">
+          <div style="background:var(--panel-2);border:1px solid var(--border);border-radius:14px;padding:16px">
+            <h4 style="margin:0 0 6px;font-size:14px;color:var(--text)">🎯 Use the Trainer</h4>
+            <p style="margin:0;font-size:13px;color:var(--muted)">Head to the <a href="trainer.html" style="color:var(--blue)">Trainer page</a> for real HH spots. Look for tagged hands with TURN or RIVER tags to drill these decisions with actual data from your sessions.</p>
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <div style="background:var(--panel-2);border:1px solid var(--border);border-radius:14px;padding:16px">
+            <h4 style="margin:0 0 6px;font-size:14px;color:var(--text)">📚 See also</h4>
+            <p style="margin:0;font-size:13px;color:var(--muted)">
+              <a href="learn-preflop.html" style="color:var(--blue)">Preflop</a> &amp; 
+              <a href="learn-postflop.html" style="color:var(--blue)">Postflop</a> pages cover the foundation — strong preflop ranges and c-bet logic make turn/river decisions far cleaner.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <script src="shared.js"></script>
+  <script>injectNav();</script>
+</body>
+</html>

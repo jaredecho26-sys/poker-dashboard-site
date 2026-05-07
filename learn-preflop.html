@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poker Lab — Preflop</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Learn-page extras ─── */
+    .learn-hero { margin-bottom: 28px; }
+    .section-label { color: var(--blue); font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .12em; margin: 0 0 8px; }
+    .learn-grid { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; margin-bottom: 18px; }
+    .learn-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .concept-card { background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; }
+    .concept-card h3 { margin: 0 0 10px; font-size: 16px; color: var(--text); }
+    .concept-card p  { margin: 0 0 8px; color: var(--muted); line-height: 1.55; font-size: 14px; }
+    .concept-card p:last-child { margin-bottom: 0; }
+    .concept-card ul { margin: 6px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .highlight { color: var(--text); font-weight: 600; }
+    .tag-badge { display: inline-block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em; padding: 3px 10px;
+      border-radius: 999px; margin: 0 4px 4px 0; border: 1px solid; }
+    .tag-blue  { background: rgba(110,168,254,.12); border-color: rgba(110,168,254,.3); color: var(--blue); }
+    .tag-green { background: rgba(46,204,113,.1);   border-color: rgba(46,204,113,.3);  color: var(--green); }
+    .tag-red   { background: rgba(255,107,107,.1);  border-color: rgba(255,107,107,.3); color: var(--red); }
+    .tag-yellow{ background: rgba(246,196,69,.1);   border-color: rgba(246,196,69,.3);  color: var(--yellow); }
+    .range-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+    .range-table th { color: var(--muted); font-size: 11px; text-transform: uppercase;
+      letter-spacing: .06em; padding: 8px 6px; border-bottom: 1px solid var(--border); text-align: left; }
+    .range-table td { padding: 9px 6px; border-bottom: 1px solid rgba(255,255,255,.05); vertical-align: top; }
+    .range-table tr:last-child td { border-bottom: none; }
+    .pos-chip { display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%; font-size: 11px; font-weight: 700;
+      border: 2px solid; }
+    .pos-ep  { background: rgba(255,107,107,.12); border-color: rgba(255,107,107,.4); color: var(--red); }
+    .pos-mp  { background: rgba(246,196,69,.1);   border-color: rgba(246,196,69,.35); color: var(--yellow); }
+    .pos-co  { background: rgba(110,168,254,.12); border-color: rgba(110,168,254,.35);color: var(--blue); }
+    .pos-btn { background: rgba(46,204,113,.1);   border-color: rgba(46,204,113,.3);  color: var(--green); }
+    .pos-sb  { background: rgba(178,191,216,.1);  border-color: rgba(178,191,216,.25);color: var(--gray); }
+    .pos-bb  { background: rgba(178,191,216,.1);  border-color: rgba(178,191,216,.25);color: var(--gray); }
+    .heuristic-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05); }
+    .heuristic-row:last-child { border-bottom: none; }
+    .heuristic-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .heuristic-row h4 { margin: 0 0 4px; font-size: 14px; color: var(--text); }
+    .heuristic-row p  { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .checklist { list-style: none; padding: 0; margin: 0; }
+    .checklist li { padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: '☐'; color: var(--blue); font-size: 16px; flex-shrink: 0; }
+    .drill-card { background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px; }
+    .drill-card h4 { margin: 0 0 6px; font-size: 14px; color: var(--text); }
+    .drill-card p  { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    @media (max-width: 1024px) {
+      .learn-grid, .learn-grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- hero -->
+    <header class="hero learn-hero">
+      <div>
+        <p class="eyebrow">Learning — Preflop</p>
+        <h1>Preflop Fundamentals</h1>
+        <p class="sub">Opening ranges, 3-bet strategy, big blind defence, combo math, and preflop heuristics to build a solid foundation before the flop.</p>
+      </div>
+    </header>
+
+    <!-- position overview -->
+    <section class="card" style="margin-bottom:18px">
+      <div class="card-head"><h2>Position &amp; Opening Ranges</h2></div>
+      <p style="color:var(--muted);margin:0 0 16px;font-size:14px;line-height:1.6">
+        Position is the single biggest lever in preflop decisions. The later you act post-flop, the wider you can profitably open. The table below summarises typical 6-max opening widths and their rationale.
+      </p>
+      <div style="overflow-x:auto">
+        <table class="range-table">
+          <thead>
+            <tr>
+              <th>Pos</th>
+              <th>Chip</th>
+              <th>Typical open %</th>
+              <th>Key holdings</th>
+              <th>Why so tight / wide?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>UTG</strong></td>
+              <td><span class="pos-chip pos-ep">UTG</span></td>
+              <td>~14 %</td>
+              <td>TT+, AJs+, KQs, AQo+</td>
+              <td>5 players left to act; expect resistance. Premium/nutted hands only.</td>
+            </tr>
+            <tr>
+              <td><strong>MP</strong></td>
+              <td><span class="pos-chip pos-mp">MP</span></td>
+              <td>~18 %</td>
+              <td>+ 99, ATs, KJs, QJs, AJo</td>
+              <td>One less player vs UTG; can add strong broadways and suited Ax.</td>
+            </tr>
+            <tr>
+              <td><strong>CO</strong></td>
+              <td><span class="pos-chip pos-co">CO</span></td>
+              <td>~25 %</td>
+              <td>+ 77–88, suited connectors, KQo</td>
+              <td>Only BTN/blinds left; position advantage grows, add speculative hands.</td>
+            </tr>
+            <tr>
+              <td><strong>BTN</strong></td>
+              <td><span class="pos-chip pos-btn">BTN</span></td>
+              <td>~42 %</td>
+              <td>+ all suited Ax, T9s–54s, Axo down to A7o</td>
+              <td>Always IP post-flop. Steal equity vs blinds. Widest profitable range.</td>
+            </tr>
+            <tr>
+              <td><strong>SB</strong></td>
+              <td><span class="pos-chip pos-sb">SB</span></td>
+              <td>~35 %</td>
+              <td>Similar to CO, tighter than BTN</td>
+              <td>Always OOP vs BB; must fight for pot with a positional handicap.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3-bet + BB defend -->
+    <div class="learn-grid" style="margin-bottom:18px">
+      <section class="card">
+        <div class="card-head"><h2>3-Bet Strategy</h2></div>
+        <p style="color:var(--muted);font-size:14px;margin:0 0 14px">A balanced 3-bet range has <span class="highlight">value hands</span> we want to build a pot with and <span class="highlight">bluffs</span> we're happy to fold to a 4-bet — ideally hands that block villain's nutted range.</p>
+        <div class="learn-grid learn-grid-3" style="margin:0">
+          <div class="concept-card">
+            <h3>Value tier</h3>
+            <ul>
+              <li>AA, KK, QQ, JJ</li>
+              <li>AKs, AKo</li>
+              <li>(IP: TT, AQs vs loose opens)</li>
+            </ul>
+          </div>
+          <div class="concept-card">
+            <h3>Bluff tier</h3>
+            <ul>
+              <li>A2s–A5s (IP/blind)</li>
+              <li>KQs, QJs (vs EP wide)</li>
+              <li>Suited connectors w/ blockers</li>
+            </ul>
+          </div>
+          <div class="concept-card">
+            <h3>Size</h3>
+            <ul>
+              <li>IP: ~2.5–3× open</li>
+              <li>OOP: ~3–3.5× open</li>
+              <li>vs BTN steal: can go 3.2× IP</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">
+          <span class="tag-badge tag-blue">Key concept</span>
+          A2–A5 suited are ideal 3-bet bluffs: they block AA/AK (villain's most likely 4-bet hands) and have reasonable equity when called.
+        </p>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>BB Defence (vs Open)</h2></div>
+        <p style="color:var(--muted);font-size:14px;margin:0 0 14px">The BB gets a discount to see flops. You <em>must</em> defend wide enough to prevent opponents from profitably stealing with any two cards.</p>
+        <table class="range-table">
+          <thead>
+            <tr><th>Vs open from</th><th>Min defence %</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>BTN 2.5×</td><td>~44 %</td><td>Wide — suited connectors, weak Ax, offsuit broadways</td></tr>
+            <tr><td>CO 2.5×</td><td>~38 %</td><td>Can tighten slightly; CO range is stronger</td></tr>
+            <tr><td>MP 2.5×</td><td>~30 %</td><td>MP opens tight; less need to defend 2-gappers</td></tr>
+            <tr><td>UTG 3×</td><td>~25 %</td><td>UTG range crushes; fold all non-connected rags</td></tr>
+          </tbody>
+        </table>
+        <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">
+          <span class="tag-badge tag-yellow">Reminder</span>
+          Being OOP post-flop costs equity. Calling with speculative hands (suited connectors, pairs) in BB is fine — but have a plan for common board textures.
+        </p>
+      </section>
+    </div>
+
+    <!-- combo math + heuristics -->
+    <div class="learn-grid" style="margin-bottom:18px">
+      <section class="card">
+        <div class="card-head"><h2>Combo Math Reference</h2></div>
+        <p style="color:var(--muted);font-size:14px;margin:0 0 14px">Understanding combos helps size ranges and think about villain's exact holdings.</p>
+        <table class="range-table">
+          <thead><tr><th>Hand type</th><th>Combos</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>AA / any pair</td><td>6</td><td>C(4,2) = 6 combos per pair</td></tr>
+            <tr><td>AKs (suited only)</td><td>4</td><td>One per suit</td></tr>
+            <tr><td>AKo (offsuit only)</td><td>12</td><td>4 × 3 = 12</td></tr>
+            <tr><td>AK total</td><td>16</td><td>4 suited + 12 offsuit</td></tr>
+            <tr><td>Any suited combo</td><td>4</td><td>Always 4 combos (one per suit)</td></tr>
+            <tr><td>Any offsuit combo</td><td>12</td><td>Always 12 combos</td></tr>
+          </tbody>
+        </table>
+        <p style="margin:14px 0 0;font-size:13px;color:var(--muted)">
+          <span class="tag-badge tag-green">Drill tip</span>
+          When a villain 3-bets you: AA has 6 combos, KK 6, QQ 6, JJ 6, AKs 4, AKo 12 — that's 40 total value combos in a tight 3-bet range. How many bluffs need to be added for a balanced range at 3:1 pot odds?
+        </p>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Preflop Heuristics</h2></div>
+        <div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">📍</div>
+            <div>
+              <h4>Position > cards (mostly)</h4>
+              <p>A mediocre hand IP is often better than a marginal hand OOP. Fold J9o UTG, open it BTN.</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">🔢</div>
+            <div>
+              <h4>Raise size should be consistent</h4>
+              <p>Vary size by stack depth and player pool, not by hand strength. 2.5× most spots; 3× vs loose BB.</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">🃏</div>
+            <div>
+              <h4>Suitedness > connectedness</h4>
+              <p>A7s &gt; J9o in almost every spot. Suited cards add ~3–4 % equity vs a random hand.</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">⚖️</div>
+            <div>
+              <h4>Don't cold-call too wide</h4>
+              <p>Cold-calling a 3-bet is often dominated. Have a clear 4-bet or fold plan with marginal hands.</p>
+            </div>
+          </div>
+          <div class="heuristic-row">
+            <div class="heuristic-icon">🎯</div>
+            <div>
+              <h4>Stack depth changes everything</h4>
+              <p>At 40bb: shove/fold. At 100bb: normal ranges apply. At 200bb+: implied odds up, speculative hands gain value.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- study checklist + drill ideas -->
+    <div class="learn-grid" style="margin-bottom:18px">
+      <section class="card">
+        <div class="card-head"><h2>Preflop Study Checklist</h2></div>
+        <ul class="checklist">
+          <li>Memorise UTG open range (≈ 14 %) cold</li>
+          <li>Practice BTN open from SB defence perspective — what do you 3-bet/call/fold?</li>
+          <li>Know your 3-bet value hands by position (EP vs LP open)</li>
+          <li>Add A2s–A5s as 3-bet bluffs IP — track results for 50 sessions</li>
+          <li>Review BB defend decisions in your last session HH</li>
+          <li>Quiz yourself on combo counts for common 3-bet ranges</li>
+          <li>Identify one spot per session where you called/folded incorrectly preflop</li>
+        </ul>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Drill Ideas</h2></div>
+        <div style="display:grid;gap:10px">
+          <div class="drill-card">
+            <h4>🎴 Range flashcard drill</h4>
+            <p>Pick a random position + position opener. List your calling, 3-bet, and fold combos aloud before checking vs chart.</p>
+          </div>
+          <div class="drill-card">
+            <h4>🔄 Combo counting warm-up</h4>
+            <p>Before each session: pick 3 hands (e.g. KQs, 99, AJo) and state their combo counts and blockers from memory.</p>
+          </div>
+          <div class="drill-card">
+            <h4>📹 HH spot review</h4>
+            <p>Pull 3 preflop decisions from your last session. Mark each as correct / leak / marginal and note why.</p>
+          </div>
+          <div class="drill-card">
+            <h4>🎯 Use the Trainer</h4>
+            <p>Head to the <a href="trainer.html" style="color:var(--blue)">Trainer page</a> for interactive preflop quizzes from real HH spots.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <script src="shared.js"></script>
+  <script>injectNav();</script>
+</body>
+</html>

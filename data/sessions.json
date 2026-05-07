@@ -21,5 +21,24 @@
     "buyIns": 400.0,
     "cashOut": 200.87,
     "resultSource": "manual"
+  },
+  {
+    "id": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "platform": "WSOP NV",
+    "sourceFile": "wsop_2026-05-07_session2.txt",
+    "hero": "PopeMyCherry",
+    "startedAt": "2026-05-07T16:26:14Z",
+    "endedAt": "2026-05-07T17:12:43Z",
+    "hands": 58,
+    "result": -132.33,
+    "vpipPct": 31.0,
+    "pfrPct": 15.5,
+    "threeBetPct": 0.0,
+    "sawFlopPct": 44.8,
+    "showdowns": 13,
+    "biggestWin": 66.24,
+    "biggestLoss": -120.14,
+    "notes": "",
+    "studyFocus": ""
   }
 ]

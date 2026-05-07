@@ -351,5 +351,321 @@
         "amount": 0.0
       }
     ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "handId": "2732165688",
+    "timestamp": "2026-05-07T16:27:06Z",
+    "heroCards": "As 2s",
+    "board": [
+      "9d",
+      "Td",
+      "3s",
+      "7h"
+    ],
+    "net": -16.0,
+    "tag": "study",
+    "note": "Medium pot with multiple decisions; useful for leak review.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $11.00",
+        "amount": 11.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "handId": "2732167490",
+    "timestamp": "2026-05-07T16:29:45Z",
+    "heroCards": "9c 5c",
+    "board": [
+      "As",
+      "9h",
+      "4c",
+      "9s",
+      "2c"
+    ],
+    "net": 66.24,
+    "tag": "good",
+    "note": "Large winning hand worth reviewing for value line quality.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.00",
+        "amount": 4.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.95",
+        "amount": 4.95
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "call",
+        "line": "PopeMyCherry calls $17.92",
+        "amount": 17.92
+      },
+      {
+        "street": "RIVER",
+        "type": "bet",
+        "line": "PopeMyCherry bets $35.37",
+        "amount": 35.37
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "handId": "2732168435",
+    "timestamp": "2026-05-07T16:31:05Z",
+    "heroCards": "Jd Qd",
+    "board": [
+      "3h",
+      "Td",
+      "2d",
+      "As"
+    ],
+    "net": -17.76,
+    "tag": "study",
+    "note": "Medium pot with multiple decisions; useful for leak review.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $3.63",
+        "amount": 3.63
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $9.13",
+        "amount": 9.13
+      },
+      {
+        "street": "TURN",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "handId": "2732179895",
+    "timestamp": "2026-05-07T16:47:18Z",
+    "heroCards": "9h Ks",
+    "board": [
+      "Jc",
+      "Kc",
+      "Qd",
+      "9s",
+      "4s"
+    ],
+    "net": -43.4,
+    "tag": "bad",
+    "note": "Large losing hand worth reviewing for structural leak or unavoidable variance.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.40",
+        "amount": 4.4
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $4.89",
+        "amount": 4.89
+      },
+      {
+        "street": "TURN",
+        "type": "call",
+        "line": "PopeMyCherry calls $11.22",
+        "amount": 11.22
+      },
+      {
+        "street": "RIVER",
+        "type": "call",
+        "line": "PopeMyCherry calls $22.89",
+        "amount": 22.89
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "handId": "2732185653",
+    "timestamp": "2026-05-07T16:57:56Z",
+    "heroCards": "Qh Jh",
+    "board": [
+      "Qd",
+      "Ts",
+      "8h",
+      "Qc",
+      "2s"
+    ],
+    "net": -120.14,
+    "tag": "bad",
+    "note": "Large losing hand worth reviewing for structural leak or unavoidable variance.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $4.63",
+        "amount": 4.63
+      },
+      {
+        "street": "TURN",
+        "type": "raise",
+        "line": "PopeMyCherry raises $50.19 to $50.19",
+        "amount": 50.19
+      },
+      {
+        "street": "RIVER",
+        "type": "bet",
+        "line": "PopeMyCherry bets $60.32",
+        "amount": 60.32
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "handId": "2732190705",
+    "timestamp": "2026-05-07T17:07:18Z",
+    "heroCards": "8c 3c",
+    "board": [
+      "4h",
+      "8d",
+      "Ts",
+      "Th",
+      "Ac"
+    ],
+    "net": -12.0,
+    "tag": "study",
+    "note": "Medium pot with multiple decisions; useful for leak review.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "bet",
+        "line": "PopeMyCherry bets $7.00",
+        "amount": 7.0
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      }
+    ]
+  },
+  {
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2",
+    "handId": "2732192927",
+    "timestamp": "2026-05-07T17:10:31Z",
+    "heroCards": "As Jh",
+    "board": [
+      "3d",
+      "8s",
+      "9c",
+      "Qs",
+      "3h"
+    ],
+    "net": -16.0,
+    "tag": "study",
+    "note": "Medium pot with multiple decisions; useful for leak review.",
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $3.63",
+        "amount": 3.63
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $7.37",
+        "amount": 7.37
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "RIVER",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ]
   }
 ]

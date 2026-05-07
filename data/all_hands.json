@@ -3734,5 +3734,1992 @@
       }
     ],
     "sessionId": "wsop nv-2026-05-07-wsop_2026-05-06_session1"
+  },
+  {
+    "handId": "2732165088",
+    "timestamp": "2026-05-07T16:26:14Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "8s Qc",
+    "heroStartStack": 200.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 3.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 3.0,
+    "actions": [],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732165226",
+    "timestamp": "2026-05-07T16:26:26Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "8d 7h",
+    "heroStartStack": 201.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732165408",
+    "timestamp": "2026-05-07T16:26:41Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Qs Tc",
+    "heroStartStack": 200.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732165688",
+    "timestamp": "2026-05-07T16:27:06Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "As 2s",
+    "heroStartStack": 200.0,
+    "board": [
+      "9d",
+      "Td",
+      "3s",
+      "7h"
+    ],
+    "vpip": true,
+    "pfr": true,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 16.0,
+    "net": -16.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $11.00",
+        "amount": 11.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732166732",
+    "timestamp": "2026-05-07T16:28:37Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "4s 6c",
+    "heroStartStack": 200.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732167136",
+    "timestamp": "2026-05-07T16:29:13Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "3h 9s",
+    "heroStartStack": 200.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732167490",
+    "timestamp": "2026-05-07T16:29:45Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "9c 5c",
+    "heroStartStack": 200.0,
+    "board": [
+      "As",
+      "9h",
+      "4c",
+      "9s",
+      "2c"
+    ],
+    "vpip": true,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 128.48,
+    "returned": 0.0,
+    "contributed": 62.24,
+    "net": 66.24,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.00",
+        "amount": 4.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.95",
+        "amount": 4.95
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "call",
+        "line": "PopeMyCherry calls $17.92",
+        "amount": 17.92
+      },
+      {
+        "street": "RIVER",
+        "type": "bet",
+        "line": "PopeMyCherry bets $35.37",
+        "amount": 35.37
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732168435",
+    "timestamp": "2026-05-07T16:31:05Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Jd Qd",
+    "heroStartStack": 265.24,
+    "board": [
+      "3h",
+      "Td",
+      "2d",
+      "As"
+    ],
+    "vpip": true,
+    "pfr": true,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 17.76,
+    "net": -17.76,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $3.63",
+        "amount": 3.63
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $9.13",
+        "amount": 9.13
+      },
+      {
+        "street": "TURN",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732169319",
+    "timestamp": "2026-05-07T16:32:20Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Ah As",
+    "heroStartStack": 247.48,
+    "board": [],
+    "vpip": true,
+    "pfr": true,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 5.0,
+    "returned": 0.0,
+    "contributed": 5.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732169636",
+    "timestamp": "2026-05-07T16:32:46Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Js Td",
+    "heroStartStack": 250.48,
+    "board": [
+      "8d",
+      "2h",
+      "Ad",
+      "6d",
+      "As"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732171006",
+    "timestamp": "2026-05-07T16:34:40Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "8h 5c",
+    "heroStartStack": 250.48,
+    "board": [
+      "6s",
+      "Ac",
+      "Tc",
+      "7h"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732171573",
+    "timestamp": "2026-05-07T16:35:29Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "9s 4h",
+    "heroStartStack": 250.48,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732171937",
+    "timestamp": "2026-05-07T16:36:00Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "2h 4d",
+    "heroStartStack": 248.48,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732172269",
+    "timestamp": "2026-05-07T16:36:27Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "6h Ac",
+    "heroStartStack": 247.48,
+    "board": [],
+    "vpip": true,
+    "pfr": true,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 5.0,
+    "returned": 0.0,
+    "contributed": 5.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732172586",
+    "timestamp": "2026-05-07T16:36:54Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Ah 7d",
+    "heroStartStack": 250.48,
+    "board": [
+      "Jh",
+      "Js",
+      "8h",
+      "9c",
+      "Th"
+    ],
+    "vpip": true,
+    "pfr": true,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 10.45,
+    "returned": 0.0,
+    "contributed": 5.0,
+    "net": 5.45,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732173484",
+    "timestamp": "2026-05-07T16:38:11Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "4s 4h",
+    "heroStartStack": 255.93,
+    "board": [
+      "8d",
+      "4d",
+      "Qd",
+      "Qc",
+      "7s"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732174423",
+    "timestamp": "2026-05-07T16:39:31Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "8d 4h",
+    "heroStartStack": 255.93,
+    "board": [
+      "5c",
+      "7c",
+      "4c",
+      "2c",
+      "5h"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732176560",
+    "timestamp": "2026-05-07T16:42:33Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "3d 5s",
+    "heroStartStack": 255.93,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 3.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 3.0,
+    "actions": [],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732176841",
+    "timestamp": "2026-05-07T16:42:56Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Td Ks",
+    "heroStartStack": 256.93,
+    "board": [
+      "2s",
+      "2c",
+      "5h",
+      "Qc",
+      "5d"
+    ],
+    "vpip": true,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 7.0,
+    "net": -7.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.00",
+        "amount": 4.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $3.00",
+        "amount": 3.0
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732177549",
+    "timestamp": "2026-05-07T16:43:55Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Td 9h",
+    "heroStartStack": 248.93,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732177795",
+    "timestamp": "2026-05-07T16:44:16Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "4d Tc",
+    "heroStartStack": 248.93,
+    "board": [
+      "Qs",
+      "3s",
+      "3h"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732178327",
+    "timestamp": "2026-05-07T16:45:02Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Jh Td",
+    "heroStartStack": 248.93,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732178520",
+    "timestamp": "2026-05-07T16:45:18Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "8h Kc",
+    "heroStartStack": 248.93,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732178747",
+    "timestamp": "2026-05-07T16:45:38Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "2h Ad",
+    "heroStartStack": 248.93,
+    "board": [
+      "2s",
+      "5c",
+      "2c",
+      "2d",
+      "3c"
+    ],
+    "vpip": true,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 24.7,
+    "returned": 0.0,
+    "contributed": 10.5,
+    "net": 14.2,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $2.00",
+        "amount": 2.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "bet",
+        "line": "PopeMyCherry bets $2.00",
+        "amount": 2.0
+      },
+      {
+        "street": "RIVER",
+        "type": "bet",
+        "line": "PopeMyCherry bets $6.50",
+        "amount": 6.5
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732179266",
+    "timestamp": "2026-05-07T16:46:23Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "7d 9c",
+    "heroStartStack": 261.13,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732179608",
+    "timestamp": "2026-05-07T16:46:53Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "9h 3h",
+    "heroStartStack": 260.13,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732179895",
+    "timestamp": "2026-05-07T16:47:18Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "9h Ks",
+    "heroStartStack": 260.13,
+    "board": [
+      "Jc",
+      "Kc",
+      "Qd",
+      "9s",
+      "4s"
+    ],
+    "vpip": true,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 43.4,
+    "net": -43.4,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.40",
+        "amount": 4.4
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $4.89",
+        "amount": 4.89
+      },
+      {
+        "street": "TURN",
+        "type": "call",
+        "line": "PopeMyCherry calls $11.22",
+        "amount": 11.22
+      },
+      {
+        "street": "RIVER",
+        "type": "call",
+        "line": "PopeMyCherry calls $22.89",
+        "amount": 22.89
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732180778",
+    "timestamp": "2026-05-07T16:48:37Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Ks Jd",
+    "heroStartStack": 216.73,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732181021",
+    "timestamp": "2026-05-07T16:48:59Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Tc Kh",
+    "heroStartStack": 216.73,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732181511",
+    "timestamp": "2026-05-07T16:49:43Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Jh 7c",
+    "heroStartStack": 216.73,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732181751",
+    "timestamp": "2026-05-07T16:50:04Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "2c 8d",
+    "heroStartStack": 214.73,
+    "board": [
+      "9c",
+      "Qs",
+      "Kd",
+      "4c",
+      "5h"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732183490",
+    "timestamp": "2026-05-07T16:52:35Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Jd 9h",
+    "heroStartStack": 213.73,
+    "board": [
+      "Qc",
+      "6c",
+      "Ah",
+      "Ks",
+      "2s"
+    ],
+    "vpip": true,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 4.0,
+    "net": -4.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.00",
+        "amount": 4.0
+      },
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732184290",
+    "timestamp": "2026-05-07T16:53:42Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "6d 8h",
+    "heroStartStack": 209.73,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732184496",
+    "timestamp": "2026-05-07T16:54:00Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "3h 6c",
+    "heroStartStack": 209.73,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732184786",
+    "timestamp": "2026-05-07T16:54:25Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "As Ad",
+    "heroStartStack": 209.73,
+    "board": [
+      "9d",
+      "3c",
+      "7d",
+      "8h",
+      "4h"
+    ],
+    "vpip": true,
+    "pfr": true,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 54.08,
+    "returned": 0.0,
+    "contributed": 27.96,
+    "net": 26.12,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $3.63",
+        "amount": 3.63
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $8.02",
+        "amount": 8.02
+      },
+      {
+        "street": "TURN",
+        "type": "call",
+        "line": "PopeMyCherry calls $11.31",
+        "amount": 11.31
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732185258",
+    "timestamp": "2026-05-07T16:55:31Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "4h 2c",
+    "heroStartStack": 235.85,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732185328",
+    "timestamp": "2026-05-07T16:55:56Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "3c Jh",
+    "heroStartStack": 233.85,
+    "board": [
+      "7s",
+      "4d",
+      "Qs",
+      "6d",
+      "6h"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732185556",
+    "timestamp": "2026-05-07T16:57:23Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Ks 3d",
+    "heroStartStack": 232.85,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732185608",
+    "timestamp": "2026-05-07T16:57:39Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "8d Tc",
+    "heroStartStack": 232.85,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732185653",
+    "timestamp": "2026-05-07T16:57:56Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Qh Jh",
+    "heroStartStack": 232.85,
+    "board": [
+      "Qd",
+      "Ts",
+      "8h",
+      "Qc",
+      "2s"
+    ],
+    "vpip": true,
+    "pfr": true,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 120.14,
+    "net": -120.14,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $4.63",
+        "amount": 4.63
+      },
+      {
+        "street": "TURN",
+        "type": "raise",
+        "line": "PopeMyCherry raises $50.19 to $50.19",
+        "amount": 50.19
+      },
+      {
+        "street": "RIVER",
+        "type": "bet",
+        "line": "PopeMyCherry bets $60.32",
+        "amount": 60.32
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732185855",
+    "timestamp": "2026-05-07T16:59:06Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Ah Td",
+    "heroStartStack": 200.0,
+    "board": [
+      "3d",
+      "4s",
+      "3h",
+      "7c"
+    ],
+    "vpip": true,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 3.0,
+    "net": -3.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $3.00",
+        "amount": 3.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732186016",
+    "timestamp": "2026-05-07T16:59:56Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "2s 6c",
+    "heroStartStack": 200.0,
+    "board": [
+      "Ah",
+      "Th",
+      "Kd",
+      "5d",
+      "Kh"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732186803",
+    "timestamp": "2026-05-07T17:01:44Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Kh Qd",
+    "heroStartStack": 200.0,
+    "board": [],
+    "vpip": true,
+    "pfr": true,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 5.0,
+    "returned": 0.0,
+    "contributed": 5.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732187084",
+    "timestamp": "2026-05-07T17:02:03Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Tc 7d",
+    "heroStartStack": 203.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732187183",
+    "timestamp": "2026-05-07T17:02:17Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Kd Ts",
+    "heroStartStack": 203.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732187382",
+    "timestamp": "2026-05-07T17:02:38Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "9d 2h",
+    "heroStartStack": 203.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732187830",
+    "timestamp": "2026-05-07T17:03:20Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Qh 2s",
+    "heroStartStack": 201.0,
+    "board": [
+      "7d",
+      "5d",
+      "3s",
+      "Th",
+      "7s"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732189598",
+    "timestamp": "2026-05-07T17:05:48Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "6s Ah",
+    "heroStartStack": 200.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732189840",
+    "timestamp": "2026-05-07T17:06:09Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Js 8c",
+    "heroStartStack": 200.0,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732190206",
+    "timestamp": "2026-05-07T17:06:39Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "8d 9h",
+    "heroStartStack": 200.0,
+    "board": [
+      "4h",
+      "3h",
+      "7c"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732190705",
+    "timestamp": "2026-05-07T17:07:18Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "8c 3c",
+    "heroStartStack": 200.0,
+    "board": [
+      "4h",
+      "8d",
+      "Ts",
+      "Th",
+      "Ac"
+    ],
+    "vpip": true,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": true,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 12.0,
+    "net": -12.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "bet",
+        "line": "PopeMyCherry bets $7.00",
+        "amount": 7.0
+      },
+      {
+        "street": "RIVER",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732191311",
+    "timestamp": "2026-05-07T17:08:11Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "5s 6h",
+    "heroStartStack": 200.0,
+    "board": [
+      "6s",
+      "Jh",
+      "Qh",
+      "Ts",
+      "Ac"
+    ],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732192014",
+    "timestamp": "2026-05-07T17:09:13Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "8d 8c",
+    "heroStartStack": 200.0,
+    "board": [
+      "Qd",
+      "6h",
+      "2c",
+      "4d"
+    ],
+    "vpip": true,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 8.04,
+    "net": -8.04,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $4.25",
+        "amount": 4.25
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $3.79",
+        "amount": 3.79
+      },
+      {
+        "street": "TURN",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732192688",
+    "timestamp": "2026-05-07T17:10:09Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Qs 9s",
+    "heroStartStack": 191.96,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732192927",
+    "timestamp": "2026-05-07T17:10:31Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "As Jh",
+    "heroStartStack": 191.96,
+    "board": [
+      "3d",
+      "8s",
+      "9c",
+      "Qs",
+      "3h"
+    ],
+    "vpip": true,
+    "pfr": true,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 16.0,
+    "net": -16.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "raise",
+        "line": "PopeMyCherry raises $5.00 to $5.00",
+        "amount": 5.0
+      },
+      {
+        "street": "FLOP",
+        "type": "bet",
+        "line": "PopeMyCherry bets $3.63",
+        "amount": 3.63
+      },
+      {
+        "street": "FLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $7.37",
+        "amount": 7.37
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "RIVER",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732193878",
+    "timestamp": "2026-05-07T17:11:57Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Th 3s",
+    "heroStartStack": 175.96,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732194100",
+    "timestamp": "2026-05-07T17:12:16Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "Td 5c",
+    "heroStartStack": 175.96,
+    "board": [],
+    "vpip": false,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": false,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 0.0,
+    "net": 0.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
+  },
+  {
+    "handId": "2732194384",
+    "timestamp": "2026-05-07T17:12:43Z",
+    "gameType": "Holdem (No Limit)",
+    "stakes": "$1.00/$2.00",
+    "heroCards": "6s As",
+    "heroStartStack": 173.96,
+    "board": [
+      "9s",
+      "2h",
+      "9h",
+      "6h",
+      "Jh"
+    ],
+    "vpip": true,
+    "pfr": false,
+    "threeBet": false,
+    "sawFlop": true,
+    "showdown": false,
+    "collected": 0.0,
+    "returned": 0.0,
+    "contributed": 3.0,
+    "net": -3.0,
+    "actions": [
+      {
+        "street": "PREFLOP",
+        "type": "call",
+        "line": "PopeMyCherry calls $3.00",
+        "amount": 3.0
+      },
+      {
+        "street": "FLOP",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "check",
+        "line": "PopeMyCherry checks",
+        "amount": 0.0
+      },
+      {
+        "street": "TURN",
+        "type": "fold",
+        "line": "PopeMyCherry folds",
+        "amount": 0.0
+      }
+    ],
+    "sessionId": "wsop nv-2026-05-07-wsop_2026-05-07_session2"
   }
 ]

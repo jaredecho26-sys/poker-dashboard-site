@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poker Lab — Drills</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Drill-specific styles ─────────────────────────────────────────── */
+    .drill-shell { max-width: 680px; margin: 0 auto; }
+
+    .drill-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .drill-tab {
+      padding: 10px 18px; border: 1px solid var(--border); background: transparent;
+      color: var(--muted); border-radius: 999px; cursor: pointer; font-size: 14px;
+      font-weight: 600; transition: all .15s; font-family: inherit;
+    }
+    .drill-tab:hover { border-color: var(--blue); color: var(--text); }
+    .drill-tab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+    .drill-stats-row {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .drill-stat-pill {
+      background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 8px 14px; font-size: 13px; color: var(--muted);
+    }
+    .drill-stat-pill strong { color: var(--text); }
+
+    .drill-card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 20px;
+      padding: 28px 24px; margin-bottom: 20px;
+    }
+    .drill-label {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em;
+      color: var(--blue); margin-bottom: 14px;
+    }
+    .drill-prompt {
+      font-size: 17px; line-height: 1.6; color: var(--text); margin-bottom: 24px;
+      white-space: pre-wrap;
+    }
+
+    .drill-answer-zone { display: none; }
+    .drill-answer-zone.visible { display: block; }
+
+    .drill-answer-box {
+      background: var(--panel-2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px; margin-bottom: 16px;
+    }
+    .drill-answer-correct { border-color: var(--green) !important; }
+    .drill-answer-wrong   { border-color: var(--red) !important; }
+
+    .drill-answer-value {
+      font-size: 26px; font-weight: 800; color: var(--green); margin-bottom: 6px;
+    }
+    .drill-answer-formula {
+      font-size: 13px; color: var(--blue); font-family: monospace; margin-bottom: 8px;
+    }
+    .drill-answer-detail { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+    /* Quick answer buttons for pot odds / equity */
+    .drill-choices {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;
+    }
+    .drill-choice {
+      padding: 16px 12px; border: 1px solid var(--border); background: var(--panel-2);
+      color: var(--text); border-radius: 14px; cursor: pointer; font-size: 16px;
+      font-weight: 700; text-align: center; transition: all .15s; font-family: inherit;
+    }
+    .drill-choice:hover { border-color: var(--blue); background: rgba(110,168,254,.1); }
+    .drill-choice.correct { background: rgba(46,204,113,.18); border-color: var(--green); color: var(--green); }
+    .drill-choice.wrong   { background: rgba(255,107,107,.12); border-color: var(--red); color: var(--red); }
+    .drill-choice:disabled { cursor: default; }
+
+    .drill-btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .drill-btn {
+      padding: 14px 22px; border: none; border-radius: 14px; cursor: pointer;
+      font-size: 15px; font-weight: 700; transition: all .15s; font-family: inherit;
+    }
+    .drill-btn-primary { background: var(--blue); color: #fff; }
+    .drill-btn-primary:hover { background: #4d8df7; }
+    .drill-btn-ghost {
+      background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    }
+    .drill-btn-ghost:hover { border-color: var(--blue); }
+    .drill-btn-danger { background: rgba(255,107,107,.15); border: 1px solid var(--red); color: var(--red); }
+    .drill-btn-danger:hover { background: rgba(255,107,107,.25); }
+
+    .drill-reveal-btn {
+      width: 100%; padding: 16px; background: var(--panel-2); border: 1px dashed var(--border);
+      color: var(--muted); border-radius: 14px; cursor: pointer; font-size: 15px;
+      font-weight: 700; font-family: inherit; margin-bottom: 16px; transition: all .15s;
+    }
+    .drill-reveal-btn:hover { border-color: var(--blue); color: var(--text); }
+
+    .drill-progress {
+      height: 6px; background: var(--panel-2); border-radius: 3px; margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .drill-progress-fill { height: 100%; background: var(--blue); transition: width .3s; border-radius: 3px; }
+
+    .drill-hand-actions {
+      background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px; font-size: 13px; color: var(--muted); line-height: 1.7;
+      font-family: monospace; white-space: pre-wrap; max-height: 260px; overflow: auto;
+      margin-bottom: 16px;
+    }
+
+    .drill-result-screen {
+      text-align: center; padding: 40px 20px; display: none;
+    }
+    .drill-result-screen.visible { display: block; }
+    .drill-result-big { font-size: 60px; margin-bottom: 16px; }
+    .drill-result-score { font-size: 36px; font-weight: 800; color: var(--green); margin-bottom: 8px; }
+    .drill-result-sub { color: var(--muted); font-size: 16px; margin-bottom: 32px; }
+
+    .wrong-list { text-align: left; margin-top: 24px; }
+    .wrong-list h3 { font-size: 16px; color: var(--yellow); margin-bottom: 12px; }
+    .wrong-item {
+      background: var(--panel-2); border: 1px solid rgba(255,107,107,.25); border-radius: 12px;
+      padding: 12px 14px; margin-bottom: 10px; font-size: 13px; color: var(--muted);
+    }
+    .wrong-item strong { color: var(--text); display: block; margin-bottom: 4px; }
+
+    @media (max-width: 600px) {
+      .drill-card { padding: 20px 16px; }
+      .drill-prompt { font-size: 15px; }
+      .drill-choices { grid-template-columns: 1fr 1fr; }
+      .drill-choice { padding: 14px 8px; font-size: 14px; }
+      .drill-btn { padding: 13px 16px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Practice Mode</p>
+        <h1>🎯 Poker Drills</h1>
+        <p class="sub">Pot odds, outs counting, equity math, and real hand review flashcards. All answers are formula-derived — no guessed ranges, no theory speculation.</p>
+      </div>
+    </header>
+
+    <div class="drill-shell">
+      <!-- Category tabs -->
+      <div class="drill-tabs" id="drillTabs">
+        <button class="drill-tab active" data-cat="all">All Categories</button>
+        <button class="drill-tab" data-cat="potOdds">💰 Pot Odds</button>
+        <button class="drill-tab" data-cat="outs">🃏 Outs Counting</button>
+        <button class="drill-tab" data-cat="equity">📐 Equity</button>
+        <button class="drill-tab" data-cat="handReview">📋 Hand Review</button>
+      </div>
+
+      <!-- Stats row -->
+      <div class="drill-stats-row" id="drillStatsRow">
+        <div class="drill-stat-pill">Question <strong id="statCurrent">1</strong> of <strong id="statTotal">—</strong></div>
+        <div class="drill-stat-pill">Correct: <strong id="statCorrect" style="color:var(--green)">0</strong></div>
+        <div class="drill-stat-pill">Wrong: <strong id="statWrong" style="color:var(--red)">0</strong></div>
+        <div class="drill-stat-pill">Remaining: <strong id="statRemaining">—</strong></div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="drill-progress"><div class="drill-progress-fill" id="drillProgressFill" style="width:0%"></div></div>
+
+      <!-- Active drill card -->
+      <div id="drillCardArea"></div>
+
+      <!-- Result screen -->
+      <div class="drill-result-screen" id="drillResultScreen">
+        <div class="drill-result-big" id="resultEmoji">🎉</div>
+        <div class="drill-result-score" id="resultScore"></div>
+        <div class="drill-result-sub" id="resultSub"></div>
+        <div class="drill-btn-row" style="justify-content:center;gap:12px;flex-wrap:wrap">
+          <button class="drill-btn drill-btn-primary" id="btnRetryAll">🔄 Retry All</button>
+          <button class="drill-btn drill-btn-ghost" id="btnRetryWrong">⚠️ Retry Wrong Only</button>
+          <button class="drill-btn drill-btn-ghost" id="btnShuffle">🔀 Shuffle New</button>
+        </div>
+        <div class="wrong-list" id="wrongList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script src="data/drill-scenarios.js"></script>
+  <script src="drills.js"></script>
+</body>
+</html>

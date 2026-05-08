@@ -52,6 +52,7 @@ function injectNav() {
   const mainLinks = [
     { href: 'index.html',   label: '📊 Dashboard' },
     { href: 'trainer.html', label: '🎯 Trainer'   },
+    { href: 'drills.html',  label: '🎯 Drills'    },
     { href: 'study.html',   label: '📚 Study'     },
   ];
   const learnLinks = [

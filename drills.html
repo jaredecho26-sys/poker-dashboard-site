@@ -7,6 +7,43 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* ── Drill-specific styles ─────────────────────────────────────────── */
+
+    .drill-mode-banner {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      gap: 8px; margin-bottom: 14px;
+    }
+    .drill-mode-label {
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--muted);
+    }
+    .drill-mode-label span { color: var(--blue); }
+    .drill-seed-pill {
+      font-size: 11px; color: var(--muted); background: var(--panel-2);
+      border: 1px solid var(--border); border-radius: 8px; padding: 3px 8px;
+      font-family: monospace; cursor: default; user-select: all;
+    }
+    .drill-controls-row {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; align-items: center;
+    }
+    .drill-btn-shuffle {
+      padding: 10px 18px; border: 1px solid var(--blue); background: rgba(110,168,254,.1);
+      color: var(--blue); border-radius: 14px; cursor: pointer; font-size: 14px;
+      font-weight: 700; font-family: inherit; transition: all .15s;
+    }
+    .drill-btn-shuffle:hover { background: rgba(110,168,254,.22); }
+    .drill-btn-skip {
+      padding: 10px 14px; border: 1px solid var(--border); background: var(--panel-2);
+      color: var(--muted); border-radius: 14px; cursor: pointer; font-size: 13px;
+      font-weight: 600; font-family: inherit; transition: all .15s;
+    }
+    .drill-btn-skip:hover { border-color: var(--blue); color: var(--text); }
+    .drill-legend {
+      font-size: 12px; color: var(--muted); margin-bottom: 14px; line-height: 1.7;
+    }
+    .drill-legend kbd {
+      background: var(--panel-2); border: 1px solid var(--border); border-radius: 5px;
+      padding: 1px 6px; font-size: 11px; font-family: monospace; color: var(--text);
+    }
     .drill-shell { max-width: 680px; margin: 0 auto; }
 
     .drill-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
@@ -151,6 +188,26 @@
         <button class="drill-tab" data-cat="handReview">📋 Hand Review</button>
       </div>
 
+      <!-- Mode banner -->
+      <div class="drill-mode-banner" id="drillModeBanner">
+        <div class="drill-mode-label">Mode: <span id="drillModeLabel">All Categories — Shuffled</span></div>
+        <div class="drill-seed-pill" title="Shuffle seed for this session">seed <span id="drillSeedDisplay">—</span></div>
+      </div>
+
+      <!-- Controls row -->
+      <div class="drill-controls-row">
+        <button class="drill-btn-shuffle" id="btnShuffleActive" title="Re-randomize and restart from question 1">🔀 Shuffle</button>
+        <button class="drill-btn-skip" id="btnSkipCard" title="Skip this card without marking right or wrong">⏭ Skip</button>
+      </div>
+
+      <!-- Legend -->
+      <div class="drill-legend" id="drillLegend">
+        <kbd>🔀 Shuffle</kbd> re-randomizes all cards &amp; restarts &nbsp;·&nbsp;
+        <kbd>⏭ Skip</kbd> skips without scoring &nbsp;·&nbsp;
+        <kbd>Next →</kbd> advances after answering &nbsp;·&nbsp;
+        <kbd>⚠️ Retry Wrong Only</kbd> drills only your misses
+      </div>
+
       <!-- Stats row -->
       <div class="drill-stats-row" id="drillStatsRow">
         <div class="drill-stat-pill">Question <strong id="statCurrent">1</strong> of <strong id="statTotal">—</strong></div>
@@ -171,9 +228,9 @@
         <div class="drill-result-score" id="resultScore"></div>
         <div class="drill-result-sub" id="resultSub"></div>
         <div class="drill-btn-row" style="justify-content:center;gap:12px;flex-wrap:wrap">
-          <button class="drill-btn drill-btn-primary" id="btnRetryAll">🔄 Retry All</button>
-          <button class="drill-btn drill-btn-ghost" id="btnRetryWrong">⚠️ Retry Wrong Only</button>
-          <button class="drill-btn drill-btn-ghost" id="btnShuffle">🔀 Shuffle New</button>
+          <button class="drill-btn drill-btn-primary" id="btnRetryAll">🔄 Retry All (same order)</button>
+          <button class="drill-btn drill-btn-ghost" id="btnShuffle">🔀 Shuffle New Order</button>
+          <button class="drill-btn drill-btn-ghost" id="btnRetryWrong" title="Drill only cards you missed, in a new random order">⚠️ Retry Wrong Only</button>
         </div>
         <div class="wrong-list" id="wrongList"></div>
       </div>

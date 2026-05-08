@@ -4,7 +4,34 @@
 (function () {
   'use strict';
 
-  // ── State ────────────────────────────────────────────────────────────────
+  // ── Seeded PRNG (mulberry32) ──────────────────────────────────────────────
+  // Deterministic Fisher-Yates using mulberry32 so a given seed always
+  // produces the same order. Seed is shown in the UI so any session can be
+  // reproduced by copy-pasting the hex seed.
+  function mulberry32(seed) {
+    return function () {
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function newSeed() {
+    return (Math.floor(Math.random() * 0xFFFFFF) + 1) | 0;
+  }
+
+  function seededShuffle(arr, seed) {
+    const a = [...arr];
+    const rand = mulberry32(seed);
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // ── State ─────────────────────────────────────────────────────────────────
   let queue = [];        // shuffled array of scenarios
   let queueIdx = 0;
   let correct = 0;
@@ -12,25 +39,33 @@
   let wrongItems = [];
   let currentCat = 'all';
   let answered = false;  // has current card been answered/revealed?
+  let sessionSeed = newSeed();
+  let isRetryWrongMode = false; // true when drilling wrong-only subset
 
   // ── DOM refs ──────────────────────────────────────────────────────────────
-  const cardArea       = document.getElementById('drillCardArea');
-  const resultScreen   = document.getElementById('drillResultScreen');
-  const statCurrent    = document.getElementById('statCurrent');
-  const statTotal      = document.getElementById('statTotal');
-  const statCorrect    = document.getElementById('statCorrect');
-  const statWrong      = document.getElementById('statWrong');
-  const statRemaining  = document.getElementById('statRemaining');
-  const progressFill   = document.getElementById('drillProgressFill');
-  const resultEmoji    = document.getElementById('resultEmoji');
-  const resultScore    = document.getElementById('resultScore');
-  const resultSub      = document.getElementById('resultSub');
-  const wrongListEl    = document.getElementById('wrongList');
-  const btnRetryAll    = document.getElementById('btnRetryAll');
-  const btnRetryWrong  = document.getElementById('btnRetryWrong');
-  const btnShuffle     = document.getElementById('btnShuffle');
+  const cardArea         = document.getElementById('drillCardArea');
+  const resultScreen     = document.getElementById('drillResultScreen');
+  const statCurrent      = document.getElementById('statCurrent');
+  const statTotal        = document.getElementById('statTotal');
+  const statCorrect      = document.getElementById('statCorrect');
+  const statWrong        = document.getElementById('statWrong');
+  const statRemaining    = document.getElementById('statRemaining');
+  const progressFill     = document.getElementById('drillProgressFill');
+  const resultEmoji      = document.getElementById('resultEmoji');
+  const resultScore      = document.getElementById('resultScore');
+  const resultSub        = document.getElementById('resultSub');
+  const wrongListEl      = document.getElementById('wrongList');
+  const btnRetryAll      = document.getElementById('btnRetryAll');
+  const btnRetryWrong    = document.getElementById('btnRetryWrong');
+  const btnShuffle       = document.getElementById('btnShuffle');
+  const btnShuffleActive = document.getElementById('btnShuffleActive');
+  const btnSkipCard      = document.getElementById('btnSkipCard');
+  const drillModeLabel   = document.getElementById('drillModeLabel');
+  const drillSeedDisplay = document.getElementById('drillSeedDisplay');
 
   // ── Helpers ───────────────────────────────────────────────────────────────
+  // Unseeded shuffle used only for display-variety (choice button order).
+  // Scenario queue order always uses seededShuffle so it's reproducible.
   function shuffle(arr) {
     const a = [...arr];
     for (let i = a.length - 1; i > 0; i--) {
@@ -40,7 +75,7 @@
     return a;
   }
 
-  function buildQueue(cat, scenarios) {
+  function buildQueue(cat, scenarios, seed, avoidFirstId) {
     const pool = cat === 'all'
       ? [
           ...scenarios.potOdds,
@@ -49,24 +84,47 @@
           ...scenarios.handReview,
         ]
       : scenarios[cat] || [];
-    return shuffle(pool);
+    let q = seededShuffle(pool, seed);
+    // Anti-repeat: if the new first card is the same as the card we just left,
+    // rotate it to the end so the user gets something different immediately.
+    if (avoidFirstId && q.length > 1 && q[0].id === avoidFirstId) {
+      q = [...q.slice(1), q[0]];
+    }
+    return q;
+  }
+
+  function updateModeLabel() {
+    const catNames = {
+      all:        'All Categories — Mixed',
+      potOdds:    '💰 Pot Odds',
+      outs:       '🃏 Outs Counting',
+      equity:     '📐 Equity',
+      handReview: '📋 Hand Review',
+    };
+    const modeStr = isRetryWrongMode
+      ? 'Retry Wrong Only'
+      : (catNames[currentCat] || currentCat);
+    if (drillModeLabel) drillModeLabel.textContent = modeStr + ' — Shuffled';
+    if (drillSeedDisplay) {
+      drillSeedDisplay.textContent = sessionSeed.toString(16).toUpperCase().padStart(6, '0');
+    }
   }
 
   function updateStats() {
     const total = queue.length;
     const done  = queueIdx;
-    statCurrent.textContent  = Math.min(done + 1, total);
-    statTotal.textContent    = total;
-    statCorrect.textContent  = correct;
-    statWrong.textContent    = wrong;
+    statCurrent.textContent   = Math.min(done + 1, total);
+    statTotal.textContent     = total;
+    statCorrect.textContent   = correct;
+    statWrong.textContent     = wrong;
     statRemaining.textContent = Math.max(total - done, 0);
     const pct = total > 0 ? (done / total) * 100 : 0;
     progressFill.style.width = pct + '%';
   }
 
-  // ── Multiple-choice generation ────────────────────────────────────────────
+  // ── Multiple-choice generation ─────────────────────────────────────────────
   function makePotOddsChoices(scenario) {
-    const correct = scenario.answer; // e.g. 33.3
+    const correct = scenario.answer;
     const opts = new Set([correct]);
     const deltas = [5, 8, 12, 15, 18, 22, 25, 30];
     let tries = 0;
@@ -176,10 +234,10 @@
       </div>
     `;
 
-    const revealBtn = div.querySelector('#revealBtn');
+    const revealBtn  = div.querySelector('#revealBtn');
     const answerZone = div.querySelector('#answerZone');
-    const btnGood = div.querySelector('#btnGood');
-    const btnMissed = div.querySelector('#btnMissed');
+    const btnGood    = div.querySelector('#btnGood');
+    const btnMissed  = div.querySelector('#btnMissed');
 
     revealBtn.addEventListener('click', () => {
       answerZone.classList.add('visible');
@@ -249,7 +307,6 @@
         const chosen = parseFloat(btn.dataset.val);
         const isCorrect = matchFn(chosen);
 
-        // Highlight all buttons
         choicesRow.querySelectorAll('.drill-choice').forEach(b => {
           const bVal = parseFloat(b.dataset.val);
           if (matchFn(bVal)) b.classList.add('correct');
@@ -322,9 +379,12 @@
       ? 'Strong session. Keep it up!'
       : pctVal >= 60
       ? 'Decent run — review the misses below.'
-      : 'Lots to work on — drill the formulas until they\'re automatic.';
+      : "Lots to work on — drill the formulas until they're automatic.";
 
     progressFill.style.width = '100%';
+
+    // Show/hide Retry Wrong button depending on whether there are misses
+    btnRetryWrong.style.display = wrongItems.length > 0 ? '' : 'none';
 
     if (wrongItems.length > 0) {
       let html = `<h3>⚠️ Missed Questions (${wrongItems.length})</h3>`;
@@ -340,15 +400,50 @@
     }
   }
 
-  function startDrill(cat, scenarioPool) {
-    currentCat = cat;
-    queue      = buildQueue(cat, scenarioPool);
+  // ── Start / restart helpers ────────────────────────────────────────────────
+  function startDrill(cat, scenarioPool, seed) {
+    // Capture current card id for anti-repeat before resetting state
+    const prevId = queue.length > 0 && queueIdx < queue.length ? queue[queueIdx].id : null;
+
+    currentCat       = cat;
+    isRetryWrongMode = false;
+    sessionSeed      = (seed !== undefined) ? seed : newSeed();
+    queue            = buildQueue(cat, scenarioPool, sessionSeed, prevId);
+    queueIdx         = 0;
+    correct          = 0;
+    wrong            = 0;
+    wrongItems       = [];
+    answered         = false;
+
+    resultScreen.classList.remove('visible');
+    updateModeLabel();
+    updateStats();
+    renderCard(queue[0]);
+  }
+
+  function startRetryWrong(wrongPool) {
+    if (!wrongPool || wrongPool.length === 0) return;
+    const prevId = queue.length > 0 && queueIdx < queue.length ? queue[queueIdx].id : null;
+
+    isRetryWrongMode = true;
+    sessionSeed      = newSeed();
+
+    // seededShuffle the wrong items with the new seed
+    queue = seededShuffle(wrongPool, sessionSeed);
+
+    // Anti-repeat: if the first item is the same card we just saw, rotate it
+    if (prevId && queue.length > 1 && queue[0].id === prevId) {
+      queue = [...queue.slice(1), queue[0]];
+    }
+
     queueIdx   = 0;
     correct    = 0;
     wrong      = 0;
     wrongItems = [];
     answered   = false;
+
     resultScreen.classList.remove('visible');
+    updateModeLabel();
     updateStats();
     renderCard(queue[0]);
   }
@@ -362,20 +457,49 @@
     startDrill(btn.dataset.cat, DRILL_SCENARIOS);
   });
 
-  // ── Result buttons ─────────────────────────────────────────────────────────
-  btnRetryAll.addEventListener('click', () => startDrill(currentCat, DRILL_SCENARIOS));
+  // ── In-session Shuffle + Skip ──────────────────────────────────────────────
+  if (btnShuffleActive) {
+    btnShuffleActive.addEventListener('click', () => {
+      if (isRetryWrongMode) {
+        // Reshuffle the remaining cards in the wrong-only queue (keep already-done ones)
+        const remaining = queue.slice(queueIdx);
+        const prevId    = remaining.length > 0 ? remaining[0].id : null;
+        sessionSeed     = newSeed();
+        const reshuffled = seededShuffle(remaining, sessionSeed);
+        if (prevId && reshuffled.length > 1 && reshuffled[0].id === prevId) {
+          reshuffled.push(reshuffled.shift());
+        }
+        queue    = [...queue.slice(0, queueIdx), ...reshuffled];
+        answered = false;
+        updateModeLabel();
+        updateStats();
+        renderCard(queue[queueIdx]);
+      } else {
+        startDrill(currentCat, DRILL_SCENARIOS);
+      }
+    });
+  }
+
+  if (btnSkipCard) {
+    btnSkipCard.addEventListener('click', () => {
+      // Skip without marking right or wrong — just advance
+      answered = true; // prevent double-fire
+      nextCard();
+    });
+  }
+
+  // ── Result screen buttons ──────────────────────────────────────────────────
+  // Retry All: same category, same seed → identical card order for direct comparison
+  btnRetryAll.addEventListener('click', () => startDrill(currentCat, DRILL_SCENARIOS, sessionSeed));
+
+  // Shuffle New Order: new seed, same category
+  btnShuffle.addEventListener('click', () => startDrill(currentCat, DRILL_SCENARIOS));
+
+  // Retry Wrong Only: drill only missed questions, new seed
   btnRetryWrong.addEventListener('click', () => {
     if (wrongItems.length === 0) return;
-    queue      = shuffle(wrongItems);
-    queueIdx   = 0;
-    correct    = 0;
-    wrong      = 0;
-    wrongItems = [];
-    resultScreen.classList.remove('visible');
-    updateStats();
-    renderCard(queue[0]);
+    startRetryWrong(wrongItems);
   });
-  btnShuffle.addEventListener('click', () => startDrill(currentCat, DRILL_SCENARIOS));
 
   // ── Escape helper ──────────────────────────────────────────────────────────
   function escHtml(str) {
